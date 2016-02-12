@@ -17,5 +17,5 @@ script:
 
 after_script:
  - ./sonar-runner-2.4/bin/sonar-runner
-#notifications:
- # slack: leds:ecBlZedCK8tpP1X5uygKMS8q
+notifications:
+  slack: leds:6Ks2e3Uh5lVamMPLC3GpOK2p

@@ -1,2 +1,2 @@
-# gde-backend
-Repositorio do projeto gde-backend
+# gde
+Repositorio do projeto gde

@@ -63,3 +63,6 @@ target/
 
 #VirtualEnv
 virtual/
+
+#PyCharm
+.idea/

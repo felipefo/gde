@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <html>
     <head>
-    	<title>Django Girls blog</title>
+    	<title>GDE</title>
 
 		<meta charset="UTF-8" />
 	    <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
@@ -21,7 +21,7 @@
               <div class="nav-wrapper grey darken-4">
                         <a href="/" class="brand-logo logo">GDE</a>
                                 <ul class="right hide-on-med-and-down">
-                                          <li><a href="#/cadastro">Cadastre-se</a></li>
+                                          <li><a href="{% url 'app.views.cadastroUsuario' %}">Cadastre-se</a></li>
                                           <li><a href="{% url 'django.contrib.auth.views.login' %}">Entrar</a></li>
                                 </ul>
               </div>

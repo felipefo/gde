@@ -5,7 +5,10 @@ from django.contrib.auth.models import User
 
 @csrf_protect
 def cadastroUsuario(request):
-    # username = request.POST.get('username', False)
-    # password = request.POST.get('password', False)
-    # user = User.objects.create_user(username, password)
-    return render(request, 'cadastroUsuario.html', {})
+    if request.POST:
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        email = request.POST.get('email', None)
+        user = User.objects.create_user(username,  email, password)
+
+    return render(request, 'cadastroUsuario.html')

@@ -23,7 +23,7 @@ from app.views import *
 urlpatterns = [
                   url(r'^admin/', admin.site.urls),
                   url(r'^register/$', cadastroUsuario),
-                  url(r'^login/home/$', home),
-                  url(r'^login/$', auth_views.login, {'template_name': 'login.html'}),
-                  url(r'^logout/$', auth_views.logout, {'next_page': '/login/'}),
+                  url(r'^home/$', home),
+                  url(r'^$', auth_views.login, {'template_name': 'login.html'}),
+                  url(r'^logout/$', auth_views.logout, {'next_page': '/'}),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

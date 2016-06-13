@@ -16,25 +16,15 @@
 
     </head>
     <body>
-        <div class="page-header">
-            <nav>
-              <div class="nav-wrapper grey darken-4">
-                        <a href="/" class="brand-logo logo">GDE</a>
-                                <ul class="right hide-on-med-and-down">
-                                          <li><a href="{% url 'app.views.cadastroUsuario' %}">Cadastre-se</a></li>
-                                          <li><a href="{% url 'django.contrib.auth.views.login' %}">Entrar</a></li>
-                                </ul>
-              </div>
-            </nav>
-        </div>
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">
-                {% block content %}
-                {% endblock %}
-                </div>
-            </div>
-        </div>
+        {% block content %}
+        {% endblock %}
+        <!--<div class="content container">-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-8">-->
+                <!---->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
         <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/app.js' %}"></script>

@@ -11,5 +11,11 @@ def cadastroUsuario(request):
         password = request.POST.get('password', None)
         email = request.POST.get('email', None)
         user = User.objects.create_user(username,  email, password)
+    if user.is_active:
+        return HttpResponseRedirect(request.POST.get('next'))
 
     return render(request, 'cadastroUsuario.html')
+
+@csrf_protect
+def home(request):
+    return render(request, 'home.html')

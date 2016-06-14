@@ -24,6 +24,7 @@ urlpatterns = [
                   url(r'^admin/', admin.site.urls),
                   url(r'^register/$', cadastroUsuario),
                   url(r'^home/$', home),
+                  url(r'^user/(?P<pk>[\d]+)/$', user_detail),
                   url(r'^$', auth_views.login, {'template_name': 'login.html'}),
                   url(r'^logout/$', auth_views.logout, {'next_page': '/'}),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

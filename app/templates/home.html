@@ -4,9 +4,9 @@
 {% block content %}
     <nav>
       <div class="nav-wrapper grey darken-4">
-        <a href="/" class="brand-logo logo">GDE</a>
+        <a href="/home" class="brand-logo logo">GDE</a>
             <ul class="right hide-on-med-and-down">
-                      <li><a href="">Minha Conta</a></li>
+                      <li><a href="{% url 'app.views.user_detail' pk=user.pk%}">Minha Conta</a></li>
                       <li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
             </ul>
       </div>

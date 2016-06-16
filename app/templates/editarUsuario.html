@@ -1,17 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <nav>
-      <div class="nav-wrapper grey darken-4">
-        <a href="/home" class="brand-logo logo">GDE</a>
-            <ul class="right hide-on-med-and-down">
-                      <li><a href="{% url 'app.views.user_detail' pk=user.pk%}">Minha Conta</a></li>
-                      <li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
-            </ul>
-      </div>
-    </nav>
-
-
     <div id="content-container" class="container p-none">
         <div class="lgn-container col-lg-8">
             <form id="register-form" method="post"

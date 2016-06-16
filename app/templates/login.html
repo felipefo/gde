@@ -2,17 +2,6 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-    <div class="page-header">
-        <nav>
-            <div class="nav-wrapper grey darken-4">
-                <a href="/" class="brand-logo logo">GDE</a>
-                    <ul class="right hide-on-med-and-down">
-                      <li><a href="{% url 'app.views.cadastroUsuario' %}">Cadastre-se</a></li>
-                    </ul>
-            </div>
-        </nav>
-    </div>
-
     {% if form.errors %}
         <div class="col s3">
             <p class="center-align card-panel teal lighten-2">

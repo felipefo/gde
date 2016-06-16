@@ -22,8 +22,10 @@
                     <a href="/" class="brand-logo logo">GDE</a>
                     {% if user.is_authenticated %}
                         <ul class="right hide-on-med-and-down">
-                          <li><a href="{% url 'app.views.user_detail' pk=user.pk%}">Minha Conta</a></li>
-                          <li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
+                            <li><a href="">Categoria</a></li>
+                            <li><a href="">Setor</a></li>
+                            <li><a href="{% url 'app.views.user_detail' pk=user.pk%}">Minha Conta</a></li>
+                            <li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
                         </ul>
                     {% else %}
                         <ul class="right hide-on-med-and-down">

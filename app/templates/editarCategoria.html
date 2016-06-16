@@ -5,7 +5,7 @@
     <div id="content-container" class="container p-none">
         <div class="lgn-container col-lg-8">
             <form id="categoria-edit" method="post"
-                  action="{% url 'app.views.categoria_edit' %}">
+                  action="{% url 'app.views.categoria_edit' pk=categoria.pk %}">
                 {% csrf_token %}
 
                 <br/><br/>
@@ -16,6 +16,7 @@
 
                     <div class="row">
                         <input type="submit" value="Salvar" class="btn btn-primary col s4 offset-s1"/>
+                        <input type="hidden" name="next" value="/categorias_list" />
                     </div>
 
                 </table>

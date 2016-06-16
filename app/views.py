@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect
 from .models import Categoria
 from django.shortcuts import render, get_object_or_404, redirect
 
@@ -27,4 +28,6 @@ def categoria_edit(request, pk):
         # categoria = Categoria.objects.get(id=pk)
         categoria.nome = nome
         categoria.save()
+        return HttpResponseRedirect(request.POST.get('next'))
     return render(request, 'editarCategoria.html', {'categoria': categoria})
+

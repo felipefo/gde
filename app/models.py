@@ -10,7 +10,6 @@ class Categoria(models.Model):
     def __str__(self):
         return self.nome
 
-
 class Setor(models.Model):
     nome = models.CharField(max_length=20, null=True, unique=True)
     sigla = models.CharField(max_length=20, null=True, unique=True)

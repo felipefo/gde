@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}Categoria{% endblock %}
+
+{% block content %}
+    <div id="content-container" class="container p-none">
+        <div class="lgn-container col-lg-8">
+            <form>
+                {% csrf_token %}
+
+                <br/><br/>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Categorias</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for categoria in categorias %}
+                        <tr>
+                            <td>{{ categoria }}</td>
+                            <td> editar + excluir</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </form>
+        </div>
+    </div>
+{% endblock content %}

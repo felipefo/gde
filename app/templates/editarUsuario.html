@@ -29,9 +29,19 @@
                 {% endif %}
                 <table class="table">
                     <tr>
+                        <td><label for="id_firstname">Nome</label></td>
+                        <td><input id="id_firstname" name="firstname"
+                                   type="text" class="validate" value="{{user.first_name }}"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_lastname">Sobrenome</label></td>
+                        <td><input id="id_lastname" name="lastname"
+                                   type="text" class="validate" value="{{user.last_name}}"></td>
+                    </tr>
+                    <tr>
                         <td><label for="id_username">SIAPE</label></td>
                         <td><input id="id_username" name="username"
-                                   type="text" class="validate" value="{{user.username }}"></td>
+                                   type="text" class="validate" value="{{user.username}}"></td>
                     </tr>
                     <tr>
                         <td><label for="id_email">Email</label></td>

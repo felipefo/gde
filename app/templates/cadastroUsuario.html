@@ -18,10 +18,21 @@
             <form id="register-form" method="post"
                   action="{% url 'app.views.cadastroUsuario' %}">
                 {% csrf_token %}
+                <h3>Cadastro de Usuário</h3>
                 {% if form.errors %}
                     <p>Nome de usuário ou senha não conferem. Tente novamente.</p>
                 {% endif %}
                 <table class="table">
+                    <tr>
+                        <td><label for="id_firstname">Nome</label></td>
+                        <td><input id="id_firstname" name="firstname"
+                                   type="text" class="validate"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_lastname">Sobrenome</label></td>
+                        <td><input id="id_lastname" name="lastname"
+                                   type="text" class="validate"></td>
+                    </tr>
                     <tr>
                         <td><label for="id_username">SIAPE</label></td>
                         <td><input id="id_username" name="username"

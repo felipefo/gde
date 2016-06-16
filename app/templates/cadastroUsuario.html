@@ -12,11 +12,15 @@
             </div>
         </nav>
     </div>
+
     <div id="content-container" class="container p-none">
         <div class="lgn-container col-lg-8">
             <form id="register-form" method="post"
                   action="{% url 'app.views.cadastroUsuario' %}">
                 {% csrf_token %}
+                {% if form.errors %}
+                    <p>Nome de usuário ou senha não conferem. Tente novamente.</p>
+                {% endif %}
                 <table class="table">
                     <tr>
                         <td><label for="id_username">SIAPE</label></td>

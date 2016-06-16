@@ -1,7 +1,8 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
 
@@ -34,7 +35,9 @@ def user_detail(request, pk):
         user = User.objects.get(id=pk)
         user.username = username
         user.email = email
-        user.password = make_password(password)
+        if user.password != password:
+            user.password = make_password(password)
         user.save()
+        messages.success(request, 'Os dados foram atualizados com sucesso.')
     return render(request, 'editarUsuario.html', {'user': user})
 

@@ -18,8 +18,14 @@
                   action="">
                 {% csrf_token %}
                 <h3>Editar dados cadastrais</h3>
-                {% if form.success %}
-                    <p>Usuário editado com suscesso.</p>
+                {% if messages %}
+                <div class="col s12 m2">
+                    <ul class="messages">
+                        {% for message in messages %}
+                        <li {% if message.tags %} class="center-align card-panel teal lighten-2  {{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
                 {% endif %}
                 <table class="table">
                     <tr>
@@ -35,7 +41,7 @@
                     <tr>
                         <td><label for="id_password">Password</label></td>
                         <td><input id="id_password" name="password"
-                                   type="password" class="validate"></td>
+                                   type="password" class="validate" value="{{user.password}}"></td>
                     </tr>
                 </table>
                 <button class="btn right amber darken-4" type="submit">Salvar</button>

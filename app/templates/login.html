@@ -2,6 +2,15 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+    {% if form.errors %}
+        <div class="col s3">
+            <p class="center-align card-panel teal lighten-2">
+                Usuário ou senha incorretos.
+                Tente novamente.
+            </p>
+         </div>
+    {% endif %}
+
     <div id="content-container" class="container p-none">
         <div class="lgn-container col-lg-8">
             <form id="login-form" method="post"
@@ -9,7 +18,7 @@
                 {% csrf_token %}
                 <table class="table">
                     <tr>
-                        <td><label for="id_username">Username</label></td>
+                        <td><label for="id_username">SIAPE</label></td>
                         <td><input id="id_username" name="username"
                                    type="text" class="validate"></td>
                     </tr>
@@ -19,16 +28,11 @@
                                    type="password" class="validate"></td>
                     </tr>
                 </table>
-                {% if form.errors %}
-                    <p class=" label label-danger">
-                        Your username and password didn't match.
-                        Please try again.
-                    </p>
-                {% endif %}
+
 
                 <input type="submit" value="Login"
-                       class="btn btn-primary pull-right" />
-                <input type="hidden" name="next" value="{{ next }}" />
+                       class="btn right amber darken-4" />
+                <input type="hidden" name="next" value="/home" />
             </form>
         </div>
     </div>

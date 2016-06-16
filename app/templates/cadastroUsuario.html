@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Cadastro{% endblock %}
+
+{% block content %}
+    <div id="content-container" class="container p-none">
+        <div class="lgn-container col-lg-8">
+            <form id="register-form" method="post"
+                  action="{% url 'app.views.cadastroUsuario' %}">
+                {% csrf_token %}
+                <h3>Cadastro de Usuário</h3>
+                {% if form.errors %}
+                    <p>Nome de usuário ou senha não conferem. Tente novamente.</p>
+                {% endif %}
+                <table class="table">
+                    <tr>
+                        <td><label for="id_firstname">Nome</label></td>
+                        <td><input id="id_firstname" name="firstname"
+                                   type="text" class="validate"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_lastname">Sobrenome</label></td>
+                        <td><input id="id_lastname" name="lastname"
+                                   type="text" class="validate"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_username">SIAPE</label></td>
+                        <td><input id="id_username" name="username"
+                                   type="text" class="validate"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_email">Email</label></td>
+                        <td><input id="id_email" name="email"
+                                   type="text" class="validate"></td>
+                    </tr>
+                    <tr>
+                        <td><label for="id_password">Password</label></td>
+                        <td><input id="id_password" name="password"
+                                   type="password" class="validate"></td>
+                    </tr>
+                </table>
+
+                <input type="submit" value="Enviar"
+                       class="btn btn-primary pull-right" />
+                <input type="hidden" name="next" value="/" />
+            </form>
+        </div>
+    </div>
+{% endblock content %}

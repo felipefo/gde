@@ -1,3 +1,51 @@
-from django.shortcuts import render
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.hashers import make_password
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.views.decorators.csrf import csrf_protect
+from django.contrib.auth.models import User
 
-# Create your views here.
+
+@csrf_protect
+def cadastroUsuario(request):
+    if request.POST:
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        email = request.POST.get('email', None)
+        nome = request.POST.get('firstname', None)
+        sobrenome = request.POST.get('lastname', None)
+        user = User.objects.create_user(username, email, password)
+        user.first_name = nome
+        user.last_name = sobrenome
+        user.save()
+        if user.is_active:
+            return HttpResponseRedirect(request.POST.get('next'))
+
+    return render(request, 'cadastroUsuario.html')
+
+
+@csrf_protect
+@login_required
+def home(request):
+    return render(request, 'home.html')
+
+
+def user_detail(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    if request.POST:
+        username = request.POST.get('username', None)
+        password = request.POST.get('password', None)
+        email = request.POST.get('email', None)
+        nome = request.POST.get('firstname', None)
+        sobrenome = request.POST.get('lastname', None)
+        user = User.objects.get(id=pk)
+        user.username = username
+        user.email = email
+        if user.password != password:
+            user.password = make_password(password)
+        user.first_name = nome
+        user.last_name = sobrenome
+        user.save()
+        messages.success(request, 'Os dados foram atualizados com sucesso.')
+    return render(request, 'editarUsuario.html', {'user': user})

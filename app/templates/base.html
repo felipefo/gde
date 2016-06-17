@@ -1,7 +1,7 @@
 {% load staticfiles %}
 <html>
     <head>
-    	<title>Django Girls blog</title>
+    	<title>GDE</title>
 
 		<meta charset="UTF-8" />
 	    <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
@@ -18,23 +18,26 @@
     <body>
         <div class="page-header">
             <nav>
-              <div class="nav-wrapper grey darken-4">
-                        <a href="/" class="brand-logo logo">GDE</a>
-                                <ul class="right hide-on-med-and-down">
-                                          <li><a href="#/cadastro">Cadastre-se</a></li>
-                                          <li><a href="{% url 'django.contrib.auth.views.login' %}">Entrar</a></li>
-                                </ul>
-              </div>
+                <div class="nav-wrapper grey darken-4">
+                    <a href="/home" class="brand-logo logo">GDE</a>
+                    {% if user.is_authenticated %}
+                        <ul class="right hide-on-med-and-down">
+                            <li><a href="{% url 'app.views.categoria'%}">Categoria</a></li>
+                            <li><a href="{% url 'app.views.setor'%}">Setor</a></li>
+                            <li><a href="{% url 'app.views.user_detail' pk=user.pk%}">Minha Conta</a></li>
+                            <li><a href="{% url 'django.contrib.auth.views.logout' %}">Logout</a></li>
+                        </ul>
+                    {% else %}
+                        <ul class="right hide-on-med-and-down">
+                          <li><a href="{% url 'app.views.cadastroUsuario' %}">Cadastre-se</a></li>
+                        </ul>
+                    {% endif %}
+
+                </div>
             </nav>
         </div>
-        <div class="content container">
-            <div class="row">
-                <div class="col-md-8">
-                {% block content %}
-                {% endblock %}
-                </div>
-            </div>
-        </div>
+        {% block content %}
+        {% endblock %}
         <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/app.js' %}"></script>

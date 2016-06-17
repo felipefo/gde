@@ -1,4 +1,5 @@
 from app.models import Categoria
+from app.models import Setor
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -83,3 +84,47 @@ def categoria_edit(request, pk):
         categoria.save()
         return HttpResponseRedirect(request.POST.get('next'))
     return render(request, 'editarCategoria.html', {'categoria': categoria})
+
+@csrf_protect
+@login_required
+def setor(request):
+    if request.POST:
+        nome = request.POST.get('nome',None)
+        sigla = request.POST.get('sigla',None)
+        funcao = request.POST.get('funcao',None)
+        descricao = request.POST.get('descricao',None)
+        setor = Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao, descricao=descricao)
+        setor.save()
+    return render(request, 'cadastro_setor.html', {})
+
+@csrf_protect
+@login_required
+def setores_list(request):
+    setores = Setor.objects.all
+    return render(request, 'setores_list.html', {'setores': setores})
+
+@csrf_protect
+@login_required
+def setor_edit(request, pk):
+    setor = get_object_or_404(Setor, pk=pk)
+    if request.POST:
+        nome = request.POST.get('nome', None)
+        sigla = request.POST.get('sigla', None)
+        funcao = request.POST.get('funcao', None)
+        descricao = request.POST.get('descricao', None)
+        setor.nome = nome
+        setor.sigla=sigla
+        setor.funcao=funcao
+        setor.descricao=descricao
+        setor.save()
+        return HttpResponseRedirect(request.POST.get('next'))
+    return render(request, 'editarSetor.html', {'setor': setor})
+
+@csrf_protect
+@login_required
+def setor_remove(request, pk):
+    setor = get_object_or_404(Setor, pk=pk)
+    setor.delete()
+    return redirect('app.views.setores_list')
+
+

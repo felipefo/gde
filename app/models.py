@@ -17,6 +17,7 @@ class Setor(models.Model):
     descricao = models.CharField(max_length=250, null=True, unique=True)
 
     def __str__(self):
+        nome = models.CharField(max_length=20, null=True, unique=True)
         return self.nome
 
 

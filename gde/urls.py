@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+
 from app.views import *
 
 urlpatterns = [
@@ -32,4 +33,9 @@ urlpatterns = [
                   url(r'^categoria/(?P<pk>\d+)/edit/$', categoria_edit, name='categoria_edit'),
                   url(r'^categorias_list/$', categorias_list),
                   url(r'^categoria/(?P<pk>\d+)/remove/$', categoria_remove, name='categoria_remove'),
+                  url(r'^setor/$', setor),
+                  url(r'^setores_list/$', setores_list),
+                  url(r'^setor/(?P<pk>\d+)/edit/$', setor_edit, name='setor_edit'),
+                  url(r'^setor/(?P<pk>\d+)/remove/$', setor_remove, name='setor_remove'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+

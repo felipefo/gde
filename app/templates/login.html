@@ -11,29 +11,29 @@
          </div>
     {% endif %}
 
-    <div id="content-container" class="container p-none">
-        <div class="lgn-container col-lg-8">
-            <form id="login-form" method="post"
-                  action="{% url 'django.contrib.auth.views.login' %}">
-                {% csrf_token %}
-                <table class="table">
-                    <tr>
-                        <td><label for="id_username">SIAPE</label></td>
-                        <td><input id="id_username" name="username"
-                                   type="text" class="validate"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="id_password">Password</label></td>
-                        <td><input id="id_password" name="password"
-                                   type="password" class="validate"></td>
-                    </tr>
-                </table>
+    <div class="row">
+        <div id= "form-login" class="col s4 offset-s4">
+            <div class="card-panel blue-grey lighten-3 white-text">
+                <form id="login-form" method="post"
+                      action="{% url 'django.contrib.auth.views.login' %}">
+                    {% csrf_token %}
 
 
-                <input type="submit" value="Login"
-                       class="btn right amber darken-4" />
-                <input type="hidden" name="next" value="/home" />
-            </form>
+                            <label for="id_username">SIAPE</label>
+                            <input id="id_username" name="username"
+                                       type="text" class="validate">
+
+                            <label for="id_password">Senha:</label>
+                            <input id="id_password" name="password"
+                                       type="password" class="validate">
+
+    <br/><br/>
+
+                    <input id="botao-login" type="submit" value="Login"
+                           class="btn amber darken-4" />
+                    <input type="hidden" name="next" value="/home" />
+                </form>
+            </div>
         </div>
     </div>
 {% endblock content %}

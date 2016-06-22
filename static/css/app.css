@@ -1,0 +1,15 @@
+#form-login{
+    margin-top:10%;
+    box-sizing:border-box;
+}
+
+#form-login label{
+    color:#fff !important;
+    font-weight:bold;
+    font-size:16px;
+}
+
+#botao-login{
+    position:relative;
+    left:38%;
+}

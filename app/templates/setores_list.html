@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}Setor{% endblock %}
+
+{% block content %}
+    <div id="content-container" class="container p-none">
+        <div class="lgn-container col-lg-8">
+            <form>
+                {% csrf_token %}
+
+                <br/><br/>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Setores</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for setor in setores %}
+                        <tr>
+                            <td>{{ setor }}</td>
+                            <td>
+                                <a class="btn waves-effect waves-light" href="{% url 'setor_edit' pk=setor.pk %}">Editar
+                                    <i class="material-icons right">mode_edit</i>
+                                </a>
+                                <a class="btn waves-effect waves-light" href="{% url 'setor_remove' pk=setor.pk %}">Excluir
+                                    <i class="material-icons right">delete</i>
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+
+            </form>
+        </div>
+    </div>
+{% endblock content %}

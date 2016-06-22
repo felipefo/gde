@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}Categoria{% endblock %}
+
+{% block content %}
+    <div id="content-container" class="container p-none">
+        <div class="lgn-container col-lg-8">
+            <form id="categoria-form" method="post"
+                  action="{% url 'app.views.categoria' %}">
+                {% csrf_token %}
+
+                <br/><br/>
+                <table class="table">
+
+                    <label for="nome">Categoria</label>
+                    <input type="text" id="nome" class="validate" name="nome">
+
+                    <div class="row">
+                        <input type="submit" value="Cadastrar" class="btn btn-primary col s4 offset-s1"/>
+                        <a href="{% url 'app.views.categorias_list' %}"
+                           class="btn btn-primary col s4 offset-s1">Visualizar todas
+                        </a>
+                    </div>
+
+                </table>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

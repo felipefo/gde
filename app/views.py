@@ -96,6 +96,7 @@ def setor(request):
         descricao = request.POST.get('descricao',None)
         setor = Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao, descricao=descricao)
         setor.save()
+        return HttpResponseRedirect(request.POST.get('next'))
     return render(request, 'cadastro_setor.html', {})
 
 @csrf_protect

@@ -21,10 +21,10 @@
                     <input type="text" id="descricao" class="validate" name="descricao">
 
                     <div class="row">
-                        <input type="submit" value="Cadastrar" class="btn btn-primary col s4 offset-s1"/>
-                        <a href="{% url 'app.views.setores_list' %}"
-                           class="btn btn-primary col s4 offset-s1">Visualizar todas
-                        </a>
+                        <div class="input-field">
+                            <button class="btn right amber darken-4" type="submit">Cadastrar</button>
+                            <input type="hidden" name="next" value="/setores_list" />
+                        </div>
                     </div>
 
                 </table>

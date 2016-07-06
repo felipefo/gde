@@ -3,25 +3,22 @@
 
 {% block content %}
     <div id="content-container" class="container p-none">
-        <div class="lgn-container col-lg-8">
+        <div class="row">
             <form id="categoria-form" method="post"
                   action="{% url 'app.views.categoria' %}">
                 {% csrf_token %}
 
                 <br/><br/>
-                <table class="table">
 
+                <div class="input-field">
                     <label for="nome">Categoria</label>
                     <input type="text" id="nome" class="validate" name="nome">
+                </div>
 
-                    <div class="row">
-                        <input type="submit" value="Cadastrar" class="btn btn-primary col s4 offset-s1"/>
-                        <a href="{% url 'app.views.categorias_list' %}"
-                           class="btn btn-primary col s4 offset-s1">Visualizar todas
-                        </a>
-                    </div>
-
-                </table>
+                <div class="input-field">
+                    <button class="btn right amber darken-4" type="submit">Cadastrar</button>
+                    <input type="hidden" name="next" value="/categorias_list" />
+                </div>
             </form>
         </div>
     </div>

@@ -59,6 +59,7 @@ def categoria(request):
     if request.POST:
         nome = request.POST.get('nome', None)
         Categoria.objects.create(nome=nome)
+        return HttpResponseRedirect(request.POST.get('next'))
     return render(request, 'categoria.html', {})
 
 @csrf_protect

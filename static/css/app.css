@@ -15,5 +15,7 @@
 }
 
 .cadastrar{
-    top:450px;
+    position:fixed;
+    left:82%;
+    top:82%;
 }

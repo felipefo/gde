@@ -3,23 +3,21 @@
 
 {% block content %}
     <div id="content-container" class="container p-none">
-        <div class="lgn-container col-lg-8">
+        <div class="row">
             <form id="categoria-edit" method="post"
                   action="{% url 'app.views.categoria_edit' pk=categoria.pk %}">
                 {% csrf_token %}
 
                 <br/><br/>
-                <table class="table">
-
-                    <label for="nome">Categoria</label>
-                    <input type="text" id="nome" class="validate" name="nome" value="{{ categoria.nome }}">
-
-                    <div class="row">
-                        <input type="submit" value="Salvar" class="btn btn-primary col s4 offset-s1"/>
-                        <input type="hidden" name="next" value="/categorias_list" />
+                    <div class="input-field col s12">
+                        <label for="nome">Categoria</label>
+                        <input type="text" id="nome" class="validate" name="nome" value="{{ categoria.nome }}">
                     </div>
 
-                </table>
+                    <div class="input-field col s12">
+                        <button class="btn right amber darken-4" type="submit">Salvar</button>
+                        <input type="hidden" name="next" value="/categorias_list" />
+                    </div>
             </form>
         </div>
     </div>

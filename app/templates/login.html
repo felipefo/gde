@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'login_base.html' %}
 {% block title %}Login{% endblock %}
 
 {% block content %}
@@ -13,7 +13,7 @@
 
     <div class="row">
         <div id= "form-login" class="col s4 offset-s4">
-            <div class="card-panel blue-grey lighten-3 white-text">
+            <div class="card-panel orange lighten-4 z-depth-4">
                 <form id="login-form" method="post"
                       action="{% url 'django.contrib.auth.views.login' %}">
                     {% csrf_token %}
@@ -29,9 +29,14 @@
 
     <br/><br/>
 
-                    <input id="botao-login" type="submit" value="Login"
-                           class="btn amber darken-4" />
+                    <button id="botao-login" class="btn grey z-depth-2" type="submit" name="action">Login</button>
                     <input type="hidden" name="next" value="/home" />
+                    <ul class="center hide-on-med-and-down">
+                          <li><a href="#">Esqueceu a senha?</a></li>
+                    </ul>
+                    <ul class="center hide-on-med-and-down">
+                          <li><b>Ainda não tem uma conta? </b><a href="{% url 'app.views.cadastroUsuario' %}">Cadastre-se</a></li>
+                    </ul>
                 </form>
             </div>
         </div>

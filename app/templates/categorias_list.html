@@ -8,7 +8,6 @@
                 {% csrf_token %}
 
                 <br/><br/>
-
                 <table>
                     <thead>
                         <tr>
@@ -21,12 +20,12 @@
                         <tr>
                             <td>{{ categoria }}</td>
                             <td>
-                                <a class="btn waves-effect waves-light" href="{% url 'categoria_edit' pk=categoria.pk %}">Editar
-                                    <i class="material-icons right">mode_edit</i>
+                                <a class="btn-floating waves-effect waves-light green darken-1" href="{% url 'categoria_edit' pk=categoria.pk %}">
+                                    <i class="material-icons">mode_edit</i>
                                 </a>
 
-                                 <a class="btn waves-effect waves-light" href="{% url 'categoria_remove' pk=categoria.pk %}">Excluir
-                                    <i class="material-icons right">delete</i>
+                                 <a class="btn-floating waves-effect waves-light red" href="{% url 'categoria_remove' pk=categoria.pk %}">
+                                    <i class="material-icons">delete</i>
                                 </a>
                             </td>
                         </tr>
@@ -34,7 +33,9 @@
                     </tbody>
                 </table>
 
-
+                <a href="{% url 'app.views.categoria' %}" class="cadastrar btn-floating btn-large waves-effect waves-light amber darken-4 right">+
+                    <i class="material-icons right">add</i>
+                </a>
             </form>
         </div>
     </div>

@@ -2,8 +2,8 @@
 
 {% block content %}
     <div id="content-container" class="container p-none">
-        <div class="lgn-container col-lg-8">
-            <form id="register-form" method="post"
+        <div class="row">
+            <form id="register-form" method="post" class="col s12"
                   action="">
                 {% csrf_token %}
                 <h3>Editar dados cadastrais</h3>
@@ -16,33 +16,37 @@
                     </ul>
                 </div>
                 {% endif %}
-                <table class="table">
-                    <tr>
-                        <td><label for="id_firstname">Nome</label></td>
-                        <td><input id="id_firstname" name="firstname"
-                                   type="text" class="validate" value="{{user.first_name }}"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="id_lastname">Sobrenome</label></td>
-                        <td><input id="id_lastname" name="lastname"
-                                   type="text" class="validate" value="{{user.last_name}}"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="id_username">SIAPE</label></td>
-                        <td><input id="id_username" name="username"
-                                   type="text" class="validate" value="{{user.username}}"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="id_email">Email</label></td>
-                        <td><input id="id_email" name="email"
-                                   type="text" class="validate" value="{{user.email }}"></td>
-                    </tr>
-                    <tr>
-                        <td><label for="id_password">Password</label></td>
-                        <td><input id="id_password" name="password"
-                                   type="password" class="validate" value="{{user.password}}"></td>
-                    </tr>
-                </table>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <label for="id_firstname">Nome</label>
+                        <input id="id_firstname" name="firstname"
+                                   type="text" class="validate" value="{{user.first_name}}">
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <label for="id_lastname">Sobrenome</label>
+                        <input id="id_lastname" name="lastname"
+                                   type="text" class="validate" value="{{user.last_name}}">
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">label</i>
+                        <label for="id_username">SIAPE</label>
+                        <input id="id_username" name="username"
+                                   type="text" class="validate" value="{{user.username}}">
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">email</i>
+                        <label for="id_email">Email</label>
+                        <input id="id_email" name="email"
+                                   type="text" class="validate" value="{{user.email }}">
+                    </div>
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">lock</i>
+                        <label for="id_password">Password</label>
+                        <input id="id_password" name="password"
+                                   type="password" class="validate" value="{{user.password}}">
+                    </div>
+
                 <button class="btn right amber darken-4" type="submit">Salvar</button>
             </form>
         </div>

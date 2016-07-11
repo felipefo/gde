@@ -1,3 +1,8 @@
+
+.backgroundColor{
+    background-color:#b0bec5;
+}
+
 #form-login{
     margin-top:10%;
     box-sizing:border-box;
@@ -48,3 +53,4 @@
  border-bottom: 1px solid #f44336;
  box-shadow: 0 1px 0 0 #f44336;
 }
+

@@ -15,10 +15,10 @@
 
 
     </head>
-    <body>
+    <body class = "backgroundColor">
         <div class="page-header">
             <nav>
-                <div class="nav-wrapper grey darken-4">
+                <div class="nav-wrapper blue-grey darken-4">
                     <a href="/home" class="brand-logo logo">GDE</a>
                     {% if user.is_authenticated %}
                         <ul class="right hide-on-med-and-down">
@@ -32,11 +32,12 @@
                           <li><a href="{% url 'app.views.cadastroUsuario' %}">Cadastre-se</a></li>
                         </ul>
                     {% endif %}
-
                 </div>
             </nav>
         </div>
-        {% block content %}
+        <div class="container">
+            {% block content %}
+        </div>
         {% endblock %}
         <script type="text/javascript" src="{% static 'js/jquery-1.12.4.min.js' %}"></script>
         <script type="text/javascript" src="{% static 'js/materialize.js' %}"></script>

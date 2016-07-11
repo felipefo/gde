@@ -93,8 +93,7 @@ def setor(request):
         nome = request.POST.get('nome',None)
         sigla = request.POST.get('sigla',None)
         funcao = request.POST.get('funcao',None)
-        descricao = request.POST.get('descricao',None)
-        setor = Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao, descricao=descricao)
+        setor = Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao)
         setor.save()
         return HttpResponseRedirect(request.POST.get('next'))
     return render(request, 'cadastro_setor.html', {})
@@ -113,11 +112,9 @@ def setor_edit(request, pk):
         nome = request.POST.get('nome', None)
         sigla = request.POST.get('sigla', None)
         funcao = request.POST.get('funcao', None)
-        descricao = request.POST.get('descricao', None)
         setor.nome = nome
         setor.sigla=sigla
         setor.funcao=funcao
-        setor.descricao=descricao
         setor.save()
         return HttpResponseRedirect(request.POST.get('next'))
     return render(request, 'editarSetor.html', {'setor': setor})

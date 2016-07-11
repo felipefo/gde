@@ -11,14 +11,14 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>Categorias</th>
+                            <th>Espécies Documentais</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for categoria in categorias %}
                         <tr>
-                            <td>{{ categoria }}</td>
+                            <td>{{ categoria.nome }}</td>
                             <td>
                                 <a class="btn-floating waves-effect waves-light green darken-1" href="{% url 'categoria_edit' pk=categoria.pk %}">
                                     <i class="material-icons">mode_edit</i>

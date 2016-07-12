@@ -2,15 +2,17 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
+
     {% if form.errors %}
-        <div class="col s3">
+    <div class="row" style="margin:0px;">
+        <div class="col s4 offset-s4">
             <p class="center-align card-panel teal lighten-2">
                 Usuário ou senha incorretos.
                 Tente novamente.
             </p>
          </div>
+     </div>
     {% endif %}
-
     <div class="row">
         <div id= "form-login" class="col s4 offset-s4">
             <div class="card-panel blue-grey lighten-4 z-depth-2">

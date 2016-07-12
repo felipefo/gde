@@ -20,7 +20,7 @@
                         <tr>
                             <td>{{ categoria.nome }}</td>
                             <td>
-                                <a class="btn-floating waves-effect waves-light green darken-1" href="{% url 'categoria_edit' pk=categoria.pk %}">
+                                <a class="btn-floating waves-effect waves-light teal darken-1" href="{% url 'categoria_edit' pk=categoria.pk %}">
                                     <i class="material-icons">mode_edit</i>
                                 </a>
 
@@ -33,7 +33,7 @@
                     </tbody>
                 </table>
 
-                <a href="{% url 'app.views.categoria' %}" class="cadastrar btn-floating btn-large waves-effect waves-light amber darken-4 right">
+                <a href="{% url 'app.views.categoria' %}" class="cadastrar btn-floating btn-large waves-effect waves-light orange darken-4 right">
                     <i class="material-icons right">add</i>
                 </a>
             </form>

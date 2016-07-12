@@ -3,28 +3,7 @@
     background-color:#b0bec5;
 }
 
-#form-login{
-    margin-top:10%;
-    box-sizing:border-box;
-}
-
-#form-login label{
-    font-weight: 400;
-    color: #37474f !important;
-    font-size:16px;
-}
-
-#botao-login{
-    position:relative;
-    left:38%;
-}
-
-.cadastrar{
-    position:fixed;
-    left:82%;
-    top:82%;
-}
-
+/*Cores dos inputs e labels do materialize*/
 /* label color */
 .input-field label {
  color: #37474f;
@@ -62,6 +41,38 @@
 /* icon prefix focus color */
 .input-field .prefix.active {
  color: #37474f;
+}
+
+
+/*login.html*/
+#form-login{
+    margin-top:10%;
+    box-sizing:border-box;
+}
+
+#form-login label{
+    font-weight: 400;
+    color: #37474f !important;
+    font-size:16px;
+}
+
+#botao-login{
+    position:relative;
+    left:38%;
+}
+
+.cadastrar{
+    position:fixed;
+    left:82%;
+    top:82%;
+}
+
+/*home.html*/
+#home{
+    margin-top:25%;
+}
+#cardEspecie{
+    margin-left:16%;
 }
 
 .card-color:hover{

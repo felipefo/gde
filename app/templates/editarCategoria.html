@@ -9,12 +9,12 @@
                 {% csrf_token %}
 
                 <br/><br/>
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 m4 l8">
                         <label for="nome">Espécie Documental</label>
                         <input type="text" id="nome" class="validate" name="nome" value="{{ categoria.nome }}">
                     </div>
 
-                    <div class="input-field col s12">
+                    <div class="input-field col s12 m4 l8">
                         <button class="btn right amber darken-4" type="submit">Salvar</button>
                         <input type="hidden" name="next" value="/categorias_list" />
                     </div>

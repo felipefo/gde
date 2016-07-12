@@ -54,3 +54,6 @@
  box-shadow: 0 1px 0 0 #f44336;
 }
 
+.card-color:hover{
+    background-color:#78909c !important;
+}

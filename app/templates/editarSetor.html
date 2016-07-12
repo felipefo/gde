@@ -10,17 +10,20 @@
 
                 <br/><br/>
 
-
+                <div class="input-field">
                     <label for="nome">Nome</label>
                     <input type="text" id="nome" class="validate" name="nome" value="{{setor.nome}}">
+                </div>
+
+                <div class="input-field">
                     <label for="nome">Sigla</label>
                     <input type="text" id="sigla" class="validate" name="sigla" value="{{setor.sigla}}">
+                </div>
 
-
-                   <div class="input-field col s12">
-                        <button class="btn right amber darken-4" type="submit">Salvar</button>
-                        <input type="hidden" name="next" value="/setores_list" />
-                    </div>
+               <div class="input-field col s12">
+                    <button class="btn right amber darken-4" type="submit">Salvar</button>
+                    <input type="hidden" name="next" value="/setores_list" />
+                </div>
 
             </form>
         </div>

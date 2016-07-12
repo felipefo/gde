@@ -25,6 +25,11 @@
     top:82%;
 }
 
+/* label color */
+.input-field label {
+ color: #37474f;
+}
+
 /* valid color */
 .input-field input[type=text].valid, input[type=password].valid{
  border-bottom: 1px solid #00796b;
@@ -52,6 +57,11 @@
 .input-field input[type=text].invalid, input[type=password].invalid {
  border-bottom: 1px solid #f44336;
  box-shadow: 0 1px 0 0 #f44336;
+}
+
+/* icon prefix focus color */
+.input-field .prefix.active {
+ color: #37474f;
 }
 
 .card-color:hover{

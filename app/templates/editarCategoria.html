@@ -3,18 +3,18 @@
 
 {% block content %}
     <div id="content-container" class="container p-none">
-        <div class="row">
+       <div class="lgn-container col-lg-8">
             <form id="categoria-edit" method="post"
                   action="{% url 'app.views.categoria_edit' pk=categoria.pk %}">
                 {% csrf_token %}
 
                 <br/><br/>
-                    <div class="input-field col s12 m4 l8">
+                    <div class="input-fiel">
                         <label for="nome">Espécie Documental</label>
                         <input type="text" id="nome" class="validate" name="nome" value="{{ categoria.nome }}">
                     </div>
 
-                    <div class="input-field col s12 m4 l8">
+                    <div class="row">
                         <button class="btn right amber darken-4" type="submit">Salvar</button>
                         <input type="hidden" name="next" value="/categorias_list" />
                     </div>

@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
-{% block title %}Categoria{% endblock %}
+{% block title %}EspecieDocumental{% endblock %}
 
 {% block content %}
     <div id="content-container" class="container p-none">
 
         <div class="lgn-container col-lg-8">
-            <form id="categoria-form" method="post"
-                  action="{% url 'app.views.categoria' %}">
+            <form id="especieDocumental-form" method="post"
+                  action="{% url 'app.views.especieDocumental' %}">
                 {% csrf_token %}
                  <h4>Cadastro de Espécie Documental</h4>
                 <br/><br/>
@@ -18,7 +18,7 @@
 
                 <div class="row">
                     <button class="btn right orange darken-4" type="submit" name="submit">Cadastrar</button>
-                    <input type="hidden" name="next" value="/categorias_list" />
+                    <input type="hidden" name="next" value="/especiesDocumentais_list" />
                 </div>
             </form>
         </div>

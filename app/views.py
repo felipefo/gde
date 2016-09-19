@@ -1,4 +1,4 @@
-from app.models import Categoria
+from app.models import EspecieDocumental
 from app.models import Setor
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -55,36 +55,36 @@ def user_detail(request, pk):
 
 @csrf_protect
 @login_required
-def categoria(request):
+def especieDocumental(request):
     if request.POST:
         nome = request.POST.get('nome', None)
-        Categoria.objects.create(nome=nome)
+        EspecieDocumental.objects.create(nome=nome)
         return HttpResponseRedirect(request.POST.get('next'))
-    return render(request, 'categoria.html', {})
+    return render(request, 'especieDocumental.html', {})
 
 @csrf_protect
 @login_required
-def categorias_list(request):
-    categorias = Categoria.objects.all
-    return render(request, 'categorias_list.html', {'categorias': categorias})
+def especiesDocumentais_list(request):
+    especiesDocumentais = EspecieDocumental.objects.all
+    return render(request, 'especiesDocumentais_list.html', {'especiesDocumentais': especiesDocumentais})
 
 @csrf_protect
 @login_required
-def categoria_remove(request, pk):
-    categoria = get_object_or_404(Categoria, pk=pk)
-    categoria.delete()
-    return redirect('app.views.categorias_list')
+def especieDocumental_remove(request, pk):
+    especieDocumental = get_object_or_404(EspecieDocumental, pk=pk)
+    especieDocumental.delete()
+    return redirect('app.views.especiesDocumentais_list')
 
 @csrf_protect
 @login_required
-def categoria_edit(request, pk):
-    categoria = get_object_or_404(Categoria, pk=pk)
+def especieDocumental_edit(request, pk):
+    especieDocumental = get_object_or_404(EspecieDocumental, pk=pk)
     if request.POST:
         nome = request.POST.get('nome', None)
-        categoria.nome = nome
-        categoria.save()
+        especieDocumental.nome = nome
+        especieDocumental.save()
         return HttpResponseRedirect(request.POST.get('next'))
-    return render(request, 'editarCategoria.html', {'categoria': categoria})
+    return render(request, 'editarEspecieDocumental.html', {'especieDocumental': especieDocumental})
 
 @csrf_protect
 @login_required

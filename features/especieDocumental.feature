@@ -1,6 +1,6 @@
-Feature: Cadastrar Categoria
+Feature: Cadastrar EspecieDocumental
 
-  Scenario: Add a new Categoria
+  Scenario: Add a new EspecieDocumental
   Given I am a logged user
-  When I submit a valid categoria page
-  Then I am redirected to the categoria_list page
+  When I submit a valid especieDocumental page
+  Then I am redirected to the especieDocumental_list page

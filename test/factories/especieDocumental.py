@@ -1,8 +1,8 @@
 import factory
-from app.models import Categoria
+from app.models import EspecieDocumental
 
-class CategoriaFactory(factory.django.DjangoModelFactory):
+class EspecieDocumentalFactory(factory.django.DjangoModelFactory):
 	class Meta:
-		model = Categoria
+		model = EspecieDocumental
 		django_get_or_create = ('nome')
-	nome = 'categoriaTeste'
+	nome = 'especieDocumentalTeste'

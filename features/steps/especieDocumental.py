@@ -46,7 +46,7 @@ def step_impl(context):
     br.find_element_by_name('submit').click()
     br.get_screenshot_as_file('/tmp/screenshot.png')
 
-@then('Nao consiguirei cadastrar a especie ate que eu preencha o campo nome.')
+@then('Nao conseguirei cadastrar a especie ate que eu preencha o campo nome.')
 def step_impl(context):
     br = context.browser
     # br.get_screenshot_as_file('/tmp/screenshot.png')

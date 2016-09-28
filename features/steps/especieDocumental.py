@@ -1,7 +1,7 @@
 from behave import given, when, then
 from test.factories.user import UserFactory
 
-@given('I am a logged user')
+@given('Eu sou um usuario logado')
 def step_impl(context):
     #Cria um usuário de teste
     criarNovoUsuario()
@@ -26,22 +26,37 @@ def criarNovoUsuario():
     # Don't omit to call save() to insert object in database
     u.save()
 
-
-@when('I submit a valid especieDocumental page')
+@given('Estou na pagina de cadastro de uma categoria')
 def step_impl(context):
     br = context.browser
     br.get(context.base_url + '/especieDocumental')
 
     # Checks for Cross-Site Request Forgery protection input
     assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
-    
+    assert br.current_url.endswith('/especieDocumental/')
+
+
+@when('Submeto o cadastro de uma nova categoria')
+def step_impl(context):
+    br = context.browser
+
+    # Checks for Cross-Site Request Forgery protection input
+    assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
+
     # Fill login form and submit it (valid version)
     br.find_element_by_name('nome').send_keys('Folha de Ponto')
     br.find_element_by_name('submit').click()
     # br.get_screenshot_as_file('/tmp/screenshot.png')
 
 
-@then('I am redirected to the especieDocumental_list page')
+@then('Sou redirecionado para a pagina principal de categorias')
+def step_impl(context):
+    br = context.browser
+
+    # Checks success status
+    assert br.current_url.endswith('/especiesDocumentais_list/')
+
+@then('A categoria esta devidamente cadastrada.')
 def step_impl(context):
     br = context.browser
 

@@ -1,6 +1,8 @@
 Feature: Cadastrar EspecieDocumental
 
-  Scenario: Add a new EspecieDocumental
-  Given I am a logged user
-  When I submit a valid especieDocumental page
-  Then I am redirected to the especieDocumental_list page
+  Scenario: Cadastrar nova EspecieDocumental
+  Given Eu sou um usuario logado
+    And Estou na pagina de cadastro de uma categoria
+   When Submeto o cadastro de uma nova categoria
+   Then Sou redirecionado para a pagina principal de categorias
+    And A categoria esta devidamente cadastrada.

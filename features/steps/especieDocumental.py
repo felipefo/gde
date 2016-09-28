@@ -1,5 +1,6 @@
 from behave import given, when, then
 from test.factories.user import UserFactory
+from app.models import EspecieDocumental
 
 @given('Eu sou um usuario logado')
 def step_impl(context):
@@ -54,6 +55,12 @@ def step_impl(context):
     assert br.current_url.endswith('/especieDocumental/')
     assert br.find_element_by_id('nome').text == ""
 
+@when('Informo um nome ainda nao cadastrado no sistema')
+def step_impl(context):
+    br = context.browser
+    especie = EspecieDocumental.objects.filter(nome='Folha de Ponto').exists()
+    assert especie == False
+
 @when('Submeto o cadastro de uma nova especie')
 def step_impl(context):
     br = context.browser
@@ -66,7 +73,6 @@ def step_impl(context):
     br.find_element_by_name('submit').click()
     # br.get_screenshot_as_file('/tmp/screenshot.png')
 
-
 @then('Sou redirecionado para a pagina principal de especie documental')
 def step_impl(context):
     br = context.browser
@@ -74,7 +80,7 @@ def step_impl(context):
     # Checks success status
     assert br.current_url.endswith('/especiesDocumentais_list/')
 
-@then('A especie devera devidamente cadastrada.')
+@then('A especie devera estar devidamente cadastrada.')
 def step_impl(context):
     br = context.browser
 

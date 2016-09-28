@@ -9,6 +9,7 @@ Feature: Funcionalidade EspecieDocumental
   Scenario: Cadastrar nova EspecieDocumental
   Given Eu sou um usuario logado
     And Estou na pagina de cadastro de uma especie documental
-   When Submeto o cadastro de uma nova especie
+   When Informo um nome ainda nao cadastrado no sistema
+    And Submeto o cadastro de uma nova especie
    Then Sou redirecionado para a pagina principal de especie documental
-    And A especie devera devidamente cadastrada.
+    And A especie devera estar devidamente cadastrada.

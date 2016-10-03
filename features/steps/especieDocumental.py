@@ -1,11 +1,10 @@
 from behave import given, when, then
 from test.factories.user import UserFactory
 from app.models import EspecieDocumental
-from django.contrib import messages
 
 @given('Eu sou um usuario logado')
 def step_impl(context):
-    #Cria um usuario de teste
+    #Cria um usuário de teste
     criarNovoUsuario()
 
     br = context.browser
@@ -110,3 +109,21 @@ def step_impl(context):
     br = context.browser
     # Checks success status
     assert br.current_url.endswith('/especieDocumental/')
+
+@given('Estou na pagina com a lista de especies documentais')
+def step_impl(context):
+        br = context.browser
+        br.get(context.base_url + '/especiesDocumentais_list')
+    # Checks success status
+        assert br.current_url.endswith('/especiesDocumentais_list/')
+
+@when('Seleciono o botao editar de uma especie documental')
+def step_impl(context):
+        br = context.browser
+        br.get_screenshot_as_file('/tmp/screenshot.png')
+        br.find_element_by_name('editar').click()
+
+
+@then('Sou redirecionado para a pagina com seus dados')
+def step_impl(context):
+        br = context.browser

@@ -16,7 +16,11 @@ Feature: Funcionalidade EspecieDocumental
     And A especie devera estar devidamente cadastrada.
 
   Scenario:  Editar Especie documental
-  Given  Eu sou um usuario logado
-    And  Estou na pagina com a lista de especies documentais
+  Given Eu sou um usuario logado
+    And Estou na pagina com a lista de especies documentais
+    And Possue uma ou mais especies documentais cadastradas
    When Seleciono o botao editar de uma especie documental
-   Then Sou redirecionado para a pagina com seus dados
+    And Sou redirecionado para a pagina com seus dados ja preenchidos
+    And Preencho os campos obrigatorios
+    And Clico no botao salvar
+   Then Sou redirecionado para a pagina principal de especie documental

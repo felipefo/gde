@@ -92,6 +92,28 @@ def step_impl(context):
     assert br.current_url.endswith('/especiesDocumentais_list/')
     assert br.find_element_by_id('nomeEspecie').text == "Folha de Ponto"
 
+@when('Informo um nome ja cadastrado no sistema')
+def step_impl(context):
+    br = context.browser
+    br.get(context.base_url + '/especieDocumental')
+    especie = EspecieDocumental.objects.filter(nome='Folha de Ponto').exists()
+    assert  especie == True
+
+@then('Recebo uma mensagem de erro informando que o nome ja existe.')
+def step_impl(context):
+    br = context.browser
+
+    message = br.find_element_by_id('mensagem').text
+    assert br.current_url.endswith('/especieDocumental/')
+    assert message == "A Especie Documental ja existe. Por favor, tente novamente!"
+
+
+@then('Nao conseguirei cadastrar a especie ate que eu preencha o com um nome diferente.')
+def step_impl(context):
+    br = context.browser
+    # Checks success status
+    assert br.current_url.endswith('/especieDocumental/')
+
 @given('Estou na pagina com a lista de especies documentais')
 def step_impl(context):
         br = context.browser

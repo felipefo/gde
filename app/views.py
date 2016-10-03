@@ -58,8 +58,9 @@ def user_detail(request, pk):
 def especieDocumental(request):
     if request.POST:
         nome = request.POST.get('nome', None)
-        EspecieDocumental.objects.create(nome=nome)
-        return HttpResponseRedirect(request.POST.get('next'))
+        if(nome!= ''):
+            EspecieDocumental.objects.create(nome=nome)
+            return HttpResponseRedirect(request.POST.get('next'))
     return render(request, 'especieDocumental.html', {})
 
 @csrf_protect

@@ -1,5 +1,6 @@
 from behave import given, when, then
 from test.factories.user import UserFactory
+from app.models import EspecieDocumental
 
 @given('Eu sou um usuario logado')
 def step_impl(context):
@@ -26,7 +27,7 @@ def criarNovoUsuario():
     # Don't omit to call save() to insert object in database
     u.save()
 
-@given('Estou na pagina de cadastro de uma categoria')
+@given('Estou na pagina de cadastro de uma especie documental')
 def step_impl(context):
     br = context.browser
     br.get(context.base_url + '/especieDocumental')
@@ -35,8 +36,32 @@ def step_impl(context):
     assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
     assert br.current_url.endswith('/especieDocumental/')
 
+@when('Submeto o cadastro de uma nova especie documental deixando o campo em branco')
+def step_impl(context):
+    br = context.browser
 
-@when('Submeto o cadastro de uma nova categoria')
+    # Checks for Cross-Site Request Forgery protection input
+    assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
+
+    # Fill login form and submit it (valid version)
+    br.find_element_by_name('submit').click()
+    br.get_screenshot_as_file('/tmp/screenshot.png')
+
+@then('Nao conseguirei cadastrar a especie ate que eu preencha o campo nome.')
+def step_impl(context):
+    br = context.browser
+    # br.get_screenshot_as_file('/tmp/screenshot.png')
+    # Checks success status
+    assert br.current_url.endswith('/especieDocumental/')
+    assert br.find_element_by_id('nome').text == ""
+
+@when('Informo um nome ainda nao cadastrado no sistema')
+def step_impl(context):
+    br = context.browser
+    especie = EspecieDocumental.objects.filter(nome='Folha de Ponto').exists()
+    assert especie == False
+
+@when('Submeto o cadastro de uma nova especie')
 def step_impl(context):
     br = context.browser
 
@@ -48,15 +73,14 @@ def step_impl(context):
     br.find_element_by_name('submit').click()
     # br.get_screenshot_as_file('/tmp/screenshot.png')
 
-
-@then('Sou redirecionado para a pagina principal de categorias')
+@then('Sou redirecionado para a pagina principal de especie documental')
 def step_impl(context):
     br = context.browser
 
     # Checks success status
     assert br.current_url.endswith('/especiesDocumentais_list/')
 
-@then('A categoria esta devidamente cadastrada.')
+@then('A especie devera estar devidamente cadastrada.')
 def step_impl(context):
     br = context.browser
 
@@ -81,5 +105,3 @@ def step_impl(context):
 @then('Sou redirecionado para a pagina com seus dados')
 def step_impl(context):
         br = context.browser
-
-

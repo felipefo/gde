@@ -151,7 +151,6 @@ def step_impl(context):
 def step_impl(context):
         br = context.browser
         assert br.find_element_by_name('nome').text != ""
-        br.get_screenshot_as_file('/tmp/screenshot.png')
 
 @when('Clico no botao salvar')
 def step_impl(context):
@@ -182,11 +181,11 @@ def especieDocumentalFactory(quantidade):
 def step_impl(context):
     br = context.browser
     br.find_element_by_name('excluir').click()
-    br.refresh()
-    assert EspecieDocumental.objects.count() == 2
     assert br.current_url.endswith('/especiesDocumentais_list/')
 
 @then('a especie documental deixara de existir.')
 def step_impl(context):
-        #br = context.browser
-        pass
+        br = context.browser
+        br.refresh()
+        assert EspecieDocumental.objects.count() == 2
+        br.get_screenshot_as_file('/tmp/screenshot.png')

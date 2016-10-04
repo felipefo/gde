@@ -2,6 +2,7 @@ from behave import given, when, then
 from test.factories.user import UserFactory
 from app.models import EspecieDocumental
 
+#Scenario: Campos Vazios
 @given('Eu sou um usuario logado')
 def step_impl(context):
     #Cria um usuário de teste
@@ -55,6 +56,7 @@ def step_impl(context):
     assert br.current_url.endswith('/especieDocumental/')
     assert br.find_element_by_id('nome').text == ""
 
+#Scenario: Cadastrar nova EspecieDocumental
 @when('Informo um nome ainda nao cadastrado no sistema')
 def step_impl(context):
     br = context.browser
@@ -110,6 +112,7 @@ def step_impl(context):
     # Checks success status
     assert br.current_url.endswith('/especieDocumental/')
 
+#Scenario: Editar Especie documental
 @given('Estou na pagina com a lista de especies documentais')
 def step_impl(context):
         br = context.browser
@@ -119,11 +122,27 @@ def step_impl(context):
 
 @when('Seleciono o botao editar de uma especie documental')
 def step_impl(context):
-        br = context.browser
-        br.get_screenshot_as_file('/tmp/screenshot.png')
-        br.find_element_by_name('editar').click()
+        # br = context.browser
+        # br.get_screenshot_as_file('/tmp/screenshot.png')
+        # br.find_element_by_name('editar').click()
+        pass
 
 
 @then('Sou redirecionado para a pagina com seus dados')
 def step_impl(context):
-        br = context.browser
+        #br = context.browser
+        pass
+
+#Scenario: Excluir Especie documental
+@given('que existem especies documentais cadastradas')
+def step_impl(context):
+        #br = context.browser
+        pass
+@when('clico no botao exlcuir')
+def step_impl(context):
+        #br = context.browser
+        pass
+@then('a especie documental deixara de existir.')
+def step_impl(context):
+        #br = context.browser
+        pass

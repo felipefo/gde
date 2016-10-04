@@ -105,3 +105,32 @@ def step_impl(context):
 @then('Sou redirecionado para a pagina com seus dados')
 def step_impl(context):
         br = context.browser
+
+
+@given('Uma nova especie documental foi criada')
+def step_impl(context):
+    br=context.browser
+
+    criarNovaEspecieDocumental()
+
+    assert br.find_element_by_name('csrfmiddlewaretoken').is_enabe()
+
+    br.find_element_by_name('nome').send_keys('Ata')
+    br.find_element_by_name('submit').click()
+
+def criarNovaEspecieDocumental():
+    
+
+@when('Escolho visualizar a lista de especies documentais')
+def step_impl(context):
+    br = context.browser
+
+    br.get(context.base_url + '/especiesDocumentais_list')
+    assert br.current_url.endswith('/especiesDocumentais_list')
+
+@then
+def step_impl(context):
+    br = context.browser
+
+    assert br.current_url.endswith('/especiesDocumentais_list')
+    assert br.find_element_by_id('nomeEspecie').text == 'Ata'

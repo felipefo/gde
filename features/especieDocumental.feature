@@ -20,3 +20,8 @@ Feature: Funcionalidade EspecieDocumental
     And  Estou na pagina com a lista de especies documentais
    When Seleciono o botao editar de uma especie documental
    Then Sou redirecionado para a pagina com seus dados
+
+  Scenario: Visualizar EspecieDocumental
+  Given Uma nova especie documental foi criada
+  When Escolho visualizar a lista de especies documentais
+  Then A especie devera estar devidamente cadastrada.

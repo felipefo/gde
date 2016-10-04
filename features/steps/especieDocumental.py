@@ -1,5 +1,6 @@
 from behave import given, when, then
 from test.factories.user import UserFactory
+from test.factories.especieDocumental import EspecieDocumentalFactory
 from app.models import EspecieDocumental
 
 #Scenario: Campos Vazios
@@ -136,11 +137,20 @@ def step_impl(context):
 #Scenario: Excluir Especie documental
 @given('que existem especies documentais cadastradas')
 def step_impl(context):
-        #br = context.browser
-        pass
+        especieDocumentalFactory(3)
+        assert EspecieDocumental.objects.count()==3
+
+
+def especieDocumentalFactory(quantidade):
+    for index in range(quantidade):
+        nomeEspecie = 'especie' + str(index)
+        especie = EspecieDocumentalFactory(nome=nomeEspecie)
+        especie.save()
+
+
 @when('clico no botao exlcuir')
 def step_impl(context):
-        #br = context.browser
+        
         pass
 @then('a especie documental deixara de existir.')
 def step_impl(context):

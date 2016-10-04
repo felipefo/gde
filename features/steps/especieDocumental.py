@@ -137,8 +137,15 @@ def step_impl(context):
 #Scenario: Excluir Especie documental
 @given('que existem especies documentais cadastradas')
 def step_impl(context):
+        br = context.browser
         especieDocumentalFactory(3)
+        br.refresh()
         assert EspecieDocumental.objects.count()==3
+        assert EspecieDocumental.objects.filter(nome='especie0').exists()
+        assert EspecieDocumental.objects.filter(nome='especie1').exists()
+        assert EspecieDocumental.objects.filter(nome='especie2').exists()
+        assert br.current_url.endswith('/especiesDocumentais_list/')
+
 
 
 def especieDocumentalFactory(quantidade):
@@ -150,8 +157,12 @@ def especieDocumentalFactory(quantidade):
 
 @when('clico no botao exlcuir')
 def step_impl(context):
-        
-        pass
+    br = context.browser
+    br.find_element_by_name('excluir').click()
+    br.refresh()
+    assert EspecieDocumental.objects.count() == 2
+    assert br.current_url.endswith('/especiesDocumentais_list/')
+
 @then('a especie documental deixara de existir.')
 def step_impl(context):
         #br = context.browser

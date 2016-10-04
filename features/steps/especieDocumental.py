@@ -29,6 +29,11 @@ def criarNovoUsuario():
     # Don't omit to call save() to insert object in database
     u.save()
 
+def criarEspecieDocumental():
+    especie = EspecieDocumental()
+    especie.nome= "Teste"
+    especie.save()
+
 @given('Estou na pagina de cadastro de uma especie documental')
 def step_impl(context):
     br = context.browser
@@ -47,7 +52,6 @@ def step_impl(context):
 
     # Fill login form and submit it (valid version)
     br.find_element_by_name('submit').click()
-    br.get_screenshot_as_file('/tmp/screenshot.png')
 
 @then('Nao conseguirei cadastrar a especie ate que eu preencha o campo nome.')
 def step_impl(context):
@@ -121,18 +125,39 @@ def step_impl(context):
     # Checks success status
         assert br.current_url.endswith('/especiesDocumentais_list/')
 
+@given('Possue uma ou mais especies documentais cadastradas')
+def step_impl(context):
+        criarEspecieDocumental()
+        br = context.browser
+        especie = EspecieDocumental.objects.filter(nome='Teste').exists()
+        assert especie==True
+
+
 @when('Seleciono o botao editar de uma especie documental')
 def step_impl(context):
-        # br = context.browser
-        # br.get_screenshot_as_file('/tmp/screenshot.png')
-        # br.find_element_by_name('editar').click()
-        pass
+        br = context.browser
+        br.get(context.base_url + '/especiesDocumentais_list')
+        br.find_element_by_name('editar').click()
 
-
-@then('Sou redirecionado para a pagina com seus dados')
+@when('Sou redirecionado para a pagina com seus dados ja preenchidos')
 def step_impl(context):
-        #br = context.browser
-        pass
+        br = context.browser
+        especie = EspecieDocumental.objects.get(nome='Teste')
+        br.get(context.base_url + '/especieDocumental/%d/edit' % especie.id)
+        assert br.current_url.endswith('/especieDocumental/%d/edit/' % especie.id)
+
+
+@when ('Preencho os campos obrigatorios')
+def step_impl(context):
+        br = context.browser
+        assert br.find_element_by_name('nome').text != ""
+        br.get_screenshot_as_file('/tmp/screenshot.png')
+
+@when('Clico no botao salvar')
+def step_impl(context):
+        br = context.browser
+        br.find_element_by_id('salvar').click()
+
 
 #Scenario: Excluir Especie documental
 @given('que existem especies documentais cadastradas')
@@ -146,8 +171,6 @@ def step_impl(context):
         assert EspecieDocumental.objects.filter(nome='especie2').exists()
         assert br.current_url.endswith('/especiesDocumentais_list/')
 
-
-
 def especieDocumentalFactory(quantidade):
     for index in range(quantidade):
         nomeEspecie = 'especie' + str(index)
@@ -155,7 +178,7 @@ def especieDocumentalFactory(quantidade):
         especie.save()
 
 
-@when('clico no botao exlcuir')
+@when('clico no botao excluir')
 def step_impl(context):
     br = context.browser
     br.find_element_by_name('excluir').click()

@@ -22,13 +22,18 @@ Feature: Funcionalidade EspecieDocumental
    Then Recebo uma mensagem de erro informando que o nome ja existe.
     And Nao conseguirei cadastrar a especie ate que eu preencha o com um nome diferente.
 
-Scenario:  Editar Especie documental
-   Given Estou na pagina com a lista de especies documentais
-    When Seleciono o botao editar de uma especie documental
-    Then Sou redirecionado para a pagina com seus dados
+  Scenario:  Editar Especie documental
+  Given Eu sou um usuario logado
+    And Estou na pagina com a lista de especies documentais
+    And Possue uma ou mais especies documentais cadastradas
+   When Seleciono o botao editar de uma especie documental
+    And Sou redirecionado para a pagina com seus dados ja preenchidos
+    And Preencho os campos obrigatorios
+    And Clico no botao salvar
+   Then Sou redirecionado para a pagina principal de especie documental
 
 Scenario: Excluir especie documental
    Given Estou na pagina com a lista de especies documentais
      And que existem especies documentais cadastradas
-    When clico no botao exlcuir
+    When clico no botao excluir
     Then a especie documental deixara de existir.

@@ -188,4 +188,3 @@ def step_impl(context):
         br = context.browser
         br.refresh()
         assert EspecieDocumental.objects.count() == 2
-        br.get_screenshot_as_file('/tmp/screenshot.png')

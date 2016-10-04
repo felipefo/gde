@@ -58,9 +58,14 @@ def user_detail(request, pk):
 def especieDocumental(request):
     if request.POST:
         nome = request.POST.get('nome', None)
+        existeNoBanco = EspecieDocumental.objects.filter(nome=nome).exists()
         if(nome!= ''):
-            EspecieDocumental.objects.create(nome=nome)
-            return HttpResponseRedirect(request.POST.get('next'))
+            if (existeNoBanco == True):
+                messages.add_message(request, messages.ERROR,
+                                     'A Especie Documental ja existe. Por favor, tente novamente!')
+            else:
+                EspecieDocumental.objects.create(nome=nome)
+                return HttpResponseRedirect(request.POST.get('next'))
     return render(request, 'especieDocumental.html', {})
 
 @csrf_protect

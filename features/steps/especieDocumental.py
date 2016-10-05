@@ -162,35 +162,18 @@ def step_impl(context):
         br.find_element_by_id('salvar').click()
 
 #Scenario: Visualizar Especie Documental
-@given('Uma nova especie documental foi criada')
+@given('Estou na pagina principal do sistema')
 def step_impl(context):
     br = context.browser
+    br.get(context.base_url + '/home')
+    # Checks success status
+    assert br.current_url.endswith('/home/')
 
-    #criarNovaEspecieDocumental()
-
-    assert br.find_element_by_name('csrfmiddlewaretoken').is_enabe()
-
-    br.find_element_by_name('nome').send_keys('Ata')
-    br.find_element_by_name('submit').click()
-
-
-#def criarNovaEspecieDocumental():
-
-
-@when('Escolho visualizar a lista de especies documentais')
+@when('clico no botao visualizar especie documental')
 def step_impl(context):
     br = context.browser
-
-    br.get(context.base_url + '/especiesDocumentais_list')
-    assert br.current_url.endswith('/especiesDocumentais_list')
-
-
-@then
-def step_impl(context):
-    br = context.browser
-
-    assert br.current_url.endswith('/especiesDocumentais_list')
-    assert br.find_element_by_id('nomeEspecie').text == 'Ata'
+    br.find_element_by_name('visualizarEspecie').click()
+    assert br.current_url.endswith('/especiesDocumentais_list/')
 
 #Scenario: Excluir Especie documental
 @given('que existem especies documentais cadastradas')

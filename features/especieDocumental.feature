@@ -32,9 +32,15 @@ Feature: Funcionalidade EspecieDocumental
    Then Sou redirecionado para a pagina principal de especie documental
 
   Scenario: Visualizar Especie Documental
-  Given Uma nova especie documental foi criada
-  When Escolho visualizar a lista de especies documentais
-  Then A especie devera estar devidamente cadastrada.
+#  Given Submeto o cadastro de uma nova especie
+#    And Sou redirecionado para a pagina principal de especie documental
+#  Then A especie devera estar devidamente cadastrada.
+
+  Given Estou na pagina principal do sistema
+    And Possue uma ou mais especies documentais cadastradas
+  When  clico no botao visualizar especie documental
+  Then  Sou redirecionado para a pagina principal de especie documental
+
 
   Scenario: Excluir especie documental
    Given Estou na pagina com a lista de especies documentais

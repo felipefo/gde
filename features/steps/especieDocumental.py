@@ -3,6 +3,8 @@ from test.factories.user import UserFactory
 from test.factories.especieDocumental import EspecieDocumentalFactory
 from app.models import EspecieDocumental
 
+
+
 #Scenario: Campos Vazios
 @given('Eu sou um usuario logado')
 def step_impl(context):
@@ -127,10 +129,10 @@ def step_impl(context):
 
 @given('Possue uma ou mais especies documentais cadastradas')
 def step_impl(context):
-        criarEspecieDocumental()
+        especieDocumentalFactory(1)
         br = context.browser
-        especie = EspecieDocumental.objects.filter(nome='Teste').exists()
-        assert especie==True
+        qtdEspecie = len(EspecieDocumental.objects.all())
+        assert qtdEspecie > 0
 
 
 @when('Seleciono o botao editar de uma especie documental')
@@ -142,15 +144,17 @@ def step_impl(context):
 @when('Sou redirecionado para a pagina com seus dados ja preenchidos')
 def step_impl(context):
         br = context.browser
-        especie = EspecieDocumental.objects.get(nome='Teste')
-        br.get(context.base_url + '/especieDocumental/%d/edit' % especie.id)
-        assert br.current_url.endswith('/especieDocumental/%d/edit/' % especie.id)
+        especies = EspecieDocumental.objects.all()
+        br.get(context.base_url + '/especieDocumental/%d/edit' % especies[0].id)
+        assert br.current_url.endswith('/especieDocumental/%d/edit/' % especies[0].id)
 
 
 @when ('Preencho os campos obrigatorios')
 def step_impl(context):
         br = context.browser
-        assert br.find_element_by_name('nome').text != ""
+        nome = br.find_element_by_id('nome').get_attribute('value')
+        assert nome != ""
+
 
 @when('Clico no botao salvar')
 def step_impl(context):
@@ -219,5 +223,3 @@ def step_impl(context):
 
         br.refresh()
         assert EspecieDocumental.objects.count() == 2
-
-

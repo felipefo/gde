@@ -162,7 +162,7 @@ def step_impl(context):
 def step_impl(context):
     br = context.browser
 
-    criarNovaEspecieDocumental()
+    #criarNovaEspecieDocumental()
 
     assert br.find_element_by_name('csrfmiddlewaretoken').is_enabe()
 
@@ -170,7 +170,7 @@ def step_impl(context):
     br.find_element_by_name('submit').click()
 
 
-def criarNovaEspecieDocumental():
+#def criarNovaEspecieDocumental():
 
 
 @when('Escolho visualizar a lista de especies documentais')

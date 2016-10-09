@@ -27,9 +27,33 @@ Feature: Funcionalidade EspecieDocumental
     And Possue uma ou mais especies documentais cadastradas
    When Seleciono o botao editar de uma especie documental
     And Sou redirecionado para a pagina com seus dados ja preenchidos
-    And Preencho os campos obrigatorios
+    And Preencho o campo especie documental com um novo nome
     And Clico no botao salvar
    Then Sou redirecionado para a pagina principal de especie documental
+
+  Given Estou na pagina com a lista de especies documentais
+    And Possue uma ou mais especies documentais cadastradas
+   When Seleciono o botao editar de uma especie documental
+    And Sou redirecionado para a pagina com seus dados ja preenchidos
+    And Edito o campo especie documental e o deixo em branco
+    And Clico no botao salvar
+   Then Nao conseguirei editar a especie ate que preencha o campo nome
+
+    Given Estou na pagina com a lista de especies documentais
+    And Possue uma ou mais especies documentais cadastradas
+   When Seleciono o botao editar de uma especie documental
+    And Sou redirecionado para a pagina com seus dados ja preenchidos
+    And Edito o nome e coloco um nome que ja esta cadastrado
+    And Clico no botao salvar
+   Then Nao conseguirei salvar a especie ate que eu a preencha com um nome diferente.
+
+  Given Estou na pagina com a lista de especies documentais
+    And Possue uma ou mais especies documentais cadastradas
+   When Seleciono o botao editar de uma especie documental
+    And Sou redirecionado para a pagina com seus dados ja preenchidos
+    And Nao altero a especie documental deixando com o nome ja preenchido
+    And Clico no botao salvar
+   Then Nao conseguirei salvar a especie ate que eu a preencha com um nome diferente.
 
 Scenario: Excluir especie documental
    Given Estou na pagina com a lista de especies documentais

@@ -55,6 +55,7 @@ def step_impl(context):
     # Fill login form and submit it (valid version)
     br.find_element_by_name('submit').click()
 
+
 @then('Nao conseguirei cadastrar a especie ate que eu preencha o campo nome.')
 def step_impl(context):
     br = context.browser
@@ -129,7 +130,7 @@ def step_impl(context):
 
 @given('Possue uma ou mais especies documentais cadastradas')
 def step_impl(context):
-        especieDocumentalFactory(1)
+        especieDocumentalFactory(2)
         br = context.browser
         qtdEspecie = len(EspecieDocumental.objects.all())
         assert qtdEspecie > 0
@@ -148,18 +149,59 @@ def step_impl(context):
         br.get(context.base_url + '/especieDocumental/%d/edit' % especies[0].id)
         assert br.current_url.endswith('/especieDocumental/%d/edit/' % especies[0].id)
 
-
-@when ('Preencho os campos obrigatorios')
+@when('Nao altero a especie documental deixando com o nome ja preenchido')
 def step_impl(context):
         br = context.browser
-        nome = br.find_element_by_id('nome').get_attribute('value')
-        assert nome != ""
+        especies = EspecieDocumental.objects.all()
+        assert br.find_element_by_id('nome').get_attribute('value') == especies[0].nome
+
+@when ('Preencho o campo especie documental com um novo nome')
+def step_impl(context):
+        br = context.browser
+        novo_nome = 'novo nome'
+        especie = EspecieDocumental.objects.filter(nome=novo_nome).exists()
+        assert especie == False
+        br.find_element_by_id('nome').clear()
+        nome = br.find_element_by_id('nome').send_keys(novo_nome)
+        assert br.find_element_by_id('nome').get_attribute('value') == novo_nome
+
+@when ('Edito o campo especie documental e o deixo em branco')
+def step_impl(context):
+        br = context.browser
+        br.find_element_by_id('nome').clear()
+        assert br.find_element_by_id('nome').get_attribute('value') == ""
 
 
 @when('Clico no botao salvar')
 def step_impl(context):
         br = context.browser
-        br.find_element_by_id('salvar').click()
+        assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
+        br.find_element_by_name('submit').click()
+
+
+@then('Nao conseguirei editar a especie ate que preencha o campo nome')
+def step_impl(context):
+        br = context.browser
+    # br.get_screenshot_as_file('/tmp/screenshot.png')
+    # Checks success status
+        especies = EspecieDocumental.objects.all()
+        assert br.current_url.endswith('/especieDocumental/%d/edit/' % especies[0].id)
+        assert br.find_element_by_id('nome').text == ""
+
+
+@when('Edito o nome e coloco um nome que ja esta cadastrado')
+def step_impl(context):
+        br = context.browser
+        especie = EspecieDocumental.objects.filter(nome='especie1').exists()
+        assert  especie == True
+        br.find_element_by_id('nome').clear()
+        br.find_element_by_id('nome').send_keys('especie1')
+        assert br.find_element_by_id('nome').get_attribute('value') == 'especie1'
+
+
+@then('Nao conseguirei salvar a especie ate que eu a preencha com um nome diferente.')
+def step_impl(context):
+        br = context.browser
 
 #Scenario: Visualizar Especie Documental
 @given('Uma especie documental foi cadastrada')

@@ -162,6 +162,28 @@ def step_impl(context):
         br.find_element_by_id('salvar').click()
 
 #Scenario: Visualizar Especie Documental
+@given('Uma especie documental foi cadastrada')
+def step_impl(context):
+    br = context.browser
+    especie = EspecieDocumental.objects.filter(nome="Folha de Ponto").exists()
+    assert especie == True
+
+@when('Sou redirecionado para a pagina principal de especie documental')
+def step_impl(context):
+    br = context.browser
+
+    # Checks success status
+    assert br.current_url.endswith('/especiesDocumentais_list/')
+
+@then('A especie documental devera aparecer na lista.')
+def step_impl(context):
+    br = context.browser
+
+    # Checks success status
+    assert br.current_url.endswith('/especiesDocumentais_list/')
+    assert br.find_element_by_id('nomeEspecie').text == "Folha de Ponto"
+
+
 @given('Estou na pagina principal do sistema')
 def step_impl(context):
     br = context.browser

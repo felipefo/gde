@@ -32,9 +32,9 @@ Feature: Funcionalidade EspecieDocumental
    Then Sou redirecionado para a pagina principal de especie documental
 
   Scenario: Visualizar Especie Documental
-#  Given Submeto o cadastro de uma nova especie
-#    And Sou redirecionado para a pagina principal de especie documental
-#  Then A especie devera estar devidamente cadastrada.
+#  Given Uma especie documental foi cadastrada
+#  When  Sou redirecionado para a pagina principal de especie documental
+#  Then  A especie documental devera aparecer na lista.
 
   Given Estou na pagina principal do sistema
     And Possue uma ou mais especies documentais cadastradas

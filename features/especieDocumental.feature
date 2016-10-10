@@ -23,7 +23,7 @@ Feature: Funcionalidade EspecieDocumental
     And Nao conseguirei cadastrar a especie ate que eu preencha o com um nome diferente.
 
   Scenario:  Editar Especie documental
-  Given  Given Estou na pagina com a lista de especies documentais
+  Given Estou na pagina com a lista de especies documentais
     And Possue uma ou mais especies documentais cadastradas
    When Seleciono o botao editar de uma especie documental
     And Sou redirecionado para a pagina com seus dados ja preenchidos
@@ -56,9 +56,9 @@ Feature: Funcionalidade EspecieDocumental
    Then Nao conseguirei salvar a especie ate que eu a preencha com um nome diferente.
 
   Scenario: Visualizar Especie Documental
-#  Given Uma especie documental foi cadastrada
-#  When  Sou redirecionado para a pagina principal de especie documental
-#  Then  A especie documental devera aparecer na lista.
+  Given Uma especie documental foi cadastrada
+  When  Sou redirecionado para a pagina principal de especie documental
+  Then  A especie documental devera aparecer na lista.
 
   Given Estou na pagina principal do sistema
     And Possue uma ou mais especies documentais cadastradas

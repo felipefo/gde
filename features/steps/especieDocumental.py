@@ -207,13 +207,14 @@ def step_impl(context):
 @given('Uma especie documental foi cadastrada')
 def step_impl(context):
     br = context.browser
-    especie = EspecieDocumental.objects.filter(nome="Folha de Ponto").exists()
+    criarEspecieDocumental()
+    especie = EspecieDocumental.objects.filter(nome='Teste').exists()
     assert especie == True
 
 @when('Sou redirecionado para a pagina principal de especie documental')
 def step_impl(context):
     br = context.browser
-
+    br.get(context.base_url + '/especiesDocumentais_list/')
     # Checks success status
     assert br.current_url.endswith('/especiesDocumentais_list/')
 
@@ -223,7 +224,7 @@ def step_impl(context):
 
     # Checks success status
     assert br.current_url.endswith('/especiesDocumentais_list/')
-    assert br.find_element_by_id('nomeEspecie').text == "Folha de Ponto"
+    assert br.find_element_by_id('nomeEspecie').text == "Teste"
 
 
 @given('Estou na pagina principal do sistema')

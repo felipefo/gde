@@ -15,7 +15,7 @@ env:
 branches:
   only:
   - master
-  - desenvolvimento
+  - Desenvolvimento
 install:
  - pip install -r requirements.txt
 before_script:

@@ -1,2 +1,2 @@
 # gde
-Repositorio do projeto gde
+Repositorio do projeto gde.

@@ -1,21 +1,38 @@
 language: python
 python:
-  - "3.4"
-  
-before_install:
-  - wget http://repo1.maven.org/maven2/org/codehaus/sonar/runner/sonar-runner-dist/2.4/sonar-runner-dist-2.4.zip
-  - unzip sonar-runner-dist-2.4.zip
+- '3.3'
+jdk:
+- oraclejdk8
+addons:
+  apt:
+    packages:
+    - oracle-java8-installer
+  sonarqube: true
+env:
+  global:
+      - secure: "Oy8W0S88p8jvUDJE3t9Aac/2CI1l+S354eCNqhWhInKhfhOZepPADuQzy5qxfTrs/8DRxy5nylPLFk0nxHzpxHldr9UPBO4b7YYvd66Bi8lY8pmA62vsPjO1m+4u9JQJ3NCHEnttX2fwUU/IPcawNbM7Ne1j2OzJa4TvOF+zI1yHUfWJtmnxt1th8aXwf6GVeeXqPMh970MpTifnjHSxckGwmg5NSY6KoweQ6hBiXeDTMk/jVTWBBoYGZmr6vYjeETsmhzC2VyikQzWasbnjpxqO7A1fkK8j2d4qHF8J2sg3RW2LkGapPd4KzsAS1RvysyrO4cJg77ryUfXTJ7qnViqmxdAGpRyo4sbYMdtv4lcj4wVhLqF6pYSYA0QaRiEkpa2CImhUgu9GRmfHJ8bHFEMIWb6okR1s0r9dJs9fqRj+8KyvidOi/P/rb9/YvA2MwX30U+stpkJQ9WKZ1gb8GC/qh0jN1XDMRuURo174rnAkNJCFthnDOHktk8a9ksYqyQ3omVxOlSb4QRBou9dg/z/Aa/Wr551gb8dilO4Sol+EC6XScBeuCWL9Z035XxEl8O5HflI4LOLOa/ddKETEe5c7NF+DBFNoG7FdZBupDfsUBETe94IrvlThI0zHK+wjC6OgeqqHu93WwYNcrI6Ru+WtDGJk+IxOYUSpPvcZ7vA="
 
 branches:
   only:
-    - master
-    - desenvolvimento
+  - master
+  - desenvolvimento
 install:
-  - pip3 install -r requirements.txt
-script: 
-  - nosetests
+ - pip install -r requirements.txt
+before_script:
+ - export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+script:
+ - cd wsgi/myproject
+ - python manage.py behave
+ - cd ..
+ - cd ..
+ - sonar-scanner -Dsonar.login=$SONAR_TOKEN
 
-after_script:
- - ./sonar-runner-2.4/bin/sonar-runner
-notifications:
-  slack: leds:6Ks2e3Uh5lVamMPLC3GpOK2p
+deploy:
+  provider: openshift
+  user: projetogde@gmail.com
+  password:
+    secure: ooQhaP3R0tGZMR7eIfLDRvszcZRLeWwp9Jcf1xiY6AzssON3W1L+XXLt3ujj+lEb5yUCwMZP8xA8MpCt2bodfrAkARCyZZxNtLqyJmkv2tWDmCB9EKKnjl3x1o3+WGNrqOz06wqHkfow2CYS9Dkl7g+q3FYpD8ADRNHEpjfAtLqCMzUYSiAHudA/nmUU9yL2mDl24AYNfRnx929qTvLtpIObTO/OKxlJHGLop+sRPCpu6EwHRRT07JFGXFgm3lwdda+Uib0MeYGccwx+5+DVABhtHqZPvqJxkCJPf+oqCCKNxJ2V6EtrmFJtqfSY8Z1S7mZyDL+jshVPCmDQHm8ZtnqgTj6SENs7pqPrVj7B0aooID7rsqqs7WHaRISE483J64yMvrv7WlAoAnnibhuFsjEWQlfLAVNtiwtm6XfSsRu6886MkxyrJ2W93JxILya0+yv+1jKQyhWMIZjnafVL+vXHrwwiD4/y+A45+AbpLGb4nbul2ujRNBE/r311QLhUu/77tkR2W3H+6xO7iZRsYPH5IfdVSzycdnYP4QxIWXHkRdUA46lzOSrrjNNeVAS8T52ys69Ozw251E78ZcQ0ahZu7xr+tea2RJyCmqlqu9ePZjtmHuF/FtHn6Cs84RXxCo3FRb4nSHk+kNb6yir5hjxjZljxzgVoPiyn7Ew/hqc=
+  app: gdeifes
+  domain: projetogde
+  on:
+repo: LEDS/gde

@@ -24,6 +24,7 @@ script:
 - python manage.py behave
 - cd ..
 - cd ..
+- sonar-scanner -Dsonar.login=$SONAR_TOKEN
 deploy:
   provider: openshift
   user: projetogde@gmail.com

@@ -34,4 +34,3 @@ deploy:
   on:
     repo: LEDS/gde
     all_branches: true
-    skip_cleanup: true

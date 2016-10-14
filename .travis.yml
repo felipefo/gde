@@ -33,4 +33,4 @@ deploy:
   domain: projetogde
   on:
     repo: LEDS/gde
-    all_branches: true
+    branch: Desenvolvimento

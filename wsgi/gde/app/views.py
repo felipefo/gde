@@ -1,5 +1,4 @@
-from app.models import EspecieDocumental
-from app.models import Setor
+from app.models import EspecieDocumental, Setor, Campus
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -32,6 +31,7 @@ def cadastroUsuario(request):
 def home(request):
     return render(request, 'home.html')
 
+
 @csrf_protect
 @login_required
 def user_detail(request, pk):
@@ -53,13 +53,14 @@ def user_detail(request, pk):
         messages.success(request, 'Os dados foram atualizados com sucesso.')
     return render(request, 'editarUsuario.html', {'user': user})
 
+
 @csrf_protect
 @login_required
 def especieDocumental(request):
     if request.POST:
         nome = request.POST.get('nome', None)
         existeNoBanco = EspecieDocumental.objects.filter(nome=nome).exists()
-        if(nome!= ''):
+        if (nome != ''):
             if (existeNoBanco == True):
                 messages.add_message(request, messages.ERROR,
                                      'A Especie Documental ja existe. Por favor, tente novamente!')
@@ -68,11 +69,13 @@ def especieDocumental(request):
                 return HttpResponseRedirect(request.POST.get('next'))
     return render(request, 'especieDocumental.html', {})
 
+
 @csrf_protect
 @login_required
 def especiesDocumentais_list(request):
     especiesDocumentais = EspecieDocumental.objects.all
     return render(request, 'especiesDocumentais_list.html', {'especiesDocumentais': especiesDocumentais})
+
 
 @csrf_protect
 @login_required
@@ -80,6 +83,7 @@ def especieDocumental_remove(request, pk):
     especieDocumental = get_object_or_404(EspecieDocumental, pk=pk)
     especieDocumental.delete()
     return redirect('app.views.especiesDocumentais_list')
+
 
 @csrf_protect
 @login_required
@@ -94,7 +98,7 @@ def especieDocumental_edit(request, pk):
     if request.POST:
         nome = request.POST.get('nome', None)
         existeNoBanco = EspecieDocumental.objects.filter(nome=nome).exists()
-        if(nome!= ''):
+        if (nome != ''):
             if (existeNoBanco == True):
                 messages.add_message(request, messages.ERROR,
                                      'A Especie Documental ja existe. Por favor, tente novamente!')
@@ -106,23 +110,27 @@ def especieDocumental_edit(request, pk):
 
     return render(request, 'editarEspecieDocumental.html', {'especieDocumental': especieDocumental})
 
+
 @csrf_protect
 @login_required
 def setor(request):
     if request.POST:
-        nome = request.POST.get('nome',None)
-        sigla = request.POST.get('sigla',None)
-        funcao = request.POST.get('funcao',None)
-        setor = Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao)
-        setor.save()
-        return HttpResponseRedirect(request.POST.get('next'))
+        nome = request.POST.get('nome', None)
+        sigla = request.POST.get('sigla', None)
+        funcao = request.POST.get('funcao', None)
+        if ((nome != '') and (sigla != '')):
+            setor = Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao)
+            setor.save()
+            return HttpResponseRedirect(request.POST.get('next'))
     return render(request, 'cadastro_setor.html', {})
+
 
 @csrf_protect
 @login_required
 def setores_list(request):
     setores = Setor.objects.all
     return render(request, 'setores_list.html', {'setores': setores})
+
 
 @csrf_protect
 @login_required
@@ -133,11 +141,12 @@ def setor_edit(request, pk):
         sigla = request.POST.get('sigla', None)
         funcao = request.POST.get('funcao', None)
         setor.nome = nome
-        setor.sigla=sigla
-        setor.funcao=funcao
+        setor.sigla = sigla
+        setor.funcao = funcao
         setor.save()
         return HttpResponseRedirect(request.POST.get('next'))
     return render(request, 'editarSetor.html', {'setor': setor})
+
 
 @csrf_protect
 @login_required
@@ -147,3 +156,55 @@ def setor_remove(request, pk):
     return redirect('app.views.setores_list')
 
 
+@csrf_protect
+@login_required
+def campus(request):
+    if request.POST:
+        nome = request.POST.get('nome', None)
+        existeNoBanco = EspecieDocumental.objects.filter(nome=nome).exists()
+        if (nome != ''):
+            if (existeNoBanco == True):
+                messages.add_message(request, messages.ERROR,
+                                     'O campus ja existe. Por favor, tente novamente!')
+            else:
+                campus = Campus.objects.create(nome=nome)
+                campus.save()
+
+                return HttpResponseRedirect(request.POST.get('next'))
+    return render(request, 'campus.html', {})
+
+
+@csrf_protect
+@login_required
+def campi_list(request):
+    campi = Campus.objects.all
+    return render(request, 'campi_list.html', {'campi': campi})
+
+
+@csrf_protect
+@login_required
+def campus_edit(request, pk):
+    campus = get_object_or_404(Campus, pk=pk)
+
+    if request.POST:
+        nome = request.POST.get('nome', None)
+        existeNoBanco = Campus.objects.filter(nome=nome).exists()
+        if (nome != ''):
+            if (existeNoBanco == True):
+                messages.add_message(request, messages.ERROR,
+                                     'O campus ja existe. Por favor, tente novamente!')
+            else:
+                nome = request.POST.get('nome', None)
+                campus.nome = nome
+                campus.save()
+                return HttpResponseRedirect(request.POST.get('next'))
+
+    return render(request, 'editarCampus.html', {'campus': campus})
+
+
+@csrf_protect
+@login_required
+def campus_remove(request, pk):
+    campus = get_object_or_404(Campus, pk=pk)
+    campus.delete()
+    return redirect('app.views.campi_list')

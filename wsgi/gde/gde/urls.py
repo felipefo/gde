@@ -37,5 +37,9 @@ urlpatterns = [
                   url(r'^setores_list/$', setores_list),
                   url(r'^setor/(?P<pk>\d+)/edit/$', setor_edit, name='setor_edit'),
                   url(r'^setor/(?P<pk>\d+)/remove/$', setor_remove, name='setor_remove'),
+                  url(r'^campus/$', campus),
+                  url(r'^campi_list/$', campi_list),
+                  url(r'^campus/(?P<pk>\d+)/edit/$', campus_edit, name='campus_edit'),
+                  url(r'^campus/(?P<pk>\d+)/remove/$', campus_remove, name='campus_remove'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

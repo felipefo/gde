@@ -31,6 +31,19 @@
         </div>
     </a>
 
+    <a href="{% url 'app.views.campi_list'%}">
+        <div class="col s12 m4 offset-m2">
+          <div class="card blue-grey darken-4 hoverable">
+            <div class="card-content white-text center-align card-color">
+              <span class="card-title">Campus</span>
+            </div>
+            <div class="card-action center-align">
+              <a name="cadastrarCampus" class= "blue-grey-text text-lighten-4" href="{% url 'app.views.campus' %}">Cadastrar</a>
+              <a name="visualizarCampus" class= "blue-grey-text text-lighten-4" href="{% url 'app.views.campi_list' %}">Visualizar</a>
+            </div>
+          </div>
+        </div>
+    </a>
 </div>
 
 {% endblock content %}

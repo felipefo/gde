@@ -23,7 +23,7 @@ def step_impl(context):
     campus = Campus.objects.filter(nome='Vitória').exists()
     assert campus == False
     br.find_element_by_name('nome').send_keys('Vitória')
-    br.find_element_by_name('submit').click()
+    assert br.find_element_by_id('nome').get_attribute('value') == 'Vitória'
 
 @when('clico no botão enviar')
 def step_impl(context):
@@ -55,7 +55,6 @@ def step_impl(context):
 @then('nao conseguirei cadastrar o campus ate que eu preencha o campo nome')
 def step_impl(context):
     br = context.browser
-    # br.get_screenshot_as_file('/tmp/screenshot.png')
     # Checks success status
     assert br.current_url.endswith('/campus/')
     assert br.find_element_by_id('nome').text == ""
@@ -63,18 +62,19 @@ def step_impl(context):
 @given('informo um nome ja cadastrado no sistema')
 def step_impl(context):
     br = context.browser
-    br.get(context.base_url + '/especieDocumental')
+    br.get(context.base_url + '/campus')
     especie = Campus.objects.filter(nome='Vitória').exists()
     br.find_element_by_id('nome').send_keys('Vitória')
-    assert br.find_element_by_id('nome').text == 'Vitória'
     assert  especie == True
+    assert br.find_element_by_id('nome').get_attribute('value') == 'Vitória'
+
 
 @then ('recebo uma mensagem de erro informando que o nome ja existe')
 def step_impl(context):
     br = context.browser
-
-    assert br.current_url.endswith('/campus/')
+    br.get_screenshot_as_file('/tmp/screenshot.png')
     message = br.find_element_by_id('mensagem').text
+    assert br.current_url.endswith('/campus/')
     assert message == "O campus ja existe. Por favor, tente novamente!"
 
 @then('nao conseguirei cadastrar o campus ate que eu o preencha com um nome diferente')

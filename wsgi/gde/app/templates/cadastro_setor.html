@@ -18,6 +18,20 @@
                         <label for="nome">Sigla</label>
                         <input type="text" id="sigla" class="validate" name="sigla" required>
                     </div>
+                    <div class="input-field">
+                        <label for="nome">Sigla</label>
+                        <input type="text" id="funcao" class="validate" name="funcao" required>
+                    </div>
+
+                     <div class="input-field col s12">
+                         <select multiple>
+                             <option value="" disabled selected> Escolha uma atividade</option>
+                             {% for atividade in atividades %}
+                                <option value="{{atividade.id}}">{{atividade.nome}}</option>
+                             {% endfor %}
+                         </select>
+
+                     </div>
 
                     <div class="row">
                         <div class="input-field">

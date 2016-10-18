@@ -23,8 +23,10 @@ class Setor(models.Model):
 class Usuario(models.Model):
     user = models.ForeignKey(User)
 
+
 class Campus(models.Model):
     nome = models.CharField(max_length=30, null=True, blank=False, unique=True)
+    setores = models.ManyToManyField(Setor)
 
     def __str__(self):
         return self.nome

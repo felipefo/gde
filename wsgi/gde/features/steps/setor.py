@@ -27,3 +27,50 @@ def step_impl(context):
     # Checks success status
     assert br.current_url.endswith('/setor/')
     assert br.find_element_by_id('nome').text == ""
+
+#Scenario: Cadastrar novo setor
+@when('Informo um campus, nome, sigla, funcao, atividades  e historico')
+def step_impl(context):
+    br = context.browser
+
+    # Checks for Cross-Site Request Forgery protection input
+    assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
+
+    # Fill login form and submit it (valid version)
+    br.find_element_by_name('submit').click()
+
+@when('Não existir setor com mesmo nome e sigla já cadastrado para o campus escolhido')
+def step_impl(context):
+    br = context.browser
+
+    # Checks for Cross-Site Request Forgery protection input
+    assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
+
+    # Fill login form and submit it (valid version)
+    br.find_element_by_name('submit').click()
+
+@when('Submeto o cadastro de um novo setor')
+def step_impl(context):
+    br = context.browser
+
+    # Checks for Cross-Site Request Forgery protection input
+    assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
+
+    # Fill login form and submit it (valid version)
+    br.find_element_by_name('submit').click()
+
+@then('Sou redirecionado para a pagina principal de setor')
+def step_impl(context):
+    br = context.browser
+    # br.get_screenshot_as_file('/tmp/screenshot.png')
+    # Checks success status
+    assert br.current_url.endswith('/setor/')
+    assert br.find_element_by_id('nome').text == ""
+
+@then('O setor devera estar devidamente cadastrado.')
+def step_impl(context):
+    br = context.browser
+    # br.get_screenshot_as_file('/tmp/screenshot.png')
+    # Checks success status
+    assert br.current_url.endswith('/setor/')
+    assert br.find_element_by_id('nome').text == ""

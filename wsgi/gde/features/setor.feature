@@ -10,7 +10,7 @@ Feature: Funcinalidade Setor
 
  Scenario: Cadastrar novo setor
   Given Estou na pagina de cadastro de um setor
-   When Informo um nome, sigla e campus
+   When Informo um campus, nome, sigla, funcao, atividades  e historico
     And Não existir setor com mesmo nome e sigla já cadastrado para o campus escolhido
     And Submeto o cadastro de um novo setor
    Then Sou redirecionado para a pagina principal de setor

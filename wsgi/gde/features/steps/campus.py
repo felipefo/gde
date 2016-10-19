@@ -1,5 +1,6 @@
 from behave import given, when, then
 from app.models import Campus
+from test.factories.campus import CampusFactory
 
 
 @given('que eu estou na pagina de cadastrar campus')
@@ -82,3 +83,145 @@ def step_impl(context):
     br = context.browser
     # Checks success status
     assert br.current_url.endswith('/campus/')
+
+@given('Estou na pagina com a lista de campus')
+def step_impl(context):
+    br = context.browser
+    br.get(context.base_url + '/campi_list')
+    assert br.current_url.endswith('/campi_list/')
+
+@given('Possui um ou mais campus cadastrados')
+def step_impl(context):
+    br = context.browser
+    campusFactory(2)
+    qtdCampus = len(Campus.objects.all())
+    assert qtdCampus > 0
+
+def campusFactory(quantidade):
+    for index in range(quantidade):
+        nomeCampus = 'campus' + str(index)
+        campus = CampusFactory(nome=nomeCampus)
+        campus.save()
+
+@when('Seleciono o botao editar de um campus')
+def step_impl(context):
+        br = context.browser
+        br.get(context.base_url + '/campi_list')
+        br.find_element_by_name('editar').click()
+
+@when('Sou redirecionado para a pagina com seus dados do campus ja preenchidos')
+def step_impl(context):
+        br = context.browser
+        campus = Campus.objects.all()
+        br.get(context.base_url + '/campus/%d/edit' % campus[0].id)
+        assert br.current_url.endswith('/campus/%d/edit/' % campus[0].id)
+
+@then('Sou redirecionado para a pagina principal de campus')
+def step_impl(context):
+    br = context.browser
+
+    # Checks success status
+    assert br.current_url.endswith('/campi_list/')
+
+@when('Edito o campo campus e o deixo em branco')
+def step_impl(context):
+        br = context.browser
+        br.find_element_by_id('nome').clear()
+        assert br.find_element_by_id('nome').get_attribute('value') == ""
+
+@then('Nao conseguirei editar campus ate que preencha o campo nome')
+def step_impl(context):
+        br = context.browser
+    # br.get_screenshot_as_file('/tmp/screenshot.png')
+    # Checks success status
+        campus = Campus.objects.all()
+        assert br.current_url.endswith('/campus/%d/edit/' % campus[0].id)
+        assert br.find_element_by_id('nome').text == ""
+
+@when('Edito o nome do campus e coloco um nome que ja esta cadastrado')
+def step_impl(context):
+        br = context.browser
+        campi = Campus.objects.all()
+        assert  len(campi) > 0
+        nome = campi[0].nome
+        br.find_element_by_id('nome').clear()
+        br.find_element_by_id('nome').send_keys(nome)
+        assert br.find_element_by_id('nome').get_attribute('value') == nome
+
+@then ('Nao conseguirei salvar campus ate que eu a preencha com um nome diferente.')
+def step_impl(context):
+        br = context.browser
+
+@when('Nao altero o campus deixando com o nome ja preenchido')
+def step_impl(context):
+        br = context.browser
+        campi = Campus.objects.all()
+        assert br.find_element_by_id('nome').get_attribute('value') == campi[0].nome
+
+@then('Nao conseguirei salvar o campus ate que eu a preencha com um nome diferente.')
+def step_impl(context):
+        br = context.browser
+    # br.get_screenshot_as_file('/tmp/screenshot.png')
+    # Checks success status
+        campi = Campus.objects.all()
+        assert br.current_url.endswith('/campus/%d/edit/' % campi[0].id)
+        assert br.find_element_by_id('nome').text == ""
+
+@given('Um campus foi cadastrado')
+def step_impl(context):
+    br = context.browser
+    campusFactory(1)
+    campi = Campus.objects.all()
+    assert len(campi) > 0
+
+@when('Sou redirecionado para a pagina principal do campus')
+def step_impl(context):
+    br = context.browser
+    br.get(context.base_url + '/especiesDocumentais_list/')
+    # Checks success status
+    assert br.current_url.endswith('/especiesDocumentais_list/')
+
+@then('O campus devera aparecer na lista.')
+def step_impl(context):
+    br = context.browser
+
+    # Checks success status
+    assert br.current_url.endswith('/especiesDocumentais_list/')
+    assert br.find_element_by_id('nomeEspecie').text == "Teste"
+
+
+@given('Estou na pagina principal do sistema')
+def step_impl(context):
+    br = context.browser
+    br.get(context.base_url + '/home')
+    # Checks success status
+    assert br.current_url.endswith('/home/')
+
+@when('clico no botao visualizar campus')
+def step_impl(context):
+    br = context.browser
+    br.find_element_by_name('visualizarCampus').click()
+    assert br.current_url.endswith('/campi_list/')
+
+#Scenario: Excluir Especie documental
+@given('que existem campi cadastrados')
+def step_impl(context):
+        br = context.browser
+        campusFactory(3)
+        campus = Campus.objects.all()
+        assert len(campus) == 3
+        assert br.current_url.endswith('/campi_list/')
+
+
+@when('clico no botao excluir')
+def step_impl(context):
+    br = context.browser
+    br.find_element_by_name('excluir').click()
+    assert br.current_url.endswith('/campi_list/')
+
+@then('o campus deixara de existir.')
+def step_impl(context):
+        br = context.browser
+
+        br.refresh()
+        assert Campus.objects.count() == 2

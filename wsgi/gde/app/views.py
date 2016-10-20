@@ -6,7 +6,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
-from .forms import FormAtividade,FormHistorico,FormSetor
+from .forms import FormAtividade, FormHistorico, FormSetor
+
 
 @csrf_protect
 def cadastroUsuario(request):
@@ -110,6 +111,7 @@ def especieDocumental_edit(request, pk):
 
     return render(request, 'editarEspecieDocumental.html', {'especieDocumental': especieDocumental})
 
+
 @csrf_protect
 @login_required()
 def cadastrar_atividade(request):
@@ -126,6 +128,7 @@ def cadastrar_atividade(request):
 
     return render(request, 'cadastro_atividade.html', {'form': form})
 
+
 @csrf_protect
 @login_required()
 def cadastrar_historico(request):
@@ -140,11 +143,13 @@ def cadastrar_historico(request):
 
     return render(request, 'cadastro_historico.html', {'form': form})
 
+
 @csrf_protect
 @login_required
 def setores_list(request):
     setores = Setor.objects.all
     return render(request, 'setores_list.html', {'setores': setores})
+
 
 @csrf_protect
 @login_required()
@@ -157,19 +162,20 @@ def cadastrar_setor(request):
             funcao = form.cleaned_data['funcao']
             atividade = form.cleaned_data['atividade']
             historico = form.cleaned_data['historico']
-            Setor.objects.create(nome=nome,sigla=sigla,funcao=funcao,atividade=atividade,historico=historico)
+            Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao, atividade=atividade, historico=historico)
             return HttpResponseRedirect(request.POST.get('next'))
     else:
         form = FormSetor()
 
     return render(request, 'cadastro_setor.html', {'form': form})
 
+
 @csrf_protect
 @login_required
 def setor_edit(request, pk):
     setor = get_object_or_404(Setor, pk=pk)
     if request.POST:
-        form = FormSetor(request.POST,instance=setor)
+        form = FormSetor(request.POST, instance=setor)
         if form.is_valid():
             setor = form.save(commit=False)
             setor.nome = form.cleaned_data['nome']
@@ -178,10 +184,10 @@ def setor_edit(request, pk):
             setor.atividade = form.cleaned_data['atividade']
             setor.historico = form.cleaned_data['historico']
             setor.save()
-            return redirect(HttpResponseRedirect(request.POST.get('next')))
+            return HttpResponseRedirect(request.POST.get('next'))
     else:
         form = FormSetor(instance=setor)
-    return render(request, 'editar_setor.html', {'form': form})
+    return render(request, 'editar_setor.html', {'form': form, 'setor': setor})
 
 
 @csrf_protect

@@ -1,4 +1,4 @@
-from app.models import EspecieDocumental, Setor, Campus
+from app.models import EspecieDocumental, Setor, Campus, Atividade
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -6,6 +6,28 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
+from .forms import FormAtividade
+
+
+def cadastrar_atividade(request):
+    # if this is a POST request we need to process the form data
+    if request.method == 'POST':
+        # create a form instance and populate it with data from the request:
+        form = FormAtividade(request.POST)
+        # check whether it's valid:
+        if form.is_valid():
+            # process the data in form.cleaned_data as required
+            # ...
+            # redirect to a new URL:
+            descricao = form.cleaned_data['descricao']
+            Atividade.objects.create(descricao=descricao)
+            return HttpResponseRedirect('/home/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = FormAtividade()
+
+    return render(request, 'cadastro_atividade.html', {'form': form})
 
 
 @csrf_protect

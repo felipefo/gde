@@ -177,25 +177,18 @@ def step_impl(context):
 @when('Sou redirecionado para a pagina principal do campus')
 def step_impl(context):
     br = context.browser
-    br.get(context.base_url + '/especiesDocumentais_list/')
+    br.get(context.base_url + '/campi_list/')
     # Checks success status
-    assert br.current_url.endswith('/especiesDocumentais_list/')
+    assert br.current_url.endswith('/campi_list/')
 
 @then('O campus devera aparecer na lista.')
 def step_impl(context):
     br = context.browser
 
     # Checks success status
-    assert br.current_url.endswith('/especiesDocumentais_list/')
-    assert br.find_element_by_id('nomeEspecie').text == "Teste"
+    assert br.current_url.endswith('/campi_list/')
+    assert br.find_element_by_id('nomeCampus').text == "campus0"
 
-
-@given('Estou na pagina principal do sistema')
-def step_impl(context):
-    br = context.browser
-    br.get(context.base_url + '/home')
-    # Checks success status
-    assert br.current_url.endswith('/home/')
 
 @when('clico no botao visualizar campus')
 def step_impl(context):
@@ -203,19 +196,20 @@ def step_impl(context):
     br.find_element_by_name('visualizarCampus').click()
     assert br.current_url.endswith('/campi_list/')
 
-#Scenario: Excluir Especie documental
 @given('que existem campi cadastrados')
 def step_impl(context):
         br = context.browser
         campusFactory(3)
+        br.refresh()
         campus = Campus.objects.all()
         assert len(campus) == 3
         assert br.current_url.endswith('/campi_list/')
 
 
-@when('clico no botao excluir')
+@when('clico no botao excluir.')
 def step_impl(context):
     br = context.browser
+    br.get_screenshot_as_file('/tmp/screenshot.png')
     br.find_element_by_name('excluir').click()
     assert br.current_url.endswith('/campi_list/')
 
@@ -225,3 +219,19 @@ def step_impl(context):
 
         br.refresh()
         assert Campus.objects.count() == 2
+
+@given('Possui um ou mais campi cadastrados')
+def step_impl(context):
+    campusFactory(2)
+    br = context.browser
+    qtdEspecie = len(Campus.objects.all())
+    assert qtdEspecie > 0
+
+
+
+@then('Sou redirecionado para a pagina principal do campus')
+def step_impl(context):
+    br = context.browser
+
+    # Checks success status
+    assert br.current_url.endswith('/campi_list/')

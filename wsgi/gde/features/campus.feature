@@ -61,12 +61,12 @@ Feature: Funcionalidade Campus
   Then  O campus devera aparecer na lista.
 
   Given Estou na pagina principal do sistema
-    And Possui uma ou mais campus cadastrados
+    And Possui um ou mais campi cadastrados
   When  clico no botao visualizar campus
   Then  Sou redirecionado para a pagina principal do campus
 
   Scenario: Excluir campus
    Given Estou na pagina com a lista de campus
      And que existem campi cadastrados
-    When clico no botao excluir
+    When clico no botao excluir.
     Then o campus deixara de existir.

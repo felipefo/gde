@@ -33,7 +33,7 @@ urlpatterns = [
                   url(r'^especieDocumental/(?P<pk>\d+)/edit/$', especieDocumental_edit, name='especieDocumental_edit'),
                   url(r'^especiesDocumentais_list/$', especiesDocumentais_list),
                   url(r'^especieDocumental/(?P<pk>\d+)/remove/$', especieDocumental_remove, name='especieDocumental_remove'),
-                  url(r'^setor/$', setor),
+                  url(r'^setor/$', cadastrar_setor),
                   url(r'^setores_list/$', setores_list),
                   url(r'^setor/(?P<pk>\d+)/edit/$', setor_edit, name='setor_edit'),
                   url(r'^setor/(?P<pk>\d+)/remove/$', setor_remove, name='setor_remove'),
@@ -42,5 +42,6 @@ urlpatterns = [
                   url(r'^campus/(?P<pk>\d+)/edit/$', campus_edit, name='campus_edit'),
                   url(r'^campus/(?P<pk>\d+)/remove/$', campus_remove, name='campus_remove'),
                   url(r'^atividade/cadastrar/$', cadastrar_atividade),
+                  url(r'^historico/cadastrar/$', cadastrar_historico),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

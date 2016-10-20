@@ -5,42 +5,18 @@
     <div id="content-container" class="container p-none">
         <div class="lgn-container col-lg-8">
             <form id="setor-form" method="post"
-                  action="{% url 'app.views.setor' %}">
+                  action="{% url 'app.views.cadastrar_setor' %}">
                 {% csrf_token %}
                 <h4>Cadastro de Setor</h4>
                 <br/><br/>
-
+                {{form.as_p}}
+                <br/><br/>
+                <div class="row">
                     <div class="input-field">
-                        <label for="nome">Nome</label>
-                        <input type="text" id="nome" class="validate" name="nome" required>
+                        <button class="btn right orange darken-4" type="submit" name="submit">Cadastrar</button>
+                        <input type="hidden" name="next" value="/setores_list" />
                     </div>
-                    <div class="input-field">
-                        <label for="nome">Sigla</label>
-                        <input type="text" id="sigla" class="validate" name="sigla" required>
-                    </div>
-                    <div class="input-field">
-                        <label for="nome">Sigla</label>
-                        <input type="text" id="funcao" class="validate" name="funcao" required>
-                    </div>
-
-                     <div class="input-field col s12">
-                         <select multiple>
-                             <option value="" disabled selected> Escolha uma atividade</option>
-                             {% for atividade in atividades %}
-                                <option value="{{atividade.id}}">{{atividade.nome}}</option>
-                             {% endfor %}
-                         </select>
-
-                     </div>
-
-                    <div class="row">
-                        <div class="input-field">
-                            <button class="btn right orange darken-4" type="submit" name="submit">Cadastrar</button>
-                            <input type="hidden" name="next" value="/setores_list" />
-                        </div>
-                    </div>
-
-
+                </div>
             </form>
         </div>
     </div>

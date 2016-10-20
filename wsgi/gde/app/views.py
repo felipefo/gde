@@ -1,4 +1,4 @@
-from app.models import EspecieDocumental, Setor, Campus, Atividade
+from app.models import EspecieDocumental, Setor, Campus, Atividade, Historico
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -6,29 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
-from .forms import FormAtividade
-
-
-def cadastrar_atividade(request):
-    # if this is a POST request we need to process the form data
-    if request.method == 'POST':
-        # create a form instance and populate it with data from the request:
-        form = FormAtividade(request.POST)
-        # check whether it's valid:
-        if form.is_valid():
-            # process the data in form.cleaned_data as required
-            # ...
-            # redirect to a new URL:
-            descricao = form.cleaned_data['descricao']
-            Atividade.objects.create(descricao=descricao)
-            return HttpResponseRedirect('/home/')
-
-    # if a GET (or any other method) we'll create a blank form
-    else:
-        form = FormAtividade()
-
-    return render(request, 'cadastro_atividade.html', {'form': form})
-
+from .forms import FormAtividade,FormHistorico,FormSetor
 
 @csrf_protect
 def cadastroUsuario(request):
@@ -132,20 +110,35 @@ def especieDocumental_edit(request, pk):
 
     return render(request, 'editarEspecieDocumental.html', {'especieDocumental': especieDocumental})
 
+@csrf_protect
+@login_required()
+def cadastrar_atividade(request):
+    if request.method == 'POST':
+        form = FormAtividade(request.POST)
+        if form.is_valid():
+            descricao = form.cleaned_data['descricao']
+            Atividade.objects.create(descricao=descricao)
+            return HttpResponseRedirect('/home/')
+
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        form = FormAtividade()
+
+    return render(request, 'cadastro_atividade.html', {'form': form})
 
 @csrf_protect
-@login_required
-def setor(request):
-    if request.POST:
-        nome = request.POST.get('nome', None)
-        sigla = request.POST.get('sigla', None)
-        funcao = request.POST.get('funcao', None)
-        if ((nome != '') and (sigla != '')):
-            setor = Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao)
-            setor.save()
-            return HttpResponseRedirect(request.POST.get('next'))
-    return render(request, 'cadastro_setor.html', {})
+@login_required()
+def cadastrar_historico(request):
+    if request.method == 'POST':
+        form = FormHistorico(request.POST)
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            Historico.objects.create(nome=nome)
+            return HttpResponseRedirect('/home/')
+    else:
+        form = FormHistorico()
 
+    return render(request, 'cadastro_historico.html', {'form': form})
 
 @csrf_protect
 @login_required
@@ -153,21 +146,42 @@ def setores_list(request):
     setores = Setor.objects.all
     return render(request, 'setores_list.html', {'setores': setores})
 
+@csrf_protect
+@login_required()
+def cadastrar_setor(request):
+    if request.method == 'POST':
+        form = FormSetor(request.POST)
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            sigla = form.cleaned_data['sigla']
+            funcao = form.cleaned_data['funcao']
+            atividade = form.cleaned_data['atividade']
+            historico = form.cleaned_data['historico']
+            Setor.objects.create(nome=nome,sigla=sigla,funcao=funcao,atividade=atividade,historico=historico)
+            return HttpResponseRedirect(request.POST.get('next'))
+    else:
+        form = FormSetor()
+
+    return render(request, 'cadastro_setor.html', {'form': form})
 
 @csrf_protect
 @login_required
 def setor_edit(request, pk):
     setor = get_object_or_404(Setor, pk=pk)
     if request.POST:
-        nome = request.POST.get('nome', None)
-        sigla = request.POST.get('sigla', None)
-        funcao = request.POST.get('funcao', None)
-        setor.nome = nome
-        setor.sigla = sigla
-        setor.funcao = funcao
-        setor.save()
-        return HttpResponseRedirect(request.POST.get('next'))
-    return render(request, 'editarSetor.html', {'setor': setor})
+        form = FormSetor(request.POST,instance=setor)
+        if form.is_valid():
+            setor = form.save(commit=False)
+            setor.nome = form.cleaned_data['nome']
+            setor.sigla = form.cleaned_data['sigla']
+            setor.funcao = form.cleaned_data['funcao']
+            setor.atividade = form.cleaned_data['atividade']
+            setor.historico = form.cleaned_data['historico']
+            setor.save()
+            return redirect(HttpResponseRedirect(request.POST.get('next')))
+    else:
+        form = FormSetor(instance=setor)
+    return render(request, 'editar_setor.html', {'form': form})
 
 
 @csrf_protect

@@ -8,12 +8,6 @@ class FormAtividade(ModelForm):
         fields = ['descricao']
 
 
-class FormHistorico(ModelForm):
-    class Meta:
-        model = Historico
-        fields = ['nome']
-
-
 class FormSetor(ModelForm):
     class Meta:
         model = Setor

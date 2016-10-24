@@ -4,11 +4,18 @@
 {% block content %}
     <div id="content-container" class="container p-none">
         <div class="lgn-container col-lg-8">
+            <h4 class="center">Cadastro de Setor</h4>
+            <br/>
             <form id="setor-form" method="post"
                   action="{% url 'app.views.cadastrar_setor' %}">
                 {% csrf_token %}
-                <h4>Cadastro de Setor</h4>
-                <br/><br/>
+                <br/>
+                <!--{{form.nome.label}}-->
+                <!--{{form.nome}}-->
+                <!--{{form.sigla.label}}-->
+                <!--{{form.sigla}}-->
+                <!--{{form.funcao.label}}-->
+                <!--{{form.funcao}}-->
                 {{form.as_p}}
                 <br/><br/>
                 <div class="row">

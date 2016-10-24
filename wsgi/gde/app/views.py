@@ -1,4 +1,4 @@
-from app.models import EspecieDocumental, Setor, Campus, Atividade, Historico
+from app.models import EspecieDocumental, Setor, Campus, Atividade
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
-from .forms import FormAtividade, FormHistorico, FormSetor
+from .forms import FormAtividade, FormSetor
 
 
 @csrf_protect
@@ -127,21 +127,6 @@ def cadastrar_atividade(request):
         form = FormAtividade()
 
     return render(request, 'cadastro_atividade.html', {'form': form})
-
-
-@csrf_protect
-@login_required()
-def cadastrar_historico(request):
-    if request.method == 'POST':
-        form = FormHistorico(request.POST)
-        if form.is_valid():
-            nome = form.cleaned_data['nome']
-            Historico.objects.create(nome=nome)
-            return HttpResponseRedirect('/home/')
-    else:
-        form = FormHistorico()
-
-    return render(request, 'cadastro_historico.html', {'form': form})
 
 
 @csrf_protect

@@ -27,7 +27,7 @@ class Setor(models.Model):
     sigla = models.CharField(max_length=20, null=True, blank=False, unique=True)
     funcao = models.CharField(max_length=250, null=True, blank=False, unique=True)
     atividade = models.ForeignKey(Atividade,null=True)
-    historico = models.CharField(max_length=250, null=True, blank=False, unique=True)
+    historico = models.CharField(max_length=250, null=True, blank=True, unique=True)
 
     def __str__(self):
         return self.nome

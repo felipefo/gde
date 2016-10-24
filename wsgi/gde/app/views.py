@@ -163,6 +163,7 @@ def setor_edit(request, pk):
         form = FormSetor(request.POST, instance=setor)
         if form.is_valid():
             setor = form.save(commit=False)
+            setor.campus = form.cleaned_data['campus']
             setor.nome = form.cleaned_data['nome']
             setor.sigla = form.cleaned_data['sigla']
             setor.funcao = form.cleaned_data['funcao']

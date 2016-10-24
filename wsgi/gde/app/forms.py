@@ -11,4 +11,4 @@ class FormAtividade(ModelForm):
 class FormSetor(ModelForm):
     class Meta:
         model = Setor
-        fields = ['nome', 'sigla', 'funcao', 'atividade', 'historico']
+        fields = ['campus','nome', 'sigla', 'funcao', 'atividade', 'historico']

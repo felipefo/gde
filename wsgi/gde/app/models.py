@@ -15,22 +15,22 @@ class Campus(models.Model):
     def __str__(self):
         return self.nome
 
-class Atividade(models.Model):
-    descricao = models.TextField(null=True, blank=False, unique=True)
-
-    def __str__(self):
-        return self.descricao
-
 class Setor(models.Model):
     campus = models.ForeignKey(Campus, null=True)
     nome = models.CharField(max_length=20, null=True, blank=False, unique=True)
     sigla = models.CharField(max_length=20, null=True, blank=False, unique=True)
     funcao = models.CharField(max_length=250, null=True, blank=False, unique=True)
-    atividade = models.ForeignKey(Atividade,null=True)
     historico = models.CharField(max_length=250, null=True, blank=True, unique=True)
 
     def __str__(self):
         return self.nome
+
+class Atividade(models.Model):
+    setor = models.ForeignKey(Setor, null=True)
+    descricao = models.TextField(null=True, blank=False, unique=True)
+
+    def __str__(self):
+        return self.descricao
 
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)

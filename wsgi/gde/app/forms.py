@@ -5,10 +5,10 @@ from .models import *
 class FormAtividade(ModelForm):
     class Meta:
         model = Atividade
-        fields = ['descricao']
+        fields = ['setor','descricao']
 
 
 class FormSetor(ModelForm):
     class Meta:
         model = Setor
-        fields = ['campus','nome', 'sigla', 'funcao', 'atividade', 'historico']
+        fields = ['campus','nome', 'sigla', 'funcao', 'historico']

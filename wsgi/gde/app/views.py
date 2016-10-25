@@ -126,9 +126,9 @@ def cadastrar_atividade(request):
     if request.method == 'POST':
         form = FormAtividade(request.POST)
         if form.is_valid():
-            descricao = form.cleaned_data['setor']
+            setor = form.cleaned_data['setor']
             descricao = form.cleaned_data['descricao']
-            Atividade.objects.create(descricao=descricao)
+            Atividade.objects.create(setor=setor,descricao=descricao)
             return HttpResponseRedirect('/atividades_list/')
 
     # if a GET (or any other method) we'll create a blank form

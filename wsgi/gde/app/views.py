@@ -196,7 +196,6 @@ def setor_edit(request, pk):
             setor.nome = form.cleaned_data['nome']
             setor.sigla = form.cleaned_data['sigla']
             setor.funcao = form.cleaned_data['funcao']
-            setor.atividade = form.cleaned_data['atividade']
             setor.historico = form.cleaned_data['historico']
             setor.save()
             return HttpResponseRedirect(request.POST.get('next'))

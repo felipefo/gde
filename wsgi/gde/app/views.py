@@ -7,6 +7,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
 from .forms import FormAtividade, FormSetor
+from django.views.generic.list import ListView
+from django.utils import timezone
+
 
 
 @csrf_protect
@@ -111,6 +114,11 @@ def especieDocumental_edit(request, pk):
 
     return render(request, 'editarEspecieDocumental.html', {'especieDocumental': especieDocumental})
 
+@csrf_protect
+@login_required
+def atividades_list(request):
+    atividades = Atividade.objects.all
+    return render(request, 'atividades_list.html', {'atividades': atividades})
 
 @csrf_protect
 @login_required()
@@ -118,18 +126,38 @@ def atividade(request):
     if request.method == 'POST':
         form = FormAtividade(request.POST)
         if form.is_valid():
-            nome_setor = form.cleaned_data['setor']
+            setor = form.cleaned_data['setor']
             descricao = form.cleaned_data['descricao']
-            setor = Setor.objects.get(nome=nome_setor)
-            Atividade.objects.create(descricao=descricao, setor=setor)
-            return HttpResponseRedirect('/home/')
-
+            Atividade.objects.create(setor=setor,descricao=descricao)
+            return HttpResponseRedirect('/atividades_list/')
     # if a GET (or any other method) we'll create a blank form
     else:
         form = FormAtividade()
 
     return render(request, 'atividade.html', {'form': form})
 
+@csrf_protect
+@login_required
+def atividade_edit(request, pk):
+    atividade = get_object_or_404(Atividade, pk=pk)
+    if request.POST:
+        form = FormAtividade(request.POST, instance=atividade)
+        if form.is_valid():
+            atividade = form.save(commit=False)
+            atividade.setor = form.cleaned_data['setor']
+            atividade.descricao = form.cleaned_data['descricao']
+            atividade.save()
+            return HttpResponseRedirect(request.POST.get('next'))
+    else:
+        form = FormAtividade(instance=atividade)
+    return render(request, 'editar_atividade.html', {'form': form, 'atividade': atividade})
+
+@csrf_protect
+@login_required
+def atividade_remove(request, pk):
+    atividade = get_object_or_404(Atividade, pk=pk)
+    atividade.delete()
+    return redirect('app.views.atividades_list')
 
 @csrf_protect
 @login_required
@@ -147,9 +175,8 @@ def cadastrar_setor(request):
             nome = form.cleaned_data['nome']
             sigla = form.cleaned_data['sigla']
             funcao = form.cleaned_data['funcao']
-            atividade = form.cleaned_data['atividade']
             historico = form.cleaned_data['historico']
-            Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao, atividade=atividade, historico=historico)
+            Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao, historico=historico)
             return HttpResponseRedirect(request.POST.get('next'))
     else:
         form = FormSetor()

@@ -41,5 +41,8 @@ urlpatterns = [
                   url(r'^campus/(?P<pk>\d+)/edit/$', campus_edit, name='campus_edit'),
                   url(r'^campus/(?P<pk>\d+)/remove/$', campus_remove, name='campus_remove'),
                   url(r'^atividade/$', atividade, name='atividade'),
+                  url(r'^atividades_list/$', atividades_list, name='atividades_list'),
+                  url(r'^atividade/(?P<pk>\d+)/edit/$', atividade_edit, name='atividade_edit'),
+                  url(r'^atividade/(?P<pk>\d+)/remove/$', atividade_remove, name='atividade_remove'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

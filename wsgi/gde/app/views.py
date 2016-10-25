@@ -114,20 +114,21 @@ def especieDocumental_edit(request, pk):
 
 @csrf_protect
 @login_required()
-def cadastrar_atividade(request):
+def atividade(request):
     if request.method == 'POST':
         form = FormAtividade(request.POST)
         if form.is_valid():
-            descricao = form.cleaned_data['setor']
+            nome_setor = form.cleaned_data['setor']
             descricao = form.cleaned_data['descricao']
-            Atividade.objects.create(descricao=descricao)
+            setor = Setor.objects.get(nome=nome_setor)
+            Atividade.objects.create(descricao=descricao, setor=setor)
             return HttpResponseRedirect('/home/')
 
     # if a GET (or any other method) we'll create a blank form
     else:
         form = FormAtividade()
 
-    return render(request, 'cadastro_atividade.html', {'form': form})
+    return render(request, 'atividade.html', {'form': form})
 
 
 @csrf_protect

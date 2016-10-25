@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Editar Atividade{% endblock %}
+
+{% block content %}
+    <div id="content-container" class="container p-none">
+        <div class="lgn-container col-lg-8">
+            <form id="setor-edit" method="post"
+                  action="{% url 'app.views.editar_atividade' pk=atividade.pk %}">
+                {% csrf_token %}
+
+                <br/><br/>
+                {{form.as_p}}
+                <br/><br/>
+
+
+               <div class="input-field col s12">
+                    <button class="btn right orange darken-4" type="submit">Salvar</button>
+                    <input type="hidden" name="next" value="/setores_list" />
+                </div>
+
+            </form>
+        </div>
+    </div>
+{% endblock content %}

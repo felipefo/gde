@@ -217,7 +217,7 @@ def setor_remove(request, pk):
 def campus(request):
     if request.POST:
         nome = request.POST.get('nome', None)
-        existeNoBanco = EspecieDocumental.objects.filter(nome=nome).exists()
+        existeNoBanco = Campus.objects.filter(nome=nome).exists()
         if (nome != ''):
             if (existeNoBanco == True):
                 messages.add_message(request, messages.ERROR,

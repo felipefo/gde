@@ -128,7 +128,7 @@ def step_impl(context):
     # Checks success status
         assert br.current_url.endswith('/especiesDocumentais_list/')
 
-@given('Possue uma ou mais especies documentais cadastradas')
+@given('Possui uma ou mais especies documentais cadastradas')
 def step_impl(context):
         especieDocumentalFactory(2)
         br = context.browser
@@ -192,11 +192,12 @@ def step_impl(context):
 @when('Edito o nome e coloco um nome que ja esta cadastrado')
 def step_impl(context):
         br = context.browser
-        especie = EspecieDocumental.objects.filter(nome='especie1').exists()
-        assert  especie == True
+        especies = EspecieDocumental.objects.all()
+        assert  len(especies) > 0
+        nome = especies[0].nome
         br.find_element_by_id('nome').clear()
-        br.find_element_by_id('nome').send_keys('especie1')
-        assert br.find_element_by_id('nome').get_attribute('value') == 'especie1'
+        br.find_element_by_id('nome').send_keys(nome)
+        assert br.find_element_by_id('nome').get_attribute('value') == nome
 
 
 @then('Nao conseguirei salvar a especie ate que eu a preencha com um nome diferente.')

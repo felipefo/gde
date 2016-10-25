@@ -117,7 +117,7 @@ def especieDocumental_edit(request, pk):
 @csrf_protect
 @login_required
 def atividades_list(request):
-    atividades = Atividade.objects.all
+    atividades = Atividade.objects.order_by('setor')
     return render(request, 'atividades_list.html', {'atividades': atividades})
 
 @csrf_protect

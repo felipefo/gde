@@ -24,20 +24,14 @@ def step_impl(context):
     campus = Campus.objects.filter(nome='Vitória').exists()
     assert campus == False
     br.find_element_by_name('nome').send_keys('Vitória')
-    assert br.find_element_by_id('nome').get_attribute('value') == 'Vitória'
+    assert br.find_element_by_id('id_nome').get_attribute('value') == 'Vitória'
 
 @when('clico no botão enviar')
 def step_impl(context):
         br = context.browser
         assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
         br.find_element_by_name('submit').click()
-
-@then('sou redirecionado para a pagina com a lista de campi cadastrados')
-def step_impl(context):
-    br = context.browser
-
-    # Checks success status
-    assert br.current_url.endswith('/campi_list/')
+        #br.get_screenshot_as_file('/tmp/screenshot.png')
 
 @then('o campus deve estar devidamento cadastrado')
 def step_impl(context):
@@ -50,33 +44,51 @@ def step_impl(context):
 @given('preencho o nome do campus em branco')
 def step_impl(context):
         br = context.browser
-        br.find_element_by_id('nome').clear()
-        assert br.find_element_by_id('nome').get_attribute('value') == ""
+        br.find_element_by_id('id_nome').clear()
+        assert br.find_element_by_id('id_nome').get_attribute('value') == ""
 
 @then('nao conseguirei cadastrar o campus ate que eu preencha o campo nome')
 def step_impl(context):
     br = context.browser
     # Checks success status
     assert br.current_url.endswith('/campus/')
-    assert br.find_element_by_id('nome').text == ""
+    assert br.find_element_by_id('id_nome').text == ""
 
 @given('informo um nome ja cadastrado no sistema')
 def step_impl(context):
     br = context.browser
     br.get(context.base_url + '/campus')
     especie = Campus.objects.filter(nome='Vitória').exists()
-    br.find_element_by_id('nome').send_keys('Vitória')
+    br.find_element_by_id('id_nome').send_keys('Vitória')
     assert  especie == True
-    assert br.find_element_by_id('nome').get_attribute('value') == 'Vitória'
+    assert br.find_element_by_id('id_nome').get_attribute('value') == 'Vitória'
 
 
 @then ('recebo uma mensagem de erro informando que o nome ja existe')
 def step_impl(context):
     br = context.browser
-    br.get_screenshot_as_file('/tmp/screenshot.png')
-    message = br.find_element_by_id('mensagem').text
+    #br.get_screenshot_as_file('/tmp/screenshot.png')
+    message = br.find_element_by_class_name('errorlist').text
+    campus = Campus.objects.all()
+    assert br.current_url.endswith('/campus/%d/edit/' % campus[0].id)
+    assert message == "Campus com este Nome já existe."
+
+@then ('recebo uma mensagem de erro informando que este nome ja existe')
+def step_impl(context):
+    br = context.browser
+    #br.get_screenshot_as_file('/tmp/screenshot.png')
+    message = br.find_element_by_class_name('errorlist').text
     assert br.current_url.endswith('/campus/')
-    assert message == "O campus ja existe. Por favor, tente novamente!"
+    assert message == "Campus com este Nome já existe."
+
+@then ('recebo uma mensagem de erro informando que o campo e obrigatorio')
+def step_impl(context):
+    br = context.browser
+    #br.get_screenshot_as_file('/tmp/screenshot.png')
+    message = br.find_element_by_class_name('errorlist').text
+    campus = Campus.objects.all()
+    assert br.current_url.endswith('/campus/%d/edit/' % campus[0].id)
+    assert message == "Este campo é obrigatório."
 
 @then('nao conseguirei cadastrar o campus ate que eu o preencha com um nome diferente')
 def step_impl(context):
@@ -103,31 +115,24 @@ def campusFactory(quantidade):
         campus = CampusFactory(nome=nomeCampus)
         campus.save()
 
-@when('Seleciono o botao editar de um campus')
+@given('Seleciono o botao editar de um campus')
 def step_impl(context):
         br = context.browser
         br.get(context.base_url + '/campi_list')
         br.find_element_by_name('editar').click()
 
-@when('Sou redirecionado para a pagina com seus dados do campus ja preenchidos')
+@given('Sou redirecionado para a pagina com seus dados do campus ja preenchidos')
 def step_impl(context):
         br = context.browser
         campus = Campus.objects.all()
         br.get(context.base_url + '/campus/%d/edit' % campus[0].id)
         assert br.current_url.endswith('/campus/%d/edit/' % campus[0].id)
 
-@then('Sou redirecionado para a pagina principal de campus')
-def step_impl(context):
-    br = context.browser
-
-    # Checks success status
-    assert br.current_url.endswith('/campi_list/')
-
-@when('Edito o campo campus e o deixo em branco')
+@given('Edito o campo campus e o deixo em branco')
 def step_impl(context):
         br = context.browser
-        br.find_element_by_id('nome').clear()
-        assert br.find_element_by_id('nome').get_attribute('value') == ""
+        br.find_element_by_id('id_nome').clear()
+        assert br.find_element_by_id('id_nome').get_attribute('value') == ""
 
 @then('Nao conseguirei editar campus ate que preencha o campo nome')
 def step_impl(context):
@@ -136,36 +141,32 @@ def step_impl(context):
     # Checks success status
         campus = Campus.objects.all()
         assert br.current_url.endswith('/campus/%d/edit/' % campus[0].id)
-        assert br.find_element_by_id('nome').text == ""
+        assert br.find_element_by_id('id_nome').text == ""
 
-@when('Edito o nome do campus e coloco um nome que ja esta cadastrado')
+@given('Edito o nome do campus e coloco um nome que ja esta cadastrado')
 def step_impl(context):
         br = context.browser
         campi = Campus.objects.all()
-        assert  len(campi) > 0
-        nome = campi[0].nome
-        br.find_element_by_id('nome').clear()
-        br.find_element_by_id('nome').send_keys(nome)
-        assert br.find_element_by_id('nome').get_attribute('value') == nome
+        assert  len(campi) > 1
+        nome = campi[1].nome
+        br.find_element_by_id('id_nome').clear()
+        br.find_element_by_id('id_nome').send_keys(nome)
+        assert br.find_element_by_id('id_nome').get_attribute('value') == nome
 
-@then ('Nao conseguirei salvar campus ate que eu a preencha com um nome diferente.')
-def step_impl(context):
-        br = context.browser
-
-@when('Nao altero o campus deixando com o nome ja preenchido')
+@given('Nao altero o campus deixando com o nome ja preenchido')
 def step_impl(context):
         br = context.browser
         campi = Campus.objects.all()
-        assert br.find_element_by_id('nome').get_attribute('value') == campi[0].nome
+        assert br.find_element_by_id('id_nome').get_attribute('value') == campi[0].nome
 
-@then('Nao conseguirei salvar o campus ate que eu a preencha com um nome diferente.')
+@then('Nao conseguirei salvar o campus ate que eu o preencha com um nome diferente.')
 def step_impl(context):
         br = context.browser
-    # br.get_screenshot_as_file('/tmp/screenshot.png')
+        #br.get_screenshot_as_file('/tmp/screenshot.png')
     # Checks success status
         campi = Campus.objects.all()
         assert br.current_url.endswith('/campus/%d/edit/' % campi[0].id)
-        assert br.find_element_by_id('nome').text == ""
+        assert br.find_element_by_id('id_nome').text == ""
 
 @given('Um campus foi cadastrado')
 def step_impl(context):
@@ -174,7 +175,14 @@ def step_impl(context):
     campi = Campus.objects.all()
     assert len(campi) > 0
 
-@when('Sou redirecionado para a pagina principal do campus')
+@then('sou redirecionado para a pagina com a lista de campi cadastrados')
+def step_impl(context):
+    br = context.browser
+
+    # Checks success status
+    assert br.current_url.endswith('/campi_list/')
+
+@when('sou redirecionado para a pagina com a lista de campi cadastrados')
 def step_impl(context):
     br = context.browser
     br.get(context.base_url + '/campi_list/')
@@ -235,3 +243,13 @@ def step_impl(context):
 
     # Checks success status
     assert br.current_url.endswith('/campi_list/')
+
+@given('Preencho o campo campus com um novo nome')
+def step_impl(context):
+        br = context.browser
+        novo_nome = 'novo nome'
+        especie = Campus.objects.filter(nome=novo_nome).exists()
+        assert especie == False
+        br.find_element_by_id('id_nome').clear()
+        nome = br.find_element_by_id('id_nome').send_keys(novo_nome)
+        assert br.find_element_by_id('id_nome').get_attribute('value') == novo_nome

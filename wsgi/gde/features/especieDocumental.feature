@@ -64,6 +64,7 @@ Feature: Funcionalidade EspecieDocumental
     And Possui uma ou mais especies documentais cadastradas
   When  clico no botao visualizar especie documental
   Then  Sou redirecionado para a pagina principal de especie documental
+  
 
   Scenario: Excluir especie documental
    Given Estou na pagina com a lista de especies documentais

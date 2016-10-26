@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
-from .forms import FormAtividade, FormSetor
+from .forms import FormAtividade, FormSetor, FormCampus
 from django.views.generic.list import ListView
 from django.utils import timezone
 
@@ -215,19 +215,19 @@ def setor_remove(request, pk):
 @csrf_protect
 @login_required
 def campus(request):
-    if request.POST:
-        nome = request.POST.get('nome', None)
-        existeNoBanco = Campus.objects.filter(nome=nome).exists()
-        if (nome != ''):
-            if (existeNoBanco == True):
-                messages.add_message(request, messages.ERROR,
-                                     'O campus ja existe. Por favor, tente novamente!')
-            else:
-                campus = Campus.objects.create(nome=nome)
-                campus.save()
+    if request.method == 'POST':
+        form = FormCampus(request.POST)
+        if form.is_valid():
+            nome = form.cleaned_data['nome']
+            Campus.objects.create(nome=nome)
+            return HttpResponseRedirect(request.POST.get('next'))
+        else:
+            dic_erros = form.errors.values()
+    else:
+        form = FormCampus()
+        dic_erros = {}
 
-                return HttpResponseRedirect(request.POST.get('next'))
-    return render(request, 'campus.html', {})
+    return render(request, 'campus.html', {'form': form, 'dic_erros':dic_erros})
 
 
 @csrf_protect
@@ -241,22 +241,16 @@ def campi_list(request):
 @login_required
 def campus_edit(request, pk):
     campus = get_object_or_404(Campus, pk=pk)
-
     if request.POST:
-        nome = request.POST.get('nome', None)
-        existeNoBanco = Campus.objects.filter(nome=nome).exists()
-        if (nome != ''):
-            if (existeNoBanco == True):
-                messages.add_message(request, messages.ERROR,
-                                     'O campus ja existe. Por favor, tente novamente!')
-            else:
-                nome = request.POST.get('nome', None)
-                campus.nome = nome
-                campus.save()
-                return HttpResponseRedirect(request.POST.get('next'))
-
-    return render(request, 'editarCampus.html', {'campus': campus})
-
+        form = FormCampus(request.POST, instance=campus)
+        if form.is_valid():
+            campus = form.save(commit=False)
+            campus.nome = form.cleaned_data['nome']
+            campus.save()
+            return HttpResponseRedirect(request.POST.get('next'))
+    else:
+        form = FormCampus(instance=campus)
+    return render(request, 'editarCampus.html', {'form': form, 'campus': campus})
 
 @csrf_protect
 @login_required

@@ -12,3 +12,8 @@ class FormSetor(ModelForm):
     class Meta:
         model = Setor
         fields = ['campus','nome', 'sigla', 'funcao', 'historico']
+
+class FormCampus(ModelForm):
+	class Meta:
+		model = Campus
+		fields = ['nome']

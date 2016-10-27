@@ -1,4 +1,4 @@
-from app.models import EspecieDocumental, Setor, Campus, Atividade
+from app.models import EspecieDocumental, Setor, Campus, Atividade, Usuario
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -13,21 +13,25 @@ from django.utils import timezone
 
 
 @csrf_protect
-def cadastroUsuario(request):
+def cadastrar_usuario(request):
+    lotacoes = Setor.objects.all()
     if request.POST:
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
         email = request.POST.get('email', None)
         nome = request.POST.get('firstname', None)
         sobrenome = request.POST.get('lastname', None)
+        lotacao = request.POST.get('lotacao', None)
         user = User.objects.create_user(username, email, password)
         user.first_name = nome
         user.last_name = sobrenome
         user.save()
+        usuario = Usuario.objects.create(user=user, lotacao=lotacao)
+        usuario.save()
         if user.is_active:
             return HttpResponseRedirect(request.POST.get('next'))
 
-    return render(request, 'cadastroUsuario.html')
+    return render(request, 'cadastrar_usuario.html',{'lotacoes':lotacoes})
 
 
 @csrf_protect
@@ -38,8 +42,9 @@ def home(request):
 
 @csrf_protect
 @login_required
-def user_detail(request, pk):
+def editar_usuario(request, pk):
     user = get_object_or_404(User, pk=pk)
+    lotacoes = Setor.objects.all()
     if request.POST:
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
@@ -54,8 +59,11 @@ def user_detail(request, pk):
         user.first_name = nome
         user.last_name = sobrenome
         user.save()
+        usuario = Usuario.objects.get(id=pk)
+        usuario.lotacao = request.POST.get('lotacao', None)
+        usuario.save()
         messages.success(request, 'Os dados foram atualizados com sucesso.')
-    return render(request, 'editarUsuario.html', {'user': user})
+    return render(request, 'editar_usuario.html', {'user': user, 'lotacoes':lotacoes})
 
 
 @csrf_protect

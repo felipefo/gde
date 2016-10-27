@@ -23,9 +23,9 @@ from app.views import *
 
 urlpatterns = [
                   url(r'^admin/', admin.site.urls),
-                  url(r'^register/$', cadastroUsuario),
+                  url(r'^register/$', cadastrar_usuario),
                   url(r'^home/$', home),
-                  url(r'^user/(?P<pk>[\d]+)/$', user_detail),
+                  url(r'^user/(?P<pk>[\d]+)/$', editar_usuario),
                   url(r'^$', auth_views.login, {'template_name': 'login.html'}),
                   url(r'^logout/$', auth_views.logout, {'next_page': '/'}),
                   url(r'^especieDocumental/$', especieDocumental),

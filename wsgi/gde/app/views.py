@@ -21,7 +21,8 @@ def cadastrar_usuario(request):
         email = request.POST.get('email', None)
         nome = request.POST.get('firstname', None)
         sobrenome = request.POST.get('lastname', None)
-        lotacao = request.POST.get('lotacao', None)
+        lotacao_id = request.POST.get('lotacao', None)
+        lotacao = Setor.objects.get(id=lotacao_id)
         user = User.objects.create_user(username, email, password)
         user.first_name = nome
         user.last_name = sobrenome
@@ -44,7 +45,9 @@ def home(request):
 @login_required
 def editar_usuario(request, pk):
     user = get_object_or_404(User, pk=pk)
+    usuario = Usuario.objects.get(user=user)
     lotacoes = Setor.objects.all()
+    #lotacao_usuario = Setor.objects.get(nome=usuario.lotacao)
     if request.POST:
         username = request.POST.get('username', None)
         password = request.POST.get('password', None)
@@ -59,11 +62,10 @@ def editar_usuario(request, pk):
         user.first_name = nome
         user.last_name = sobrenome
         user.save()
-        usuario = Usuario.objects.get(id=pk)
         usuario.lotacao = request.POST.get('lotacao', None)
         usuario.save()
         messages.success(request, 'Os dados foram atualizados com sucesso.')
-    return render(request, 'editar_usuario.html', {'user': user, 'lotacoes':lotacoes})
+    return render(request, 'editar_usuario.html', {'user': user, 'lotacoes':lotacoes,'usuario':usuario})
 
 
 @csrf_protect

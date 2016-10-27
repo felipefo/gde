@@ -46,8 +46,19 @@
                         <input id="id_password" name="password"
                                    type="password" class="validate" value="{{user.password}}">
                     </div>
-
-                     
+                     <div class="input-field col s12">
+                            <i class="material-icons prefix">lock</i>
+                            <select>
+                                {% for lotacao in lotacoes %}
+                                    {% if lotacao_usuario.nome %}
+                                         <option selected>{{lotacao}}</option>
+                                    {% else %}
+                                         <option>{{lotacao}}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                            <label>Escolha uma opcao</label>
+                    </div>
 
                 <button class="btn right orange darken-4" type="submit">Salvar</button>
             </form>

@@ -34,4 +34,5 @@ class Atividade(models.Model):
 
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    lotacao = models.ForeignKey(Setor, null=True)
+    campus = models.ForeignKey(Campus, null=True)
+    setor = models.ForeignKey(Setor, null=True)

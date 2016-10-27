@@ -5,7 +5,7 @@
     <div id="content-container" class="container p-none">
         <div class="row">
             <form id="register-form" method="post" class="col s12"
-                  action="{% url 'app.views.cadastroUsuario' %}">
+                  action="{% url 'app.views.cadastrar_usuario' %}">
                 {% csrf_token %}
                 <h3>Cadastro de Usuário</h3>
                 {% if form.errors %}
@@ -16,38 +16,38 @@
                     <i class="material-icons prefix">account_circle</i>
                     <label for="id_firstname">Nome</label>
                     <input id="id_firstname" name="firstname"
-                               type="text" class="validate">
+                               type="text" class="validate" required>
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">account_circle</i>
                     <label for="id_lastname">Sobrenome</label>
                     <input id="id_lastname" name="lastname"
-                               type="text" class="validate">
+                               type="text" class="validate" required>
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">label</i>
                     <label for="id_username">SIAPE</label>
                     <input id="id_username" name="username"
-                               type="text" class="validate">
+                               type="text" class="validate" required>
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">email</i>
                     <label for="id_email">Email</label>
                     <input id="id_email" name="email"
-                               type="text" class="validate">
+                               type="text" class="validate" required>
                 </div>
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
                     <label for="id_password">Password</label>
                     <input id="id_password" name="password"
-                               type="password" class="validate">
+                               type="password" class="validate" required>
                 </div>
 
                 <div class="input-field col s12">
                     <i class="material-icons prefix">lock</i>
-                    <select>
+                    <select name="lotacao" required>
                         {% for lotacao in lotacoes %}
-                            <option value="1">{{lotacao}}</option>
+                            <option value="{{lotacao.id}}">{{lotacao}}</option>
                         {% endfor %}
                     </select>
                     <label>Escolha uma opcao</label>

@@ -10,8 +10,16 @@ Feature: Funcinalidade Setor
 
  Scenario: Cadastrar novo setor
   Given Estou na pagina de cadastro de um setor
-   When Informo um campus, nome, sigla, funcao, atividades  e historico
+   When Informo um campus, nome, sigla, funcao e historico
     And Não existir setor com mesmo nome e sigla já cadastrado para o campus escolhido
     And Submeto o cadastro de um novo setor
    Then Sou redirecionado para a pagina principal de setor
     And O setor devera estar devidamente cadastrado.
+ 
+  Given Estou na pagina de cadastro de um setor
+   When Informo um setor ja cadastrado no sistema
+    And Submeto o cadastro de uma novo setor 
+   Then Recebo uma mensagem de erro informando que o nome ja existe.
+    And Nao conseguirei cadastrar o setor ate que eu preencha o campo com diferente.
+
+

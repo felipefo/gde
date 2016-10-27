@@ -221,13 +221,9 @@ def campus(request):
             nome = form.cleaned_data['nome']
             Campus.objects.create(nome=nome)
             return HttpResponseRedirect(request.POST.get('next'))
-        else:
-            dic_erros = form.errors.values()
     else:
         form = FormCampus()
-        dic_erros = {}
-
-    return render(request, 'campus.html', {'form': form, 'dic_erros':dic_erros})
+    return render(request, 'campus.html', {'form': form})
 
 
 @csrf_protect
@@ -245,9 +241,12 @@ def campus_edit(request, pk):
         form = FormCampus(request.POST, instance=campus)
         if form.is_valid():
             campus = form.save(commit=False)
-            campus.nome = form.cleaned_data['nome']
-            campus.save()
-            return HttpResponseRedirect(request.POST.get('next'))
+            if(Campus.objects.filter(nome=form.cleaned_data['nome'])):
+                form.add_error('nome', 'Campus com este Nome já existe.')
+            else:
+                campus.nome = form.cleaned_data['nome']
+                campus.save()
+                return HttpResponseRedirect(request.POST.get('next'))
     else:
         form = FormCampus(instance=campus)
     return render(request, 'editarCampus.html', {'form': form, 'campus': campus})

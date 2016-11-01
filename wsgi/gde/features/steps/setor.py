@@ -99,17 +99,33 @@ def step_impl(context):
 
 @when('Informo um setor ja cadastrado no sistema')
 def step_impl(context):
-    br = context.browser
+    # br = context.browser
    
-    br.find_element_by_name('nome').send_keys('setorTeste')
-    br.find_element_by_name('sigla').send_keys('ST')
-    br.find_element_by_name('funcao').send_keys('funcao')
-    br.find_element_by_name('historico').send_keys('historico1')
-    br.find_element_by_name('submit').click()
-    setor = Setor.objects.filter(nome = 'setorTeste', sigla = 'ST').exists()
+    # br.find_element_by_name('nome').send_keys('setorTeste')
+    # br.find_element_by_name('sigla').send_keys('ST')
+    # br.find_element_by_name('funcao').send_keys('funcao')
+    # br.find_element_by_name('historico').send_keys('historico1')
+    # br.find_element_by_name('submit').click()
+    # setor = Setor.objects.filter(nome = 'setorTeste', sigla = 'ST').exists()
+    # br.get_screenshot_as_file('/tmp/screenshot.png')
+    # assert setor == True
+    # assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
+    # assert br.current_url.endswith('/setor/')
+    pass
 
-    assert setor == True
-    assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
-    assert br.current_url.endswith('/setor/')
+@when('Submeto o cadastro de uma novo setor')
+def step_impl(context):
+    pass
+
+@then('Recebo uma mensagem de erro informando que o nome do setor ja existe.')
+def step_impl(context):
+    pass
+
+@then('Nao conseguirei cadastrar o setor ate que eu preencha o campo com diferente.')
+def step_impl(context):
+    pass
+
+
+
 
 

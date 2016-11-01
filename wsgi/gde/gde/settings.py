@@ -96,7 +96,7 @@ WSGI_APPLICATION = 'gde.wsgi.application'
 #         'NAME': os.path.join(DATA_DIR, 'db.sqlite3'),
 #     }
 # }
-ON_OPENSHIFT = True
+ON_OPENSHIFT = False
 
 if ON_OPENSHIFT: # production settings
     DATABASES = {

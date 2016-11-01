@@ -19,7 +19,7 @@ Feature: Funcinalidade Setor
   Given Estou na pagina de cadastro de um setor
    When Informo um setor ja cadastrado no sistema
     And Submeto o cadastro de uma novo setor 
-   Then Recebo uma mensagem de erro informando que o nome ja existe.
+   Then Recebo uma mensagem de erro informando que o nome do setor ja existe.
     And Nao conseguirei cadastrar o setor ate que eu preencha o campo com diferente.
 
 

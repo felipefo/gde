@@ -13,7 +13,7 @@ class FormSetor(ModelForm):
         model = Setor
         fields = ['campus','nome', 'sigla', 'funcao', 'historico']
         widgets = {
-            'campus': Select(attrs={'id':'campusselect'}),
+            'campus': Select(attrs={'id':'id-campus','class':'browser-default selectField'}),
              'nome': TextInput(attrs={'class':'validate'})
                    }
 class FormCampus(ModelForm):

@@ -2,7 +2,8 @@ from behave import given, when, then
 from app.models import Setor,Campus
 from selenium import webdriver
 from selenium.webdriver.support.ui import Select 
-from test.factories.campus import CampusFactory 
+from test.factories.campus import CampusFactory
+
 
 #Scenario: Campos Vazios
 @given('Estou na pagina de cadastro de um setor')
@@ -40,16 +41,19 @@ def step_impl(context):
 @when('Informo um campus, nome, sigla, funcao e historico')
 def step_impl(context):
     br = context.browser
-    
+
     campus = CampusFactory(nome='Serra')
     campus.save()
     campus = Campus.objects.filter(nome = 'Serra').exists()
     assert campus == True
 
-    #select = Select(br.find_element_by_id('id_campus'))
-    #select.select_by_value('1')
+    br.refresh()
 
-    br.get_screenshot_as_file('/tmp/screenshot.png')
+    select = Select(br.find_element_by_id('id-campus'))
+    select.select_by_value('1')
+
+
+    # br.get_screenshot_as_file('/tmp/screenshot.png')
 
     br.find_element_by_name('nome').send_keys('setorTeste')
     br.find_element_by_name('sigla').send_keys('ST')

@@ -96,17 +96,34 @@ WSGI_APPLICATION = 'gde.wsgi.application'
 #         'NAME': os.path.join(DATA_DIR, 'db.sqlite3'),
 #     }
 # }
+ON_OPENSHIFT = True
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gde',
-        'USER': 'postgres',
-        'PASSWORD': '123456',
-        'HOST': 'localhost',
-        'PORT': '5432',
+if ON_OPENSHIFT: # production settings
+    DATABASES = {
+         'default': { # you can change the backend to any django supported
+            'ENGINE':   'django.db.backends.postgresql_psycopg2',
+            'NAME':     os.environ['OPENSHIFT_APP_NAME'],
+            'USER':     os.environ['OPENSHIFT_POSTGRESQL_DB_USERNAME'],
+            'PASSWORD': os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD'],
+            'HOST':     os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
+            'PORT':     os.environ['OPENSHIFT_POSTGRESQL_DB_PORT'],
+         }
     }
-}
+
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': 'gde',
+            'USER': 'postgres',
+            'PASSWORD': '123456',
+            'HOST': 'localhost',
+            'PORT': '5432',
+        }
+    }
+
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/

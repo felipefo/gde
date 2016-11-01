@@ -103,6 +103,7 @@ def step_impl(context):
 
 @when('Informo um setor ja cadastrado no sistema')
 def step_impl(context):
+    pass
     # br = context.browser
    
     # br.find_element_by_name('nome').send_keys('setorTeste')
@@ -115,7 +116,6 @@ def step_impl(context):
     # assert setor == True
     # assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
     # assert br.current_url.endswith('/setor/')
-    pass
 
 @when('Submeto o cadastro de uma novo setor')
 def step_impl(context):

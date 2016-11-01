@@ -3,6 +3,10 @@
     background-color:#b0bec5;
 }
 
+.selectField{
+    background-color:#b0bec5;
+    border:0px;
+}
 /*Cores dos inputs e labels do materialize*/
 /* label color */
 .input-field label {

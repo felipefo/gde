@@ -10,6 +10,10 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+ON_OPENSHIFT = False
+if os.environ.get('OPENSHIFT_REPO_DIR'):
+    ON_OPENSHIFT = True
+    
 DJ_PROJECT_DIR = os.path.dirname(__file__)
 BASE_DIR = os.path.dirname(DJ_PROJECT_DIR)
 WSGI_DIR = os.path.dirname(BASE_DIR)
@@ -96,7 +100,6 @@ WSGI_APPLICATION = 'gde.wsgi.application'
 #         'NAME': os.path.join(DATA_DIR, 'db.sqlite3'),
 #     }
 # }
-ON_OPENSHIFT = True
 
 if ON_OPENSHIFT: # production settings
     DATABASES = {
@@ -107,6 +110,7 @@ if ON_OPENSHIFT: # production settings
             'PASSWORD': os.environ['OPENSHIFT_POSTGRESQL_DB_PASSWORD'],
             'HOST':     os.environ['OPENSHIFT_POSTGRESQL_DB_HOST'],
             'PORT':     os.environ['OPENSHIFT_POSTGRESQL_DB_PORT'],
+
          }
     }
 

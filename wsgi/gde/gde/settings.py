@@ -10,6 +10,10 @@ https://docs.djangoproject.com/en/1.8/ref/settings/
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
+ON_OPENSHIFT = False
+if os.environ.get('OPENSHIFT_REPO_DIR'):
+    ON_OPENSHIFT = True
+
 DJ_PROJECT_DIR = os.path.dirname(__file__)
 BASE_DIR = os.path.dirname(DJ_PROJECT_DIR)
 WSGI_DIR = os.path.dirname(BASE_DIR)
@@ -88,15 +92,6 @@ WSGI_APPLICATION = 'gde.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.8/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         # GETTING-STARTED: change 'db.sqlite3' to your sqlite3 database:
-#         'NAME': os.path.join(DATA_DIR, 'db.sqlite3'),
-#     }
-# }
-ON_OPENSHIFT = False
 
 if ON_OPENSHIFT: # production settings
     DATABASES = {

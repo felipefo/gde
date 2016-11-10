@@ -6,4 +6,4 @@ class EspecieDocumentalFactory(factory.django.DjangoModelFactory):
 		model = EspecieDocumental
 		django_get_or_create = ('nome',)
 
-	nome = 'especieDocumentalTeste'
+	nome = factory.Sequence(lambda n: "Especie %03d" % n)

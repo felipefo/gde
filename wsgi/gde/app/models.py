@@ -84,11 +84,11 @@ class Fase(models.Model):
 class Tipologia(models.Model):
     setor = models.ForeignKey(Setor, related_name='setor', null=True)
     usuario = models.ForeignKey(Usuario, related_name='usuario', null=True)
-    fase = models.ManyToManyField(Fase)
+    fases = models.ManyToManyField(Fase)
     especieDocumental = models.ForeignKey(EspecieDocumental,related_name='especieDocumental', null=True)
     finalidade = models.TextField(null=True, blank=False, unique=True)
     nome = models.CharField(max_length=50, null=True, blank=False, unique=True)
-    identificação = models.CharField(max_length=50, null=True, blank=False, unique=True)
+    identificacao = models.CharField(max_length=50, null=True, blank=False, unique=True)
     atividade = models.ForeignKey(Atividade, related_name='atividade', null=True)
     elemento = models.ManyToManyField(Elemento, related_name='elemento')
     suporte = models.ForeignKey(Suporte, related_name='suporte', null=True)

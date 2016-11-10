@@ -8,6 +8,6 @@ class SetorFactory(factory.django.DjangoModelFactory):
         django_get_or_create = ('nome', 'sigla', 'funcao',)
 
 
-nome = 'setorTeste'
-sigla = 'siglaTeste'
-funcao = 'funcaoTeste'
+    nome = factory.Sequence(lambda n: "Setor %03d" % n)
+    sigla = factory.Sequence(lambda n: "S %03d" % n)
+    funcao = factory.Sequence(lambda n: "Funcao %03d" % n)

@@ -1,4 +1,4 @@
-from app.models import EspecieDocumental, Setor, Campus, Atividade
+from app.models import EspecieDocumental, Setor, Campus, Atividade, Tipologia
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
@@ -257,3 +257,9 @@ def campus_remove(request, pk):
     campus = get_object_or_404(Campus, pk=pk)
     campus.delete()
     return redirect('app.views.campi_list')
+
+@csrf_protect
+@login_required
+def levantamento_list(request):
+    tipologias = Tipologia.objects.all
+    return render(request, 'meus_levantamentos.html', {'tipologias': tipologias})

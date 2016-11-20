@@ -18,6 +18,7 @@ class TipologiaFactory(factory.django.DjangoModelFactory):
     nome = factory.Sequence(lambda n: "Nome da Tipologia %03d" % n)
     identificacao = factory.Sequence(lambda n: "Identificacao do Documento %03d" % n)
 
+    #To Do: este campo não está sendo criado com sucesso. Verificar esta funcionalidade.
     @factory.post_generation
     def fases(self, create, extracted, **kwargs):
         if not create:

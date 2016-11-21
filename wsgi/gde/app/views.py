@@ -6,7 +6,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
-from .forms import FormAtividade, FormSetor, FormCampus
+from .forms import FormAtividade, FormSetor, FormCampus, FormTipologia
 from django.views.generic.list import ListView
 from django.utils import timezone
 
@@ -263,3 +263,19 @@ def campus_remove(request, pk):
 def levantamento_list(request):
     tipologias = Tipologia.objects.all
     return render(request, 'meus_levantamentos.html', {'tipologias': tipologias})
+
+
+@csrf_protect
+@login_required
+def levantamento_edit(request, pk):
+    tipologia = get_object_or_404(Tipologia, pk=pk)
+    if request.POST:
+        form = FormTipologia(request.POST, instance=tipologia)
+        if form.is_valid():
+            tipologia = form.save(commit=False)
+            tipologia.nome = form.cleaned_data['nome']
+            tipologia.save()
+            return HttpResponseRedirect(request.POST.get('next'))
+    else:
+        form = FormTipologia(instance=tipologia)
+    return render(request, 'editar_levantamento.html', {'form': form, 'tipologia': tipologia})

@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Setor{% endblock %}
+
+{% block content %}
+    <div id="content-container" class="container p-none">
+        <div class="lgn-container col-lg-8">
+            <form id="setor-edit" method="post"
+                  action="{% url 'app.views.levantamento_edit' pk=tipologia.pk %}">
+                {% csrf_token %}
+
+                <br/><br/>
+                {{form.as_p}}
+
+               <div class="input-field col s12">
+                    <button class="btn right orange darken-4" type="submit">Salvar</button>
+                    <input type="hidden" name="next" value="/levantamento_list" />
+                </div>
+                <br/><br/>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

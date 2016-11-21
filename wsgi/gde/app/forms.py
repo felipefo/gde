@@ -20,3 +20,9 @@ class FormCampus(ModelForm):
 	class Meta:
 		model = Campus
 		fields = ['nome']
+
+
+class FormTipologia(ModelForm):
+	class Meta:
+		model = Tipologia
+		fields = ['setor','especieDocumental','finalidade','nome','identificacao','atividade','elemento','suporte','formaDocumental']

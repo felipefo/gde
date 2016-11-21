@@ -37,7 +37,7 @@ class Usuario(models.Model):
     setor = models.ForeignKey(Setor, null=True)
 
     def __str__(self):
-        return self.user
+        return self.user.username
 
 class Opcao(models.Model):
     nome = models.CharField(max_length=20, null=True, blank=False, unique=True)
@@ -94,17 +94,17 @@ class Tipologia(models.Model):
     suporte = models.ForeignKey(Suporte, related_name='suporte', null=True)
     formaDocumental = models.ForeignKey(FormaDocumental, related_name='formaDocumental', null=True)
     genero = models.ManyToManyField(Genero, related_name='genero')
-    anexo = models.ForeignKey(Opcao, related_name='anexo',null=True)
-    relacaoInterna = models.ForeignKey(Opcao, related_name='relacaoInterna', null=True)
-    relacaoExterna = models.ForeignKey(Opcao, related_name='relacaoExterna', null=True)
+    anexo = models.ManyToManyField(Opcao, related_name='anexo')
+    relacaoInterna = models.ManyToManyField(Opcao, related_name='relacaoInterna')
+    relacaoExterna = models.ManyToManyField(Opcao, related_name='relacaoExterna')
     inicioAcumulo = models.DateField(null=True)
     fimAcumulo = models.DateField(null=True)
     quantidadeAcumulada = models.CharField(max_length=50, null=True, blank=False, unique=True)
     embasamentoLegal = models.CharField(max_length=50, null=True, blank=False, unique=True)
-    informacaoOutrosDocumentos = models.ForeignKey(Opcao, related_name='informacaoOutrosDocumentos', null=True)
+    informacaoOutrosDocumentos = models.ManyToManyField(Opcao, related_name='informacaoOutrosDocumentos')
     restricaoAcesso = models.ManyToManyField(RestricaoAcesso, related_name='restricaoAcesso')
-    riscoPerda = models.ForeignKey(Opcao, related_name='riscoPerda', null=True)
+    riscoPerda = models.ManyToManyField(Opcao, related_name='riscoPerda')
 
     def __str__(self):
-        return 'setor:'+self.setor+'usuário:'+self.usuario+'fase:'+self.fase+'espécie:'+\
-               self.especie+'nome:'+self.nome
+        return 'setor:'+self.setor.nome+'usuário:'+self.usuario.user.username+'espécie:'+\
+               self.especieDocumental.nome+'nome:'+self.nome

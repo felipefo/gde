@@ -27,7 +27,7 @@ def step_impl(context):
     campus = Campus.objects.filter(nome='Serra').exists()
     assert campus == True
 
-    br.get_screenshot_as_file('/tmp/screenshot.png')
+    #br.get_screenshot_as_file('/tmp/screenshot.png')
 
     br.find_element_by_name('setor ').send_keys('setorTeste')
     br.find_element_by_name('usuario ').send_keys('usuarioTeste')
@@ -51,8 +51,9 @@ def step_impl(context):
     br.find_element_by_name('informacaoOutrosDocumentos ').send_keys('informacaoOutrosDocumentosTeste')
     br.find_element_by_name('restricaoAcesso ').send_keys('restricaoAcessoTeste')
     br.find_element_by_name('riscoPerda ').send_keys('riscoPerdaTeste')
-    br.find_element_by_name('submit').click()
     br.find_element_by_name('sugestao ').send_keys('sugestaoTeste')
+    br.find_element_by_name('submit').click()
+
     assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
 
 
@@ -97,34 +98,54 @@ def step_impl(context):
     assert br.find_element_by_name('nome').text == ""
 
 
-@when('Informo um setor ja cadastrado no sistema')
+@when('Informo uma tipologia ja cadastrado no sistema')
 def step_impl(context):
-    pass
-    # br = context.browser
 
-    # br.find_element_by_name('nome').send_keys('setorTeste')
-    # br.find_element_by_name('sigla').send_keys('ST')
-    # br.find_element_by_name('funcao').send_keys('funcao')
-    # br.find_element_by_name('historico').send_keys('historico1')
-    # br.find_element_by_name('submit').click()
-    # setor = Setor.objects.filter(nome = 'setorTeste', sigla = 'ST').exists()
+    br = context.browser
+
+    br.find_element_by_name('setor ').send_keys('setorTeste')
+    br.find_element_by_name('usuario ').send_keys('usuarioTeste')
+    br.find_element_by_name('fase ').send_keys('faseTeste')
+    br.find_element_by_name('especieDocumental ').send_keys('especieDocumentalTeste')
+    br.find_element_by_name('finalidade ').send_keys('finalidadeTeste')
+    br.find_element_by_name('identificacao ').send_keys('identificacaoTeste')
+    br.find_element_by_name('nome ').send_keys('nomeTeste')
+    br.find_element_by_name('atividade ').send_keys('atividadeTeste')
+    br.find_element_by_name('elemento ').send_keys('elementoTeste')
+    br.find_element_by_name('suporte ').send_keys('suporteTeste')
+    br.find_element_by_name('formaDocumental ').send_keys('formaDocumentalTeste')
+    br.find_element_by_name('genero ').send_keys('generoTeste')
+    br.find_element_by_name('anexo ').send_keys('anexoTeste')
+    br.find_element_by_name('relacaoInterna ').send_keys('relacaoInternaTeste')
+    br.find_element_by_name('relacaoExterna ').send_keys('relacaoExternaTeste')
+    br.find_element_by_name('inicioAcumulo ').send_keys('inicioAcumuloTeste')
+    br.find_element_by_name('fimAcumulo ').send_keys('fimAcumuloTeste')
+    br.find_element_by_name('quantidadeAcumulada ').send_keys('quantidadeAcumuladaTeste')
+    br.find_element_by_name('embasamentoLegal ').send_keys('embasamentoLegalTeste')
+    br.find_element_by_name('informacaoOutrosDocumentos ').send_keys('informacaoOutrosDocumentosTeste')
+    br.find_element_by_name('restricaoAcesso ').send_keys('restricaoAcessoTeste')
+    br.find_element_by_name('riscoPerda ').send_keys('riscoPerdaTeste')
+    br.find_element_by_name('sugestao ').send_keys('sugestaoTeste')
+    br.find_element_by_name('submit').click()
+
+    tipologia = Tipologia.objects.filter(nome = 'setorTeste', sigla = 'ST').exists()
     # br.get_screenshot_as_file('/tmp/screenshot.png')
-    # assert setor == True
-    # assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
-    # assert br.current_url.endswith('/setor/')
+    assert tipologia == True
+    assert br.find_element_by_name('csrfmiddlewaretoken').is_enabled()
+    assert br.current_url.endswith('/tipologia/')
 
 
-@when('Submeto o cadastro de uma novo setor')
+@when('Submeto o cadastro de uma nova Tipologia')
 def step_impl(context):
     pass
 
 
-@then('Recebo uma mensagem de erro informando que o nome do setor ja existe.')
+@then('Recebo uma mensagem de erro informando que a tipologia ja existe.')
 def step_impl(context):
     pass
 
 
-@then('Nao conseguirei cadastrar o setor ate que eu preencha o campo com diferente.')
+@then('Nao conseguirei cadastrar a tipologia ate que eu preencha com dados diferentes.')
 def step_impl(context):
     pass
 

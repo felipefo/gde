@@ -259,6 +259,7 @@ def campus_remove(request, pk):
     return redirect('app.views.campi_list')
 
 @csrf_protect
+
 @login_required
 def levantamento_list(request):
     tipologias = Tipologia.objects.all
@@ -279,3 +280,39 @@ def levantamento_edit(request, pk):
     else:
         form = FormTipologia(instance=tipologia)
     return render(request, 'editar_levantamento.html', {'form': form, 'tipologia': tipologia})
+
+@login_required()
+def cadastrar_tipologia(request):
+    if request.method == 'POST':
+        form = FormTipologia(request.POST)
+        if form.is_valid():
+            setor = form.cleaned_data['setor']
+            usuario = form.cleaned_data['usuario']
+            fases = form.cleaned_data['fase']
+            especieDocumental = form.cleaned_data['especieDocumental']
+            finalidade = form.cleaned_data['finalidade']
+            nome = form.cleaned_data['nome']
+            identificacao = form.cleaned_data['identificacao']
+            atividade = form.cleaned_data['atividade']
+            elemento = form.cleaned_data['elemento']
+            suporte = form.cleaned_data['suporte']
+            formaDocumental = form.cleaned_data['formaDocumental']
+            genero = form.cleaned_data['genero']
+            anexo = form.cleaned_data['anexo']
+            relacaoInterna = form.cleaned_data['relacaoInterna']
+            relacaoExterna = form.cleaned_data['relacaoExterna']
+            inicioAcumulo = form.cleaned_data['inicioAcumulo']
+            fimAcumulo = form.cleaned_data['fimAcumulo']
+            quantidadeAcumulada = form.cleaned_data['quantidadeAcumulada']
+            embasamentoLegal = form.cleaned_data['embasamentoLegal']
+            informacaoOutrosDocumentos = form.cleaned_data['informacaoOutrosDocumentos']
+            restricaoAcesso = form.cleaned_data['restricaoAcesso']
+            riscoPerda = form.cleaned_data['riscoPerda']
+            sugestao = form.cleaned_data['sugestao']
+            Tipologia.objects.create(setor = setor, usuario = usuario, fase = fase, especieDocumental = especieDocumental, finalidade = finalidade, nome = nome, identificacao = identificacao, atividade = atividade, elemento = elemento, suporte = suporte, formaDocumental = formaDocumental, genero = genero, anexo = anexo, relacaoInterna = relacaoInterna, relacaoExterna = relacaoExterna, inicioAcumulo = inicioAcumulo, fimAcumulo = fimAcumulo, quantidadeAcumulada = quantidadeAcumulada, embasamentoLegal = embasamentoLegal, informacaoOutrosDocumentos = informacaoOutrosDocumentos, restricaoAcesso = restricaoAcesso, riscoPerda = riscoPerda, sugestao = sugestao)
+            return HttpResponseRedirect(request.POST.get('next'))
+    else:
+        form = FormTipologia()
+
+    return render(request, 'cadastro_tipologia.html', {'form': form})
+

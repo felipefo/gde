@@ -104,6 +104,8 @@ class Tipologia(models.Model):
     informacaoOutrosDocumentos = models.ManyToManyField(Opcao, related_name='informacaoOutrosDocumentos')
     restricaoAcesso = models.ManyToManyField(RestricaoAcesso, related_name='restricaoAcesso')
     riscoPerda = models.ManyToManyField(Opcao, related_name='riscoPerda')
+    sugestao = models.TextField(null=True, blank=False, unique=True)
+
 
     def __str__(self):
         return 'setor:'+self.setor.nome+'usuário:'+self.usuario.user.username+'espécie:'+\

@@ -27,11 +27,11 @@ class FormCampus(ModelForm):
 class FormTipologia(ModelForm):
     class Meta:
         model = Tipologia
-        fields = ['especieDocumental', 'finalidade', 'nome', 'identificacao', 'atividade', 'elemento', 'suporte',
-                  'formaDocumental', 'genero', 'anexo', 'relacaoInterna', 'relacaoExterna', 'inicioAcumulo',
-                  'fimAcumulo', 'quantidadeAcumulada', 'embasamentoLegal', 'informacaoOutrosDocumentos',
-                  'restricaoAcesso',
-                  'riscoPerda']
+
+        fields = ['setor', 'usuario', 'fases', 'especieDocumental', 'finalidade', 'nome', 'identificacao', 'atividade',
+                  'elemento', 'suporte', 'formaDocumental', 'genero', 'anexo', 'relacaoInterna', 'relacaoExterna',
+                  'inicioAcumulo', 'fimAcumulo', 'quantidadeAcumulada', 'embasamentoLegal',
+                  'informacaoOutrosDocumentos', 'restricaoAcesso', 'riscoPerda','sugestao']
         widgets = {
             'inicioAcumulo': TextInput(attrs={'type': 'date', 'class': 'datepicker'}),
             'fimAcumulo': TextInput(attrs={'class': 'datepicker'})

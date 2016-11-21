@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}Tipologia{% endblock %}
+
+{% block content %}
+    <div id="content-container" class="container p-none">
+        <div class="lgn-container col-lg-8">
+            <h4 class="center">Cadastro de Tipologia</h4>
+            <br/>
+            <form id="tipologia-form" method="post"
+                  action="{% url 'app.views.cadastrar_setor' %}">
+                {% csrf_token %}
+                <br/>
+                <div class="form-field">
+                    {{form.as_p}}
+                </div>
+
+                <br/><br/>
+                <div class="row">
+                    <div class="input-field">
+                        <button class="btn right orange darken-4" type="submit" name="submit">Cadastrar</button>
+                        <input type="hidden" name="next" value="/setores_list" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock content %}

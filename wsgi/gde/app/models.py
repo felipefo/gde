@@ -88,7 +88,7 @@ class Tipologia(models.Model):
     especieDocumental = models.ForeignKey(EspecieDocumental,related_name='especieDocumental', null=True)
     finalidade = models.TextField(null=True, blank=False, unique=True)
     nome = models.CharField(max_length=50, null=True, blank=False, unique=True)
-    identificação = models.CharField(max_length=50, null=True, blank=False, unique=True)
+    identificacao = models.CharField(max_length=50, null=True, blank=False, unique=True)
     atividade = models.ForeignKey(Atividade, related_name='atividade', null=True)
     elemento = models.ManyToManyField(Elemento, related_name='elemento')
     suporte = models.ForeignKey(Suporte, related_name='suporte', null=True)
@@ -104,6 +104,7 @@ class Tipologia(models.Model):
     informacaoOutrosDocumentos = models.ForeignKey(Opcao, related_name='informacaoOutrosDocumentos', null=True)
     restricaoAcesso = models.ManyToManyField(RestricaoAcesso, related_name='restricaoAcesso')
     riscoPerda = models.ForeignKey(Opcao, related_name='riscoPerda', null=True)
+    sugestao = models.TextField(null=True, blank=False, unique=True)
 
     def __str__(self):
         return 'setor:'+self.setor+'usuário:'+self.usuario+'fase:'+self.fase+'espécie:'+\

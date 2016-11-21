@@ -1,25 +1,20 @@
-Feature: Funcinalidade Setor
-
+Feature: Funcinalidade Tipologia
+  
   Background: Em todos os testes o usuário deve estar logado.
     Given Eu sou um usuario logado
+    
+ Scenario: Cadastrar novo tipologia
+  Given Estou na pagina de cadastro de uma tipologia
+   When Informo os dados do formulario
+    And Nao existir uma tipologia com os mesmos dados ja cadastrado
+    And Submeto o cadastro de uma nova tipologia
+   Then Sou redirecionado para a pagina principal do sistema
+    And A tipologia devera estar devidamente cadastrado.
 
-  Scenario: Cadastrar campos vazios
-  Given Estou na pagina de cadastro de um setor
-   When Submeto o cadastro de um novo setor deixando algum campo em branco
-   Then Nao conseguirei cadastrar o setor ate que eu preencha o campo nome.
-
- Scenario: Cadastrar novo setor
-  Given Estou na pagina de cadastro de um setor
-   When Informo um campus, nome, sigla, funcao e historico
-    And Não existir setor com mesmo nome e sigla já cadastrado para o campus escolhido
-    And Submeto o cadastro de um novo setor
-   Then Sou redirecionado para a pagina principal de setor
-    And O setor devera estar devidamente cadastrado.
-
-  Given Estou na pagina de cadastro de um setor
-   When Informo um setor ja cadastrado no sistema
-    And Submeto o cadastro de uma novo setor
-   Then Recebo uma mensagem de erro informando que o nome do setor ja existe.
-    And Nao conseguirei cadastrar o setor ate que eu preencha o campo com diferente.
+  Given Estou na pagina de cadastro de uma tipologia
+   When Informo uma tipologia ja cadastrado no sistema
+    And Submeto o cadastro de uma nova tipologia
+   Then Recebo uma mensagem de erro informando que a tipologia ja existe.
+    And Nao conseguirei cadastrar a tipologia ate que eu preencha com dados diferentes.
 
 

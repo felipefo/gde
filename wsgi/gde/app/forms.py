@@ -5,18 +5,30 @@ from .models import *
 class FormAtividade(ModelForm):
     class Meta:
         model = Atividade
-        fields = ['setor','descricao']
+        fields = ['setor', 'descricao']
 
 
 class FormSetor(ModelForm):
     class Meta:
         model = Setor
-        fields = ['campus','nome', 'sigla', 'funcao', 'historico']
+        fields = ['campus', 'nome', 'sigla', 'funcao', 'historico']
         widgets = {
-            'campus': Select(attrs={'id':'id-campus','class':'browser-default selectField'}),
-             'nome': TextInput(attrs={'class':'validate'})
-                   }
+            'campus': Select(attrs={'id': 'id-campus', 'class': 'browser-default selectField'}),
+            'nome': TextInput(attrs={'class': 'validate'})
+        }
+
+
 class FormCampus(ModelForm):
-	class Meta:
-		model = Campus
-		fields = ['nome']
+    class Meta:
+        model = Campus
+        fields = ['nome']
+
+
+class FormTipologia(ModelForm):
+    class Meta:
+        model = Tipologia
+        fields = ['setor', 'usuario', 'fase', 'especieDocumental', 'finalidade', 'nome', 'identificacao', 'atividade',
+                  'elemento', 'suporte', 'formaDocumental', 'genero', 'anexo', 'relacaoInterna', 'relacaoExterna',
+                  'inicioAcumulo', 'fimAcumulo', 'quantidadeAcumulada', 'embasamentoLegal',
+                  'informacaoOutrosDocumentos', 'restricaoAcesso', 'riscoPerda','sugestao']
+        

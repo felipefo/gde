@@ -79,3 +79,9 @@
 .card-color:hover{
     background-color:#78909c !important;
 }
+
+.form label{
+    font-weight: 400;
+    color: #37474f !important;
+    font-size:16px;
+}

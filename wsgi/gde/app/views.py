@@ -1,34 +1,109 @@
-from app.models import EspecieDocumental, Setor, Campus, Atividade
+from app.models import EspecieDocumental, Setor, Campus, Atividade, Usuario
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.hashers import make_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_protect
 from django.contrib.auth.models import User
-from .forms import FormAtividade, FormSetor, FormCampus
+from .forms import FormAtividade, FormSetor, FormCampus, FormUsuario, FormUser, FormParcialSetor
 from django.views.generic.list import ListView
 from django.utils import timezone
+import json
 
 
+# @csrf_protect
+# def cadastroUsuario(request):
+#     if request.POST:
+#         username = request.POST.get('username', None)
+#         password = request.POST.get('password', None)
+#         email = request.POST.get('email', None)
+#         nome = request.POST.get('firstname', None)
+#         sobrenome = request.POST.get('lastname', None)
+#         user = User.objects.create_user(username, email, password)
+#         user.first_name = nome
+#         user.last_name = sobrenome
+#         user.save()
+#         if user.is_active:
+#             return HttpResponseRedirect(request.POST.get('next'))
 
+#     return render(request, 'cadastroUsuario.html')
 @csrf_protect
 def cadastroUsuario(request):
-    if request.POST:
-        username = request.POST.get('username', None)
-        password = request.POST.get('password', None)
-        email = request.POST.get('email', None)
-        nome = request.POST.get('firstname', None)
-        sobrenome = request.POST.get('lastname', None)
-        user = User.objects.create_user(username, email, password)
-        user.first_name = nome
-        user.last_name = sobrenome
-        user.save()
-        if user.is_active:
+    setores = Setor.objects.all()
+    setor_campus = dict()
+    for (campus,setor) in [(setor.campus.id,setor.id) for setor in setores]:
+            setor_campus[setor] = campus
+    setor_campus_json = json.dumps(setor_campus)
+    if request.method == 'POST':
+        formUser = FormUser(request.POST)
+        formParcialSetor = FormParcialSetor(request.POST)
+        formUsuario = FormUsuario(request.POST)
+        if formUser.is_valid() and formParcialSetor.is_valid() and formUsuario.is_valid():
+            nome = formUser.cleaned_data['first_name']
+            sobrenome = formUser.cleaned_data['last_name']
+            siape = formUser.cleaned_data['username']
+            email = formUser.cleaned_data['email']
+            senha = formUser.cleaned_data['password']
+            campus = formParcialSetor.cleaned_data['campus']
+            setor = formUsuario.cleaned_data['setor']
+            user = User.objects.create_user(siape, email, senha)
+            user.last_name=sobrenome
+            user.first_name=nome
+            user.save()
+            setor_campus = Setor.objects.get(nome=setor, campus=campus)
+            Usuario.objects.create(user=user, setor=setor_campus)
             return HttpResponseRedirect(request.POST.get('next'))
+            
+    # if a GET (or any other method) we'll create a blank form
+    else:
+        formUser = FormUser()
+        formUsuario = FormUsuario()
+        formParcialSetor = FormParcialSetor()
 
-    return render(request, 'cadastroUsuario.html')
+    return render(request, 'cadastroUsuario.html', {'formParcialSetor':formParcialSetor, 'formUser': formUser, 'formUsuario':formUsuario, 'setorCampus':setor_campus_json})
 
+@csrf_protect
+@login_required
+def user_detail(request, pk):
+    user = get_object_or_404(User, pk=pk)
+    usuario = get_object_or_404(Usuario, pk=Usuario.objects.get(user=user).id)
+    setor = get_object_or_404(Setor,  pk=usuario.setor.id)
+
+    setores = Setor.objects.all()
+    setor_campus = dict()
+    for (campus__,setor__) in [(setor.campus.id,setor.id) for setor in setores]:
+            setor_campus[setor__] = campus__
+    setor_campus_json = json.dumps(setor_campus)
+    
+    if request.POST:
+        formUser = FormUser(request.POST, instance=user)
+        formUsuario = FormUsuario(request.POST, instance=usuario)
+        formParcialSetor = FormParcialSetor(request.POST, instance=setor)
+        if formUser.is_valid() and formParcialSetor.is_valid() and formUsuario.is_valid():
+            user = formUser.save(commit=False)
+            campus = formParcialSetor.save(commit=False)
+            usuario = formUsuario.save(commit=False)
+            user.first_name = formUser.cleaned_data['first_name']
+            user.last_name = formUser.cleaned_data['last_name']
+            user.username = formUser.cleaned_data['username']
+            user.email = formUser.cleaned_data['email']
+            senha = formUser.cleaned_data['password']
+            if not check_password(senha, user.password):
+                user.password = make_password(senha)
+            user.save()
+            campus_entrada = formParcialSetor.cleaned_data['campus']
+            setor = formUsuario.cleaned_data['setor']
+            setor_do_campus = Setor.objects.get(nome=setor, campus=campus_entrada)
+            usuario.setor = setor_do_campus
+            usuario.save()
+            messages.success(request, 'Os dados foram atualizados com sucesso.')
+    else:
+        user.password = ""
+        formUser = FormUser(instance=user)
+        formParcialSetor = FormParcialSetor(instance=setor)
+        formUsuario = FormUsuario(instance=usuario)
+    return render(request, 'editarUsuario.html', {'formParcialSetor':formParcialSetor, 'formUser': formUser, 'formUsuario':formUsuario,'setorCampus':setor_campus_json})
 
 @csrf_protect
 @login_required
@@ -36,26 +111,26 @@ def home(request):
     return render(request, 'home.html')
 
 
-@csrf_protect
-@login_required
-def user_detail(request, pk):
-    user = get_object_or_404(User, pk=pk)
-    if request.POST:
-        username = request.POST.get('username', None)
-        password = request.POST.get('password', None)
-        email = request.POST.get('email', None)
-        nome = request.POST.get('firstname', None)
-        sobrenome = request.POST.get('lastname', None)
-        user = User.objects.get(id=pk)
-        user.username = username
-        user.email = email
-        if user.password != password:
-            user.password = make_password(password)
-        user.first_name = nome
-        user.last_name = sobrenome
-        user.save()
-        messages.success(request, 'Os dados foram atualizados com sucesso.')
-    return render(request, 'editarUsuario.html', {'user': user})
+# @csrf_protect
+# @login_required
+# def user_detail(request, pk):
+#     user = get_object_or_404(User, pk=pk)
+#     if request.POST:
+#         username = request.POST.get('username', None)
+#         password = request.POST.get('password', None)
+#         email = request.POST.get('email', None)
+#         nome = request.POST.get('firstname', None)
+#         sobrenome = request.POST.get('lastname', None)
+#         user = User.objects.get(id=pk)
+#         user.username = username
+#         user.email = email
+#         if user.password != password:
+#             user.password = make_password(password)
+#         user.first_name = nome
+#         user.last_name = sobrenome
+#         user.save()
+#         messages.success(request, 'Os dados foram atualizados com sucesso.')
+#     return render(request, 'editarUsuario.html', {'user': user})
 
 
 @csrf_protect
@@ -172,11 +247,12 @@ def cadastrar_setor(request):
     if request.method == 'POST':
         form = FormSetor(request.POST)
         if form.is_valid():
+            campus = form.cleaned_data['campus']
             nome = form.cleaned_data['nome']
             sigla = form.cleaned_data['sigla']
             funcao = form.cleaned_data['funcao']
             historico = form.cleaned_data['historico']
-            Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao, historico=historico)
+            Setor.objects.create(nome=nome, sigla=sigla, funcao=funcao, historico=historico, campus=campus)
             return HttpResponseRedirect(request.POST.get('next'))
     else:
         form = FormSetor()

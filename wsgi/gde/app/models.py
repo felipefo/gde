@@ -16,17 +16,17 @@ class Campus(models.Model):
         return self.nome
 
 class Setor(models.Model):
-    campus = models.ForeignKey(Campus, null=True)
-    nome = models.CharField(max_length=20, null=True, blank=False, unique=True)
-    sigla = models.CharField(max_length=20, null=True, blank=False, unique=True)
-    funcao = models.CharField(max_length=250, null=True, blank=False, unique=True)
-    historico = models.CharField(max_length=250, null=True, blank=True, unique=True)
+    campus = models.ForeignKey(Campus, null=True, blank=False, verbose_name='Campus')
+    nome = models.CharField(max_length=20, null=True, blank=False, unique=False)
+    sigla = models.CharField(max_length=20, null=True, blank=False, unique=False)
+    funcao = models.CharField(max_length=250, null=True, blank=False, unique=False)
+    historico = models.CharField(max_length=250, null=True, blank=True, unique=False)
 
     def __str__(self):
         return self.nome
 
 class Atividade(models.Model):
-    setor = models.ForeignKey(Setor, null=True)
+    setor = models.ForeignKey(Setor, null=True, blank=False)
     descricao = models.TextField(null=True, blank=False, unique=True)
 
     def __str__(self):
@@ -34,10 +34,10 @@ class Atividade(models.Model):
 
 class Usuario(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    setor = models.ForeignKey(Setor, null=True)
+    setor = models.ForeignKey(Setor, null=True, blank=False, verbose_name='Setor')
 
     def __str__(self):
-        return self.user
+        return self.user.first_name
 
 class Opcao(models.Model):
     nome = models.CharField(max_length=20, null=True, blank=False, unique=True)

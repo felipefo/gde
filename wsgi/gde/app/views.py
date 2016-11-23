@@ -288,7 +288,7 @@ def cadastrar_tipologia(request):
         if form.is_valid():
             setor = form.cleaned_data['setor']
             usuario = form.cleaned_data['usuario']
-            fases = form.cleaned_data['fase']
+            fases = form.cleaned_data['fases']
             especieDocumental = form.cleaned_data['especieDocumental']
             finalidade = form.cleaned_data['finalidade']
             nome = form.cleaned_data['nome']
@@ -309,7 +309,7 @@ def cadastrar_tipologia(request):
             restricaoAcesso = form.cleaned_data['restricaoAcesso']
             riscoPerda = form.cleaned_data['riscoPerda']
             sugestao = form.cleaned_data['sugestao']
-            Tipologia.objects.create(setor = setor, usuario = usuario, fase = fase, especieDocumental = especieDocumental, finalidade = finalidade, nome = nome, identificacao = identificacao, atividade = atividade, elemento = elemento, suporte = suporte, formaDocumental = formaDocumental, genero = genero, anexo = anexo, relacaoInterna = relacaoInterna, relacaoExterna = relacaoExterna, inicioAcumulo = inicioAcumulo, fimAcumulo = fimAcumulo, quantidadeAcumulada = quantidadeAcumulada, embasamentoLegal = embasamentoLegal, informacaoOutrosDocumentos = informacaoOutrosDocumentos, restricaoAcesso = restricaoAcesso, riscoPerda = riscoPerda, sugestao = sugestao)
+            Tipologia.objects.create(setor = setor, usuario = usuario, fases = fases, especieDocumental = especieDocumental, finalidade = finalidade, nome = nome, identificacao = identificacao, atividade = atividade, elemento = elemento, suporte = suporte, formaDocumental = formaDocumental, genero = genero, anexo = anexo, relacaoInterna = relacaoInterna, relacaoExterna = relacaoExterna, inicioAcumulo = inicioAcumulo, fimAcumulo = fimAcumulo, quantidadeAcumulada = quantidadeAcumulada, embasamentoLegal = embasamentoLegal, informacaoOutrosDocumentos = informacaoOutrosDocumentos, restricaoAcesso = restricaoAcesso, riscoPerda = riscoPerda, sugestao = sugestao)
             return HttpResponseRedirect(request.POST.get('next'))
     else:
         form = FormTipologia()

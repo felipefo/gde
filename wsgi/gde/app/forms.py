@@ -37,10 +37,6 @@ class FormTipologia(ModelForm):
             'fimAcumulo': TextInput(attrs={'class': 'datepicker'})
         }
 
-    class Meta:
-        model = Campus
-        fields = ['nome']
-
 class FormUser(ModelForm):
     first_name = forms.CharField(label='Nome', max_length=30)
     last_name = forms.CharField(label='Sobrenome', max_length=30)

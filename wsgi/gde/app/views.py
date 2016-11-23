@@ -1,4 +1,4 @@
-from app.models import EspecieDocumental, Setor, Campus, Atividade, Usuario
+from app.models import EspecieDocumental, Setor, Campus, Atividade, Usuario, Tipologia
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password, check_password

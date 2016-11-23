@@ -34,7 +34,8 @@ class FormTipologia(ModelForm):
                   'informacaoOutrosDocumentos', 'restricaoAcesso', 'riscoPerda','sugestao']
         widgets = {
             'inicioAcumulo': TextInput(attrs={'type': 'date', 'class': 'datepicker'}),
-            'fimAcumulo': TextInput(attrs={'class': 'datepicker'})
+            'fimAcumulo': TextInput(attrs={'class': 'datepicker'}),
+
         }
 
 class FormUser(ModelForm):

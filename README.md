@@ -26,12 +26,10 @@ Este repositório contém o código do sistema web, que foi desenvolvido em Pyth
 5. Em seu postgres, crie um banco com o nome 'gde'. Vá até o arquivo settings.py, encontrado na pasta 'wsgi/gde/gde' e altere o campo 'PASSWORD', no else da seção 'Databases', com a senha do banco utilizada.
 6. Volte para o terminal e execute o comando:
     * pip install -r requirements.txt
-7. Agora vá até a pasta 'wsgi/gde' e execute o comando:
-    * python3 manage.py migrate
-   Este comando realizará a criação das tabelas no banco de dados.
-8. Em seguida execute o comando:
-    * python3 manage.py createsuperuser
-    Este comando realizará a criação de um usuário com direitos administrativos no sistema.
+7. Para realizar a criação das tabelas no banco de dados, vá até a pasta 'wsgi/gde' e execute o comando:
+    * python3 manage.py migrate   
+8. Para acriação de um usuário com direitos administrativos no sistema, execute o comando:
+    * python3 manage.py createsuperuser    
 
     
 ### Executando o projeto

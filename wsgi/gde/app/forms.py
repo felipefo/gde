@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, Select, TextInput, EmailInput, ChoiceField, CharField, EmailInput
+from django.forms import ModelForm, Select, TextInput, EmailInput, ChoiceField, CharField, EmailInput,RadioSelect
 from .models import *
 from django.contrib.auth.models import User
 
@@ -28,14 +28,30 @@ class FormTipologia(ModelForm):
     class Meta:
         model = Tipologia
 
-        fields = ['setor', 'usuario', 'fases', 'especieDocumental', 'finalidade', 'nome', 'identificacao', 'atividade',
+        fields = ['especieDocumental', 'finalidade', 'nome', 'identificacao', 'atividade',
                   'elemento', 'suporte', 'formaDocumental', 'genero', 'anexo', 'relacaoInterna', 'relacaoExterna',
-                  'inicioAcumulo', 'fimAcumulo', 'quantidadeAcumulada', 'embasamentoLegal',
-                  'informacaoOutrosDocumentos', 'restricaoAcesso', 'riscoPerda','sugestao']
+                  'inicioAcumulo', 'fimAcumulo', 'quantidadeAcumulada','tipoAcumulo', 'embasamentoLegal',
+                  'informacaoOutrosDocumentos', 'restricaoAcesso', 'riscoPerda', 'producaoSetor']
         widgets = {
-            'inicioAcumulo': TextInput(attrs={'type': 'date', 'class': 'datepicker'}),
-            'fimAcumulo': TextInput(attrs={'class': 'datepicker'}),
+            'tipoAcumulo': Select()
+        }
 
+        labels = {
+            'producaoSetor':'Este documento é',
+            'especieDocumental':'Espécie documental',
+            'identificacao':'Identificação',
+            'formaDocumental':'Forma documental',
+            'genero':'Gênero',
+            'relacaoInterna':'Relação interna',
+            'relacaoExterna':'Relação externa',
+            'inicioAcumulo':'Período acumulado',
+            'fimAcumulo':'',
+            'quantidadeAcumulada':'Quantidade acumulada',
+            'tipoAcumulo':'',
+            'embasamentoLegal':'Embasamento Legal',
+            'informacaoOutrosDocumentos':'Informações registradas em outros documentos',
+            'restriscaoAcesso':'Restrição de acesso',
+            'riscoPerda':'Risco de perda',
         }
 
 class FormUser(ModelForm):

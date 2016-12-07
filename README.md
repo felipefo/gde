@@ -17,7 +17,7 @@ Este repositório contém o código do sistema web, que foi desenvolvido em Pyth
 1. Faça o download do Código:
  * [Download Zip](https://github.com/LEDS/gde/archive/master.zip)
  * Caso possua o git instalado, ao invés de baixar o zip, execute, em um terminal, o seguinte comnando na pasta onde desejar salvar o projeto:
-      git glone https://github.com/LEDS/gde.git
+      * git clone https://github.com/LEDS/gde.git
 2. Abra um terminal e vá até a pasta onde o projeto se econtra. 
 3. Crie um ambiente virtual na raiz do projeto executando o comando:
     virtualenv -p python3 env

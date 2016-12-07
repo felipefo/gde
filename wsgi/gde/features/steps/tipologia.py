@@ -40,6 +40,10 @@ def step_impl(context):
     assert br.current_url.endswith('/tipologia/')
 
 
+@when('Clico na opcao Meus Levantamentos')
+def step_impl(context):
+    pass
+
 
 @when('Informo os dados do formulario')
 def step_impl(context):

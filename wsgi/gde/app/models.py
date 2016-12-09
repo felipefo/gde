@@ -105,7 +105,7 @@ class Tipologia(models.Model):
     especieDocumental = models.ForeignKey(EspecieDocumental,related_name='especieDocumental', null=True)
     finalidade = models.TextField(null=True, blank=False, unique=False)
     nome = models.CharField(max_length=50, null=True, blank=False, unique=True)
-    identificacao = models.CharField(max_length=50, null=True, blank=False, unique=False)
+    identificacao = models.CharField(max_length=50, null=True, blank=False, unique=True)
     atividade = models.ForeignKey(Atividade, related_name='atividade', null=True)
     elemento = models.ManyToManyField(Elemento, related_name='elemento')
     suporte = models.ForeignKey(Suporte, related_name='suporte', null=True)
@@ -122,7 +122,6 @@ class Tipologia(models.Model):
     embasamentoLegal = models.CharField(max_length=50, null=True, blank=False, unique=False)
     informacaoOutrosDocumentos = models.BooleanField(choices=gera_sim_nao(), default=True)
     restricaoAcesso = models.ManyToManyField(RestricaoAcesso, related_name='restricaoAcesso')
-    riscoPerda = models.BooleanField(choices=gera_sim_nao(), default=True)
     producaoSetor = models.BooleanField(choices=opcoes, default=True)
 
     def __str__(self):

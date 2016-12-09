@@ -29,23 +29,33 @@ class FormTipologia(ModelForm):
         setor = kwargs.pop('setor', None)
         super(FormTipologia, self).__init__(*args,**kwargs)
         self.fields['atividade'] = forms.ModelChoiceField(required=False, queryset=Atividade.objects.filter(setor=setor), widget=forms.Select())
+        for field in self.fields:
+            help_text = self.fields[field].help_text
+            self.fields[field].help_text = None
+            if help_text != '':
+                self.fields[field].widget.attrs.update({'class':'tooltipped', 'data-tooltip':help_text, 'data-position':'top', 'data-delay':50})
+
     class Meta:
         model = Tipologia
 
         fields = ['producaoSetor', 'especieDocumental', 'finalidade', 'nome', 'identificacao', 'atividade',
                   'elemento', 'suporte', 'formaDocumental','quantidadeVias', 'genero', 'anexo', 'relacaoInterna', 'relacaoExterna',
                   'inicioAcumulo', 'fimAcumulo','quantidadeAcumulada','tipoAcumulo', 'embasamentoLegal',
-                  'informacaoOutrosDocumentos', 'restricaoAcesso', 'riscoPerda']
+                  'informacaoOutrosDocumentos', 'restricaoAcesso']
         widgets = {
-            'tipoAcumulo': Select()
+            'suporte': Select(attrs={'class':'browser-default'})
         }
 
         labels = {
             'producaoSetor':'Este documento é',
             'especieDocumental':'Espécie documental',
-            'identificacao':'Identificação',
+            'identificacao':'Identificações no documento',
+            'atividade':'Atividade relacionada ao documento',
             'formaDocumental':'Forma documental',
-            'genero':'Gênero',
+            'elementos':'Elementos apresentados',
+            'genero':'Gênero documental',
+            'nome':'Nome do documento',
+            'finalidade':'Ação/Finalidade',
             'relacaoInterna':'Relação interna',
             'relacaoExterna':'Relação externa',
             'inicioAcumulo':'Período acumulado',
@@ -56,7 +66,25 @@ class FormTipologia(ModelForm):
             'embasamentoLegal':'Embasamento Legal',
             'informacaoOutrosDocumentos':'Informações registradas em outros documentos',
             'restricaoAcesso':'Restrição de acesso',
-            'riscoPerda':'Risco de perda',
+        }
+        help_texts={
+            'finalidade':'Dica: Ação que gerou este documento / Objetivo para o qual foi produzido',
+            'nome':'Dica: Nome utilizado pelo setor para identificar o documento (Ex.: Folha de Ponto; Relatório de Atividades).',
+            'identificacao':'Dica: Números e siglas presentes no documento (Ex.: Mem. nº 006-2016-DACV)',
+            'atividade':'Dica: Este documento está relacionado a qual atividade do setor?',
+            'elemento':'Dica: Marque os itens presentes neste documento',
+            'suporte':'Dica: Em qual suporte a informação circula?',
+            'formaDocumental':'Forma documental',
+            'genero':'Dica: Qual o gênero predominante do documento?',
+            'relacaoInterna':'Dica: Este documento será encaminhado para outros setores?',
+            'anexo':'Dica: Este documento pussui anexo?',
+            'relacaoExterna':'Dica: Este documento será encaminhado para algum órgão externo ao Ifes?',
+            'inicioAcumulo':'Dica: Qual o período de abrangência deste tipo de documento?',
+            'quantidadeAcumulada':'Dica: Qual a quantidade e a forma de armazenamento deste documento?',
+            'quantidadeVias':'Dica: Produz mais de uma via deste documento? ',
+            'embasamentoLegal':'Dica: Existe alguma normativa ou legislação específica sobre a configuração (Boletim, certidão, etc) que este documento possui e o conteúdo tratado nele?',
+            'informacaoOutrosDocumentos':'Dica: As informações que estão neste documento encontram-se também em outros? (Ex: relatórios parciais que têm suas informações compiladas em um relatório final)',
+            'restricaoAcesso':'Dica: O documento contém informações que necessitam de restrição de acesso?',
         }
 
 class FormUser(ModelForm):

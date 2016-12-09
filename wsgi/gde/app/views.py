@@ -345,9 +345,8 @@ def cadastrar_tipologia(request):
             embasamentoLegal = form.cleaned_data['embasamentoLegal']
             informacaoOutrosDocumentos = form.cleaned_data['informacaoOutrosDocumentos']
             restricoesAcesso = form.cleaned_data['restricaoAcesso']
-            riscoPerda = form.cleaned_data['riscoPerda']
             quantidadeVias = form.cleaned_data['quantidadeVias']
-            tipologia = Tipologia.objects.create(setor = setor, usuario = usuario, fases = fase, especieDocumental = especieDocumental, finalidade = finalidade, nome = nome, identificacao = identificacao, atividade = atividade, suporte = suporte, formaDocumental = formaDocumental, anexo = anexo, relacaoInterna = relacaoInterna, relacaoExterna = relacaoExterna, inicioAcumulo = inicioAcumulo, fimAcumulo = fimAcumulo, quantidadeAcumulada = quantidadeAcumulada, embasamentoLegal = embasamentoLegal, informacaoOutrosDocumentos = informacaoOutrosDocumentos, riscoPerda = riscoPerda, quantidadeVias = quantidadeVias, tipoAcumulo = tipoAcumulo)
+            tipologia = Tipologia.objects.create(setor = setor, usuario = usuario, fases = fase, especieDocumental = especieDocumental, finalidade = finalidade, nome = nome, identificacao = identificacao, atividade = atividade, suporte = suporte, formaDocumental = formaDocumental, anexo = anexo, relacaoInterna = relacaoInterna, relacaoExterna = relacaoExterna, inicioAcumulo = inicioAcumulo, fimAcumulo = fimAcumulo, quantidadeAcumulada = quantidadeAcumulada, embasamentoLegal = embasamentoLegal, informacaoOutrosDocumentos = informacaoOutrosDocumentos, quantidadeVias = quantidadeVias, tipoAcumulo = tipoAcumulo)
             tipologia.elemento = elementos
             tipologia.genero = generos
             tipologia.restricaoAcesso = restricoesAcesso

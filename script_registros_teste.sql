@@ -62,3 +62,11 @@ insert into app_restricaoacesso (descricao) values ('informações relativas à 
 insert into app_restricaoacesso (descricao) values ('informações cujo conhecimento por pessoas não autorizadas possa acarretar danos ao andamento do processo em questão');
 insert into app_restricaoacesso (descricao) values ('o documento compõe um Processo Administrativo Disciplinar');
 insert into app_restricaoacesso (descricao) values ('o documento requer sigilo fiscal, bancário, comercial, entre outros');
+
+
+-- Tipo Acumulo
+insert into app_tipoacumulo (nome) values ('Caixa');
+insert into app_tipoacumulo (nome) values ('Envelope');
+insert into app_tipoacumulo (nome) values ('Pasta');
+
+

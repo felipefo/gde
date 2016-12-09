@@ -96,7 +96,7 @@ opcoes = ((True, 'Produzido neste setor'), (False, 'Recebido por este setor'))
 class TipoAcumulo(models.Model):
     nome = models.CharField(max_length=30, null=True, blank=False, unique=False)
     def __str__(self):
-        return 'Nome'+ self.nome
+        return self.nome
 
 class Tipologia(models.Model):
     setor = models.ForeignKey(Setor, related_name='setor', null=True)

@@ -6,3 +6,7 @@ $('.datepicker').pickadate({
     selectYears: 15, // Creates a dropdown of 15 years to control year
     format: 'yyyy-mm-dd'
 });
+
+$(document).ready(function(){
+    $('.tooltipped').tooltip({delay: 50, html:true});
+});

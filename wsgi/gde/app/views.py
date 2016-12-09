@@ -1,4 +1,4 @@
-from app.models import EspecieDocumental, Setor, Campus, Atividade, Usuario, Tipologia
+from app.models import EspecieDocumental, Setor, Campus, Atividade, Usuario, Tipologia, Fase
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password, check_password
@@ -303,49 +303,58 @@ def levantamento_list(request):
 @login_required
 def levantamento_edit(request, pk):
     tipologia = get_object_or_404(Tipologia, pk=pk)
+    user = request.user
+    usuario = Usuario.objects.get(user=user)
+    setor = usuario.setor
     if request.POST:
-        form = FormTipologia(request.POST, instance=tipologia)
+        form = FormTipologia(request.POST, instance=tipologia, setor=setor)
         if form.is_valid():
             tipologia = form.save(commit=False)
             tipologia.nome = form.cleaned_data['nome']
             tipologia.save()
             return HttpResponseRedirect(request.POST.get('next'))
     else:
-        form = FormTipologia(instance=tipologia)
+        form = FormTipologia(instance=tipologia, setor=setor)
     return render(request, 'editar_levantamento.html', {'form': form, 'tipologia': tipologia})
 
 @login_required()
 def cadastrar_tipologia(request):
+    user = request.user
+    usuario = Usuario.objects.get(user=user)
+    setor = usuario.setor
     if request.method == 'POST':
-        form = FormTipologia(request.POST)
+        form = FormTipologia(request.POST, setor=setor)
+        fase = Fase.objects.get(nome='Levantamento')
         if form.is_valid():
-            setor = form.cleaned_data['setor']
-            usuario = form.cleaned_data['usuario']
-            fases = form.cleaned_data['fases']
             especieDocumental = form.cleaned_data['especieDocumental']
             finalidade = form.cleaned_data['finalidade']
             nome = form.cleaned_data['nome']
             identificacao = form.cleaned_data['identificacao']
             atividade = form.cleaned_data['atividade']
-            elemento = form.cleaned_data['elemento']
+            elementos = form.cleaned_data['elemento']
             suporte = form.cleaned_data['suporte']
             formaDocumental = form.cleaned_data['formaDocumental']
-            genero = form.cleaned_data['genero']
+            generos = form.cleaned_data['genero']
             anexo = form.cleaned_data['anexo']
             relacaoInterna = form.cleaned_data['relacaoInterna']
             relacaoExterna = form.cleaned_data['relacaoExterna']
             inicioAcumulo = form.cleaned_data['inicioAcumulo']
             fimAcumulo = form.cleaned_data['fimAcumulo']
             quantidadeAcumulada = form.cleaned_data['quantidadeAcumulada']
+            tipoAcumulo = form.cleaned_data['tipoAcumulo']
             embasamentoLegal = form.cleaned_data['embasamentoLegal']
             informacaoOutrosDocumentos = form.cleaned_data['informacaoOutrosDocumentos']
-            restricaoAcesso = form.cleaned_data['restricaoAcesso']
+            restricoesAcesso = form.cleaned_data['restricaoAcesso']
             riscoPerda = form.cleaned_data['riscoPerda']
-            sugestao = form.cleaned_data['sugestao']
-            Tipologia.objects.create(setor = setor, usuario = usuario, fases = fases, especieDocumental = especieDocumental, finalidade = finalidade, nome = nome, identificacao = identificacao, atividade = atividade, elemento = elemento, suporte = suporte, formaDocumental = formaDocumental, genero = genero, anexo = anexo, relacaoInterna = relacaoInterna, relacaoExterna = relacaoExterna, inicioAcumulo = inicioAcumulo, fimAcumulo = fimAcumulo, quantidadeAcumulada = quantidadeAcumulada, embasamentoLegal = embasamentoLegal, informacaoOutrosDocumentos = informacaoOutrosDocumentos, restricaoAcesso = restricaoAcesso, riscoPerda = riscoPerda, sugestao = sugestao)
+            quantidadeVias = form.cleaned_data['quantidadeVias']
+            tipologia = Tipologia.objects.create(setor = setor, usuario = usuario, fases = fase, especieDocumental = especieDocumental, finalidade = finalidade, nome = nome, identificacao = identificacao, atividade = atividade, suporte = suporte, formaDocumental = formaDocumental, anexo = anexo, relacaoInterna = relacaoInterna, relacaoExterna = relacaoExterna, inicioAcumulo = inicioAcumulo, fimAcumulo = fimAcumulo, quantidadeAcumulada = quantidadeAcumulada, embasamentoLegal = embasamentoLegal, informacaoOutrosDocumentos = informacaoOutrosDocumentos, riscoPerda = riscoPerda, quantidadeVias = quantidadeVias, tipoAcumulo = tipoAcumulo)
+            tipologia.elemento = elementos
+            tipologia.genero = generos
+            tipologia.restricaoAcesso = restricoesAcesso
+            tipologia.save()
             return HttpResponseRedirect(request.POST.get('next'))
     else:
-        form = FormTipologia()
+        form = FormTipologia(setor=setor)
 
     return render(request, 'cadastro_tipologia.html', {'form': form})
 

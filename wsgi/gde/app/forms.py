@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import ModelForm, Select, TextInput, EmailInput, ChoiceField, CharField, EmailInput,RadioSelect
+from django.forms import ModelForm, Select, TextInput, EmailInput, ChoiceField, CharField, EmailInput,RadioSelect, ModelMultipleChoiceField, SelectMultiple
 from .models import *
 from django.contrib.auth.models import User
 
@@ -25,6 +25,10 @@ class FormCampus(ModelForm):
 
 
 class FormTipologia(ModelForm):
+    def __init__(self, *args, **kwargs):
+        setor = kwargs.pop('setor', None)
+        super(FormTipologia, self).__init__(*args,**kwargs)
+        self.fields['atividade'] = forms.ModelChoiceField(required=False, queryset=Atividade.objects.filter(setor=setor), widget=forms.Select())
     class Meta:
         model = Tipologia
 
@@ -51,7 +55,7 @@ class FormTipologia(ModelForm):
             'tipoAcumulo':'',
             'embasamentoLegal':'Embasamento Legal',
             'informacaoOutrosDocumentos':'Informações registradas em outros documentos',
-            'restriscaoAcesso':'Restrição de acesso',
+            'restricaoAcesso':'Restrição de acesso',
             'riscoPerda':'Risco de perda',
         }
 

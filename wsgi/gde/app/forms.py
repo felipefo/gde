@@ -28,10 +28,10 @@ class FormTipologia(ModelForm):
     class Meta:
         model = Tipologia
 
-        fields = ['especieDocumental', 'finalidade', 'nome', 'identificacao', 'atividade',
-                  'elemento', 'suporte', 'formaDocumental', 'genero', 'anexo', 'relacaoInterna', 'relacaoExterna',
-                  'inicioAcumulo', 'fimAcumulo', 'quantidadeAcumulada','tipoAcumulo', 'embasamentoLegal',
-                  'informacaoOutrosDocumentos', 'restricaoAcesso', 'riscoPerda', 'producaoSetor']
+        fields = ['producaoSetor', 'especieDocumental', 'finalidade', 'nome', 'identificacao', 'atividade',
+                  'elemento', 'suporte', 'formaDocumental','quantidadeVias', 'genero', 'anexo', 'relacaoInterna', 'relacaoExterna',
+                  'inicioAcumulo', 'fimAcumulo','quantidadeAcumulada','tipoAcumulo', 'embasamentoLegal',
+                  'informacaoOutrosDocumentos', 'restricaoAcesso', 'riscoPerda']
         widgets = {
             'tipoAcumulo': Select()
         }
@@ -47,6 +47,7 @@ class FormTipologia(ModelForm):
             'inicioAcumulo':'Período acumulado',
             'fimAcumulo':'',
             'quantidadeAcumulada':'Quantidade acumulada',
+            'quantidadeVias':'Quantidade de vias',
             'tipoAcumulo':'',
             'embasamentoLegal':'Embasamento Legal',
             'informacaoOutrosDocumentos':'Informações registradas em outros documentos',

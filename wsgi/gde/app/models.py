@@ -115,6 +115,7 @@ class Tipologia(models.Model):
     relacaoInterna = models.BooleanField(choices=gera_sim_nao(), default=True)
     relacaoExterna = models.BooleanField(choices=gera_sim_nao(), default=True)
     inicioAcumulo = models.IntegerField(choices=gera_anos(1900), default=1970)
+    quantidadeVias = models.BooleanField(choices=gera_sim_nao(), default=True)
     fimAcumulo = models.IntegerField(choices=gera_anos(1900), default=datetime.datetime.now().year)
     quantidadeAcumulada = models.IntegerField(choices=gera_inteiros_positivos(100), default=0)
     tipoAcumulo = models.ManyToManyField(TipoAcumulo, related_name='tipoAcumulo')

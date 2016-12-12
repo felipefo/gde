@@ -12,6 +12,7 @@
                     <thead>
                         <tr>
                             <th>Levantamentos</th>
+                            <th>Status</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
@@ -19,6 +20,7 @@
                         {% for tipologia in tipologias %}
                         <tr>
                             <td id="nome">{{ tipologia.nome }}</td>
+                            <td id="status">{{tipologia.fases}}</td>
                             <td>
                                 <a  name="editar" class="btn-floating waves-effect waves-light teal darken-1" href="{% url 'levantamento_edit' pk=tipologia.pk %}">
                                     <i class="material-icons">mode_edit</i>

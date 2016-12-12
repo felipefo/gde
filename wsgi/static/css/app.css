@@ -47,7 +47,9 @@
  color: #37474f;
 }
 
-
+#botao_enviar{
+    margin-left: 10px;
+}
 /*login.html*/
 #form-login{
     margin-top:10%;

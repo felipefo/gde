@@ -11,6 +11,7 @@ from .forms import FormAtividade, FormSetor, FormCampus, FormTipologia
 from django.views.generic.list import ListView
 from django.utils import timezone
 import json
+import logging
 
 
 
@@ -310,7 +311,30 @@ def levantamento_edit(request, pk):
         form = FormTipologia(request.POST, instance=tipologia, setor=setor)
         if form.is_valid():
             tipologia = form.save(commit=False)
+            if request.POST.get('submit_enviar'):
+                tipologia.fases = Fase.objects.get(nome='Aguardando Resposta')
+            elif request.POST.get('submit_salvar'):
+                tipologia.fases = Fase.objects.get(nome='Levantamento')
+            tipologia.especieDocumental = form.cleaned_data['especieDocumental']
+            tipologia.finalidade = form.cleaned_data['finalidade']
             tipologia.nome = form.cleaned_data['nome']
+            tipologia.identificacao = form.cleaned_data['identificacao']
+            tipologia.atividade = form.cleaned_data['atividade']
+            tipologia.elemento = form.cleaned_data['elemento']
+            tipologia.suporte = form.cleaned_data['suporte']
+            tipologia.formaDocumental = form.cleaned_data['formaDocumental']
+            tipologia.genero = form.cleaned_data['genero']
+            tipologia.anexo = form.cleaned_data['anexo']
+            tipologia.relacaoInterna = form.cleaned_data['relacaoInterna']
+            tipologia.relacaoExterna = form.cleaned_data['relacaoExterna']
+            tipologia.inicioAcumulo = form.cleaned_data['inicioAcumulo']
+            tipologia.fimAcumulo = form.cleaned_data['fimAcumulo']
+            tipologia.quantidadeAcumulada = form.cleaned_data['quantidadeAcumulada']
+            tipologia.tipoAcumulo = form.cleaned_data['tipoAcumulo']
+            tipologia.embasamentoLegal = form.cleaned_data['embasamentoLegal']
+            tipologia.informacaoOutrosDocumentos = form.cleaned_data['informacaoOutrosDocumentos']
+            tipologia.restricaoAcesso = form.cleaned_data['restricaoAcesso']
+            tipologia.quantidadeVias = form.cleaned_data['quantidadeVias']
             tipologia.save()
             return HttpResponseRedirect(request.POST.get('next'))
     else:
@@ -324,7 +348,10 @@ def cadastrar_tipologia(request):
     setor = usuario.setor
     if request.method == 'POST':
         form = FormTipologia(request.POST, setor=setor)
-        fase = Fase.objects.get(nome='Levantamento')
+        if request.POST.get('submit_enviar'):
+            fase = Fase.objects.get(nome='Aguardando Resposta')
+        elif request.POST.get('submit_salvar'):
+            fase = Fase.objects.get(nome='Levantamento')
         if form.is_valid():
             especieDocumental = form.cleaned_data['especieDocumental']
             finalidade = form.cleaned_data['finalidade']

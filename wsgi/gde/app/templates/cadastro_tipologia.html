@@ -11,8 +11,261 @@
                 {% csrf_token %}
                 <br/>
                 <div class="form">
-                    {{form.as_p}}
-                    
+
+
+                            <div id="producaoSetor">
+                                <label class="titulo-tipologia">{{form.producaoSetor.label}}</label>
+                                {%if form.producaoSetor.errors%}
+                                    <ol>
+                                        {% for error in form.producaoSetor.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.producaoSetor}}
+                            </div>
+
+                            <div id="especieDocumental">
+                                <label class="titulo-tipologia">{{form.especieDocumental.label}}</label>
+                                {%if form.especieDocumental.errors%}
+                                    <ol>
+                                        {% for error in form.especieDocumental.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.especieDocumental}}
+                            </div>
+
+                            <div id="finalidade">
+                                <label class="titulo-tipologia">{{form.finalidade.label}}</label>
+                                {%if form.finalidade.errors%}
+                                    <ol>
+                                        {% for error in form.finalidade.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.finalidade}}
+                            </div>
+
+                            <div id="nome">
+                                <label class="titulo-tipologia">{{form.suporte.label}}</label>
+                                {%if form.nome.errors%}
+                                    <ol>
+                                        {% for error in form.nome.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.suporte}}
+                            </div>
+
+                            <div id="identificacao" class="tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.identificacao.help_text}}">
+                                <label class="titulo-tipologia">{{form.identificacao.label}}</label>
+                                {%if form.nome.errors%}
+                                    <ol>
+                                        {% for error in form.nome.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.identificacao}}
+                            </div>
+
+                            <div id="atividade">
+                                <label class="titulo-tipologia">{{form.atividade.label}}</label>
+                                {%if form.atividade.errors%}
+                                    <ol>
+                                        {% for error in form.atividade.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.atividade}}
+                            </div>
+
+                            <div id="elemento">
+                                <label class="titulo-tipologia">{{form.elemento.label}}</label>
+                                {%if form.elemento.errors%}
+                                    <ol>
+                                        {% for error in form.elemento.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.elemento}}
+                            </div>
+
+                            <div id="suporte">
+                                <label class="titulo-tipologia">{{form.suporte.label}}</label>
+                                {%if form.suporte.errors%}
+                                    <ol>
+                                        {% for error in form.suporte.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.suporte}}
+                            </div>
+
+                            <div id="formaDocumental">
+                                <label class="titulo-tipologia">{{form.formaDocumental.label}}</label>
+                                {%if form.formaDocumental.errors%}
+                                    <ol>
+                                        {% for error in form.formaDocumental.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.formaDocumental}}
+                            </div>
+
+                            <div id="quantidadeVias">
+                                <label class="titulo-tipologia">{{form.quantidadeVias.label}}</label>
+                                {%if form.quantidadeVias.errors%}
+                                    <ol>
+                                        {% for error in form.quantidadeVias.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.quantidadeVias}}
+                            </div>
+
+                            <div id="genero">
+                                <label class="titulo-tipologia">{{form.genero.label}}</label>
+                                {%if form.genero.errors%}
+                                    <ol>
+                                        {% for error in form.genero.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.genero}}
+                            </div>
+
+                            <div id="anexo">
+                                <label class="titulo-tipologia">{{form.anexo.label}}</label>
+                                {%if form.anexo.errors%}
+                                    <ol>
+                                        {% for error in form.anexo.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.anexo}}
+                            </div>
+
+                            <div id="relacaoInterna">
+                                <label class="titulo-tipologia">{{form.relacaoInterna.label}}</label>
+                                {%if form.relacaoInterna.errors%}
+                                    <ol>
+                                        {% for error in form.relacaoInterna.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.relacaoInterna}}
+                            </div>
+
+                            <div id="relacaoExterna">
+                                <label class="titulo-tipologia">{{form.relacaoExterna.label}}</label>
+                                {%if form.relacaoExterna.errors%}
+                                    <ol>
+                                        {% for error in form.relacaoExterna.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.relacaoExterna}}
+                            </div>
+
+                            <div id="inicioAcumulo">
+                                <label class="titulo-tipologia">{{form.inicioAcumulo.label}}</label>
+                                {%if form.inicioAcumulo.errors%}
+                                    <ol>
+                                        {% for error in form.inicioAcumulo.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.inicioAcumulo}}
+                            </div>
+
+                            <div id="fimAcumulo">
+                                <label class="titulo-tipologia">{{form.fimAcumulo.label}}</label>
+                                {%if form.fimAcumulo.errors%}
+                                    <ol>
+                                        {% for error in form.fimAcumulo.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.fimAcumulo}}
+                            </div>
+
+                            <div id="quantidadeAcumulada">
+                                <label class="titulo-tipologia">{{form.quantidadeAcumulada.label}}</label>
+                                {%if form.quantidadeAcumulada.errors%}
+
+                                    {% for error in form.quantidadeAcumulada.errors %}
+                                       <strong>{{ error|escape }}</strong>
+                                    {% endfor %}
+
+                                {% endif %}
+
+                                {{form.quantidadeAcumulada}}
+                            </div>
+
+                            <div id="tipoAcumulo">
+                                 <label class="titulo-tipologia">{{form.tipoAcumulo.label}}</label>
+                                {%if form.tipoAcumulo.errors%}
+                                    <ol>
+                                        {% for error in form.tipoAcumulo.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.tipoAcumulo}}
+                            </div>
+
+                            <div id="embasamentoLegal">
+                                <label class="titulo-tipologia">{{form.embasamentoLegal.label}}</label>
+                                {%if form.embasamentoLegal.errors%}
+                                    <ol>
+                                        {% for error in form.embasamentoLegal.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.embasamentoLegal}}
+                            </div>
+
+                            <div id="informacaoOutrosDocumentos">
+                                <label class="titulo-tipologia">{{form.informacaoOutrosDocumentos.label}}</label>
+                                {%if form.informacaoOutrosDocumentos.errors%}
+                                    <ol>
+                                        {% for error in form.informacaoOutrosDocumentos.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.informacaoOutrosDocumentos}}
+                            </div>
+
+                            <div id="restricaoAcesso">
+                                <label class="titulo-tipologia">{{form.restricaoAcesso.label}}</label>
+                                {%if form.restricaoAcesso.errors%}
+                                    <ol>
+                                        {% for error in form.restricaoAcesso.errors %}
+                                            <li><strong>{{ error|escape }}</strong></li>
+                                        {% endfor %}
+                                    </ol>
+                                {% endif %}
+                                {{form.restricaoAcesso}}
+                            </div>
+
                 </div>
 
                 <br/><br/>

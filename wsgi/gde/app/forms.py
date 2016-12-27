@@ -29,11 +29,6 @@ class FormTipologia(ModelForm):
         setor = kwargs.pop('setor', None)
         super(FormTipologia, self).__init__(*args,**kwargs)
         self.fields['atividade'] = forms.ModelChoiceField(required=False, queryset=Atividade.objects.filter(setor=setor), widget=forms.Select())
-        for field in self.fields:
-            help_text = self.fields[field].help_text
-            self.fields[field].help_text = None
-            if help_text != '':
-                self.fields[field].widget.attrs.update({'class':'tooltipped', 'data-tooltip':help_text, 'data-position':'top', 'data-delay':50})
 
     class Meta:
         model = Tipologia
@@ -42,31 +37,29 @@ class FormTipologia(ModelForm):
                   'elemento', 'suporte', 'formaDocumental','quantidadeVias', 'genero', 'anexo', 'relacaoInterna', 'relacaoExterna',
                   'inicioAcumulo', 'fimAcumulo','quantidadeAcumulada','tipoAcumulo', 'embasamentoLegal',
                   'informacaoOutrosDocumentos', 'restricaoAcesso']
-        widgets = {
-            'suporte': Select(attrs={'class':'browser-default'})
-        }
 
         labels = {
-            'producaoSetor':'Este documento é',
-            'especieDocumental':'Espécie documental',
-            'identificacao':'Identificações no documento',
-            'atividade':'Atividade relacionada ao documento',
-            'formaDocumental':'Forma documental',
-            'elementos':'Elementos apresentados',
-            'genero':'Gênero documental',
-            'nome':'Nome do documento',
-            'finalidade':'Ação/Finalidade',
-            'relacaoInterna':'Relação interna',
-            'relacaoExterna':'Relação externa',
-            'inicioAcumulo':'Período acumulado',
+            'producaoSetor':'Este documento é:',
+            'especieDocumental':'Espécie documental:',
+            'identificacao':'Identificações no documento:',
+            'atividade':'Atividade relacionada ao documento:',
+            'formaDocumental':'Forma documental:',
+            'elemento':'Elementos apresentados:',
+            'genero':'Gênero documental:',
+            'nome':'Nome do documento:',
+            'finalidade':'Ação/Finalidade:',
+            'relacaoInterna':'Relação interna:',
+            'relacaoExterna':'Relação externa:',
+            'inicioAcumulo':'Período acumulado:',
             'fimAcumulo':'',
-            'quantidadeAcumulada':'Quantidade acumulada',
-            'quantidadeVias':'Quantidade de vias',
+            'quantidadeAcumulada':'Quantidade acumulada:',
+            'quantidadeVias':'Quantidade de vias:',
             'tipoAcumulo':'',
-            'embasamentoLegal':'Embasamento Legal',
-            'informacaoOutrosDocumentos':'Informações registradas em outros documentos',
-            'restricaoAcesso':'Restrição de acesso',
+            'embasamentoLegal':'Embasamento Legal:',
+            'informacaoOutrosDocumentos':'Informações registradas em outros documentos:',
+            'restricaoAcesso':'Restrição de acesso:',
         }
+
         help_texts={
             'finalidade':'Dica: Ação que gerou este documento / Objetivo para o qual foi produzido',
             'nome':'Dica: Nome utilizado pelo setor para identificar o documento (Ex.: Folha de Ponto; Relatório de Atividades).',

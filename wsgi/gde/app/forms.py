@@ -30,6 +30,7 @@ class FormTipologia(ModelForm):
         super(FormTipologia, self).__init__(*args,**kwargs)
         self.fields['atividade'] = forms.ModelChoiceField(required=False, queryset=Atividade.objects.filter(setor=setor), widget=forms.Select())
 
+
     class Meta:
         model = Tipologia
 
@@ -67,7 +68,6 @@ class FormTipologia(ModelForm):
             'atividade':'Dica: Este documento está relacionado a qual atividade do setor?',
             'elemento':'Dica: Marque os itens presentes neste documento',
             'suporte':'Dica: Em qual suporte a informação circula?',
-            'formaDocumental':'Forma documental',
             'genero':'Dica: Qual o gênero predominante do documento?',
             'relacaoInterna':'Dica: Este documento será encaminhado para outros setores?',
             'anexo':'Dica: Este documento pussui anexo?',

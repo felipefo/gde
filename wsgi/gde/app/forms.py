@@ -52,10 +52,8 @@ class FormTipologia(ModelForm):
             'relacaoInterna':'Relação interna:',
             'relacaoExterna':'Relação externa:',
             'inicioAcumulo':'Período acumulado:',
-            'fimAcumulo':'',
             'quantidadeAcumulada':'Quantidade acumulada:',
             'quantidadeVias':'Quantidade de vias:',
-            'tipoAcumulo':'',
             'embasamentoLegal':'Embasamento Legal:',
             'informacaoOutrosDocumentos':'Informações registradas em outros documentos:',
             'restricaoAcesso':'Restrição de acesso:',
@@ -79,6 +77,10 @@ class FormTipologia(ModelForm):
             'informacaoOutrosDocumentos':'Dica: As informações que estão neste documento encontram-se também em outros? (Ex: relatórios parciais que têm suas informações compiladas em um relatório final)',
             'restricaoAcesso':'Dica: O documento contém informações que necessitam de restrição de acesso?',
         }
+
+        # widgets={
+        #     'elemento':SelectMultiple(attrs={'class':'browser-default selectField'}),
+        # }
 
 class FormUser(ModelForm):
     first_name = forms.CharField(label='Nome', max_length=30)

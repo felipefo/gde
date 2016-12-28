@@ -93,6 +93,11 @@
     color:#f44336;
 }
 
-#titulo{
+.titulo{
     color: #37474f;
+}
+
+.subtitulo{
+    color: #37474f;
+    margin-top:15px;
 }

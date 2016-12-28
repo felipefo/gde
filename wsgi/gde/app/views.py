@@ -346,7 +346,7 @@ def cadastrar_tipologia(request):
     user = request.user
     usuario = Usuario.objects.get(user=user)
     setor = usuario.setor
-    if request.method == 'POST':
+    if request.POST:
         form = FormTipologia(request.POST, setor=setor)
         if request.POST.get('submit_enviar'):
             fase = Fase.objects.get(nome='Aguardando Resposta')

@@ -341,6 +341,12 @@ def levantamento_edit(request, pk):
         form = FormTipologia(instance=tipologia, setor=setor)
     return render(request, 'editar_levantamento.html', {'form': form, 'tipologia': tipologia})
 
+@csrf_protect
+@login_required
+def levantamento_view(request, pk):
+    tipologia = get_object_or_404(Tipologia, pk=pk)
+    return render(request, 'visualizar_levantamento.html',{'tipologia':tipologia})
+
 @login_required()
 def cadastrar_tipologia(request):
     user = request.user

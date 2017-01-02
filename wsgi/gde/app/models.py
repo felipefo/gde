@@ -127,3 +127,7 @@ class Tipologia(models.Model):
     def __str__(self):
         return 'setor:'+self.setor.nome+'usuário:'+self.usuario.user.username+'espécie:'+\
                self.especieDocumental.nome+'nome:'+self.nome
+
+    def ordena_por_fases(self):
+        lst_tipologias = []
+

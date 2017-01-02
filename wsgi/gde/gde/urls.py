@@ -46,7 +46,8 @@ urlpatterns = [
                   url(r'^atividade/(?P<pk>\d+)/remove/$', atividade_remove, name='atividade_remove'),
                   url(r'^levantamento_list/$', levantamento_list, name='levantamento_list'),
                   url(r'^levantamento/(?P<pk>\d+)/edit/$', levantamento_edit, name='levantamento_edit'),
-                  url(r'^tipologia/$', cadastrar_tipologia),
+                  url(r'^tipologia/$', cadastrar_tipologia, name="cadastrar_tipologia"),
+                  url(r'^levantamento/(?P<pk>\d+)/view/$', levantamento_view, name='levantamento_view'),
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

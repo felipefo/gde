@@ -311,9 +311,9 @@ def levantamento_edit(request, pk):
         form = FormTipologia(request.POST, instance=tipologia, setor=setor)
         if form.is_valid():
             tipologia = form.save(commit=False)
-            if request.POST.get('submit_enviar'):
+            if request.POST.get('submit_enviar') == "0":
                 tipologia.fases = Fase.objects.get(nome='Aguardando Resposta')
-            elif request.POST.get('submit_salvar'):
+            elif request.POST.get('submit_salvar') == "1":
                 tipologia.fases = Fase.objects.get(nome='Levantamento')
             tipologia.especieDocumental = form.cleaned_data['especieDocumental']
             tipologia.finalidade = form.cleaned_data['finalidade']
@@ -354,9 +354,9 @@ def cadastrar_tipologia(request):
     setor = usuario.setor
     if request.POST:
         form = FormTipologia(request.POST, setor=setor)
-        if request.POST.get('submit_enviar'):
+        if request.POST.get('submit_enviar') == "0":
             fase = Fase.objects.get(nome='Aguardando Resposta')
-        elif request.POST.get('submit_salvar'):
+        elif request.POST.get('submit_salvar') == "1":
             fase = Fase.objects.get(nome='Levantamento')
         if form.is_valid():
             especieDocumental = form.cleaned_data['especieDocumental']

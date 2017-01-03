@@ -10,3 +10,13 @@ $('.datepicker').pickadate({
 $(document).ready(function(){
     $('.tooltipped').tooltip({delay: 50, html:true});
 });
+
+$(document).ready(function(){
+    // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+    $('.modal-trigger').leanModal();
+});
+
+function submitform()
+{
+    document.forms["levantamento-edit"].submit();
+}

@@ -28,7 +28,14 @@ class FormTipologia(ModelForm):
     def __init__(self, *args, **kwargs):
         setor = kwargs.pop('setor', None)
         super(FormTipologia, self).__init__(*args,**kwargs)
-        self.fields['atividade'] = forms.ModelChoiceField(required=False, queryset=Atividade.objects.filter(setor=setor), widget=forms.Select())
+        self.fields['atividade'] = forms.ModelChoiceField(required=True, queryset=Atividade.objects.filter(setor=setor), widget=forms.Select())
+        self.fields['producaoSetor'].required = True
+        self.fields['formaDocumental'].required = True
+        self.fields['quantidadeVias'].required = True
+        self.fields['anexo'].required = True
+        self.fields['relacaoInterna'].required = True
+        self.fields['relacaoExterna'].required = True
+        self.fields['informacaoOutrosDocumentos'].required = True
 
 
     class Meta:
@@ -46,6 +53,8 @@ class FormTipologia(ModelForm):
             'atividade':'Atividade relacionada ao documento:',
             'formaDocumental':'Forma documental:',
             'elemento':'Elementos apresentados:',
+            'atividade':'Atividade:',
+            'suporte':'Suporte:',
             'genero':'Gênero documental:',
             'nome':'Nome do documento:',
             'finalidade':'Ação/Finalidade:',

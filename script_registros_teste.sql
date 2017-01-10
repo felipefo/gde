@@ -44,9 +44,6 @@ insert into app_suporte (nome) values ('Eletromagnético (Fita magnética)');
 insert into app_suporte (nome) values ('Eletronico (Meio Digital)');
 insert into app_suporte (nome) values ('Digitalizado');
 
--- Forma Documental
-insert into app_formadocumental (nome) values ('Original');
-insert into app_formadocumental (nome) values ('Cópia');
 
 -- Genero
 insert into app_genero (nome) values ('Textual');

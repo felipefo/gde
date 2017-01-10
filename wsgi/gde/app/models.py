@@ -79,19 +79,12 @@ class RestricaoAcesso(models.Model):
     def __str__(self):
         return self.descricao
 
-class FormaDocumental(models.Model):
-    nome = models.CharField(max_length=20, null=True, blank=False, unique=True)
-
-    def __str__(self):
-        return self.nome
-
 class Fase(models.Model):
     nome = models.CharField(max_length=20, null=True, blank=False, unique=True)
 
     def __str__(self):
         return self.nome
 
-opcoes = ((True, 'Produzido neste setor'), (False, 'Recebido por este setor'))
 
 class TipoAcumulo(models.Model):
     nome = models.CharField(max_length=30, null=True, blank=False, unique=False)
@@ -109,20 +102,20 @@ class Tipologia(models.Model):
     atividade = models.ForeignKey(Atividade, related_name='atividade', null=True)
     elemento = models.ManyToManyField(Elemento, related_name='elemento')
     suporte = models.ForeignKey(Suporte, related_name='suporte', null=True)
-    formaDocumental = models.ForeignKey(FormaDocumental, related_name='formaDocumental', null=True)
+    formaDocumental = models.BooleanField(choices=((True, 'Original'), (False, 'Copia')), blank=False)
     genero = models.ManyToManyField(Genero, related_name='genero')
-    anexo = models.BooleanField(choices=gera_sim_nao(), default=True)
-    relacaoInterna = models.BooleanField(choices=gera_sim_nao(), default=True)
-    relacaoExterna = models.BooleanField(choices=gera_sim_nao(), default=True)
-    inicioAcumulo = models.IntegerField(choices=gera_anos(1900), default=1970)
-    quantidadeVias = models.BooleanField(choices=gera_sim_nao(), default=True)
-    fimAcumulo = models.IntegerField(choices=gera_anos(1900), default=datetime.datetime.now().year)
-    quantidadeAcumulada = models.IntegerField(choices=gera_inteiros_positivos(100), default=0)
-    tipoAcumulo = models.ForeignKey(TipoAcumulo, related_name='tipoAcumulo', null=True)
+    anexo = models.BooleanField(choices=gera_sim_nao(), blank=False)
+    relacaoInterna = models.BooleanField(choices=gera_sim_nao())
+    relacaoExterna = models.BooleanField(choices=gera_sim_nao(), blank=False)
+    inicioAcumulo = models.IntegerField(choices=gera_anos(1900))
+    quantidadeVias = models.BooleanField(choices=gera_sim_nao(), blank=False)
+    fimAcumulo = models.IntegerField(choices=gera_anos(1900), blank=False)
+    quantidadeAcumulada = models.IntegerField(choices=gera_inteiros_positivos(100),blank=False)
+    tipoAcumulo = models.ForeignKey(TipoAcumulo, related_name='tipoAcumulo', blank=True, null=True)
     embasamentoLegal = models.CharField(max_length=50, null=True, blank=False, unique=False)
-    informacaoOutrosDocumentos = models.BooleanField(choices=gera_sim_nao(), default=True)
+    informacaoOutrosDocumentos = models.BooleanField(choices=gera_sim_nao(), blank=False)
     restricaoAcesso = models.ManyToManyField(RestricaoAcesso, related_name='restricaoAcesso')
-    producaoSetor = models.BooleanField(choices=opcoes, default=True)
+    producaoSetor = models.BooleanField(choices=((True, 'Produzido neste setor'), (False, 'Recebido por este setor')),blank=False)
 
     def __str__(self):
         return 'setor:'+self.setor.nome+'usuário:'+self.usuario.user.username+'espécie:'+\

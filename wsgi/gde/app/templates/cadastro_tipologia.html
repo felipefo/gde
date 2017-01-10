@@ -223,12 +223,12 @@
                     {%endif%}
                             {% if form.inicioAcumulo.errors %}
                                 {% for erro in form.inicioAcumulo.errors %}
-                                    <div class="col s12">{{erro|escape}}</div>
+                                    <div class="col s6">{{erro|escape}}</div>
                                 {% endfor %}
                             {% endif %}
                              {% if form.fimAcumulo.errors %}
                                 {% for erro in form.fimAcumulo.errors %}
-                                    <div class="col s12">{{erro|escape}}</div>
+                                    <div class="col s6">{{erro|escape}}</div>
                                 {% endfor %}
                             {% endif %}
                             <div  class="col s12 titulo">{{form.inicioAcumulo.label}}</div>
@@ -237,8 +237,7 @@
                                 {{form.inicioAcumulo}}</div>
 
                             <div  class="col s1 subtitulo">Até</div>
-                            <div class="col s5">
-                                {{form.fimAcumulo}}</div>
+                            <div class="col s5">{{form.fimAcumulo}}</div>
                         </div>
                 </div>
 
@@ -250,12 +249,12 @@
                     {%endif%}
                             {% if form.quantidadeAcumulada.errors %}
                                 {% for erro in form.quantidadeAcumulada.errors %}
-                                    <div class="col s12">{{erro|escape}}</div>
+                                    <div class="col s6">{{erro|escape}}</div>
                                 {% endfor %}
                             {% endif %}
                             {% if form.tipoAcumulo.errors %}
                                 {% for erro in form.tipoAcumulo.errors %}
-                                    <div class="col s12">{{erro|escape}}</div>
+                                    <div class="col s6">{{erro|escape}}</div>
                                 {% endfor %}
                             {% endif %}
                             <div  class="col s12 titulo">{{form.quantidadeAcumulada.label}}</div>
@@ -323,8 +322,8 @@
                               <p>Tem certeza que deseja enviar este formulário? Após o envio não será mais possível editá-lo.</p>
                             </div>
                             <div class="modal-footer">
+                                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Não</a>
                                 <button type="submit" class=" modal-action modal-close waves-effect waves-green btn-flat" name="submit_enviar" value="0">Sim</button>
-                                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Nao</a>
                             </div>
                           </div>
                         <button id="botao_salvar" class="btn right orange darken-4" type="submit" name="submit_salvar" value="1">Salvar</button>

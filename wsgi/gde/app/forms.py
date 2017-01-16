@@ -47,44 +47,33 @@ class FormTipologia(ModelForm):
                   'informacaoOutrosDocumentos', 'restricaoAcesso']
 
         labels = {
+            'atividade':'Este documento está relacionado a qual atividade do setor?',
             'producaoSetor':'Este documento é:',
             'especieDocumental':'Espécie documental:',
             'identificacao':'Identificações no documento:',
-            'atividade':'Atividade relacionada ao documento:',
             'formaDocumental':'Forma documental:',
-            'elemento':'Elementos apresentados:',
-            'atividade':'Atividade:',
-            'suporte':'Suporte:',
-            'genero':'Gênero documental:',
+            'elemento':'Marque os itens presentes neste documento:',
+            'suporte':'Em qual suporte a informação circula?',
+            'anexo':'Este documento pussui anexo?',
+            'genero':'Qual o gênero predominante do documento?',
             'nome':'Nome do documento:',
-            'finalidade':'Ação/Finalidade:',
-            'relacaoInterna':'Relação interna:',
-            'relacaoExterna':'Relação externa:',
-            'inicioAcumulo':'Período acumulado:',
-            'quantidadeAcumulada':'Quantidade acumulada:',
-            'quantidadeVias':'Quantidade de vias:',
+            'finalidade':'Ação que gerou este documento / Objetivo para o qual foi produzido:',
+            'relacaoInterna':'Este documento será encaminhado para outros setores?',
+            'relacaoExterna':'Este documento será encaminhado para algum órgão externo ao Ifes?',
+            'inicioAcumulo':'Qual o período de abrangência deste tipo de documento?',
+            'quantidadeAcumulada':'Qual a quantidade e a forma de armazenamento deste documento?',
+            'quantidadeVias':'Produz mais de uma via deste documento?',
             'embasamentoLegal':'Embasamento Legal:',
             'informacaoOutrosDocumentos':'Informações registradas em outros documentos:',
-            'restricaoAcesso':'Restrição de acesso:',
+            'restricaoAcesso':'O documento contém informações que necessitam de restrição de acesso?',
         }
 
         help_texts={
-            'finalidade':'Dica: Ação que gerou este documento / Objetivo para o qual foi produzido',
+
             'nome':'Dica: Nome utilizado pelo setor para identificar o documento (Ex.: Folha de Ponto; Relatório de Atividades).',
             'identificacao':'Dica: Números e siglas presentes no documento (Ex.: Mem. nº 006-2016-DACV)',
-            'atividade':'Dica: Este documento está relacionado a qual atividade do setor?',
-            'elemento':'Dica: Marque os itens presentes neste documento',
-            'suporte':'Dica: Em qual suporte a informação circula?',
-            'genero':'Dica: Qual o gênero predominante do documento?',
-            'relacaoInterna':'Dica: Este documento será encaminhado para outros setores?',
-            'anexo':'Dica: Este documento pussui anexo?',
-            'relacaoExterna':'Dica: Este documento será encaminhado para algum órgão externo ao Ifes?',
-            'inicioAcumulo':'Dica: Qual o período de abrangência deste tipo de documento?',
-            'quantidadeAcumulada':'Dica: Qual a quantidade e a forma de armazenamento deste documento?',
-            'quantidadeVias':'Dica: Produz mais de uma via deste documento? ',
             'embasamentoLegal':'Dica: Existe alguma normativa ou legislação específica sobre a configuração (Boletim, certidão, etc) que este documento possui e o conteúdo tratado nele?',
             'informacaoOutrosDocumentos':'Dica: As informações que estão neste documento encontram-se também em outros? (Ex: relatórios parciais que têm suas informações compiladas em um relatório final)',
-            'restricaoAcesso':'Dica: O documento contém informações que necessitam de restrição de acesso?',
         }
 
         # widgets={

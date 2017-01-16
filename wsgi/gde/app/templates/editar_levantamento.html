@@ -9,9 +9,303 @@
                 {% csrf_token %}
 
                 <br/><br/>
-                <div class="form">
-                    {{form.as_p}}
-                    
+                <div class="fields">
+
+
+                {% if form.producaoSetor.help_text %}
+                    <div id="producaoSetor" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.producaoSetor.help_text}}">
+                {%else%}
+                    <div id="producaoSetor" class="row">
+                {%endif%}
+                        {% if form.producaoSetor.errors %}
+                            {% for erro in form.producaoSetor.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.producaoSetor.label}}</div>
+                        <div class="col s12">{{form.producaoSetor}}</div>
+                    </div>
+
+
+                {% if form.especieDocumental.help_text %}
+                    <div id="especieDocumental" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.especieDocumental.help_text}}">
+                {%else%}
+                    <div id="especieDocumental" class="row">
+                {%endif%}
+                        {% if form.especieDocumental.errors %}
+                            {% for erro in form.especieDocumental.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.especieDocumental.label}}</div>
+                        <div class="col s12">{{form.especieDocumental}}</div>
+                    </div>
+
+                {% if form.finalidade.help_text %}
+                    <div id="finalidade" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.finalidade.help_text}}">
+                {%else%}
+                    <div id="finalidade" class="row">
+                {%endif%}
+                        {% if form.finalidade.errors %}
+                            {% for erro in form.finalidade.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.finalidade.label}}</div>
+                        <div class="col s12">{{form.finalidade}}</div>
+                    </div>
+
+
+                {% if form.nome.help_text %}
+                    <div id="nome" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.nome.help_text}}">
+                {%else%}
+                    <div id="nome" class="row">
+                {%endif%}
+                        {% if form.nome.errors %}
+                            {% for erro in form.nome.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.nome.label}}</div>
+                        <div class="col s12">{{form.nome}}</div>
+                    </div>
+
+
+                {% if form.identificacao.help_text %}
+                    <div id="identificacao" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.identificacao.help_text}}">
+                {%else%}
+                    <div id="identificacao" class="row">
+                {%endif%}
+                        {% if form.identificacao.errors %}
+                            {% for erro in form.identificacao.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.identificacao.label}}</div>
+                        <div class="col s12">{{form.identificacao}}</div>
+                    </div>
+
+                {% if form.atividade.help_text %}
+                    <div id="atividade" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.atividade.help_text}}">
+                {%else%}
+                    <div id="atividade" class="row">
+                {%endif%}
+                        {% if form.atividade.errors %}
+                            {% for erro in form.atividade.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div id="" class="col s12 titulo">{{form.atividade.label}}</div>
+                        <div class="col s12">{{form.atividade}}</div>
+                    </div>
+
+                {% if form.elemento.help_text %}
+                    <div id="elemento" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.elemento.help_text}}">
+                {%else%}
+                    <div id="elemento" class="row" class="row">
+                {%endif%}
+                        {% if form.elemento.errors %}
+                            {% for erro in form.elemento.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="col s12 titulo">{{form.elemento.label}}</div>
+                        <div class="col s12">{{form.elemento}}</div>
+                    </div>
+
+                {% if form.suporte.help_text %}
+                    <div id="suporte" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.suporte.help_text}}">
+                {%else%}
+                    <div id="suporte" class="row">
+                {%endif%}
+                        {% if form.suporte.errors %}
+                            {% for erro in form.suporte.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.suporte.label}}</div>
+                        <div class="col s12">{{form.suporte}}</div>
+                    </div>
+
+                {% if form.formaDocumental.help_text %}
+                    <div id="formaDocumental" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.formaDocumental.help_text}}">
+                {%else%}
+                    <div id="formaDocumental" class="row">
+                {%endif%}
+                        {% if form.formaDocumental.errors %}
+                            {% for erro in form.formaDocumental.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.formaDocumental.label}}</div>
+                        <div class="col s12">{{form.formaDocumental}}</div>
+                    </div>
+
+                {% if form.quantidadeVias.help_text %}
+                    <div id="quantidadeVias" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.quantidadeVias.help_text}}">
+                {%else%}
+                    <div id="quantidadeVias" class="row">
+                {%endif%}
+                        {% if form.quantidadeVias.errors %}
+                            {% for erro in form.quantidadeVias.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.quantidadeVias.label}}</div>
+                        <div class="col s12">{{form.quantidadeVias}}</div>
+                    </div>
+
+                {% if form.genero.help_text %}
+                    <div id="genero" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.genero.help_text}}">
+                {%else%}
+                    <div id="genero" class="row">
+                {%endif%}
+                        {% if form.genero.errors %}
+                            {% for erro in form.genero.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.genero.label}}</div>
+                        <div class="col s12">{{form.genero}}</div>
+                    </div>
+
+                {% if form.anexo.help_text %}
+                    <div id="anexo" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.anexo.help_text}}">
+                {%else%}
+                    <div id="anexo" class="row">
+                {%endif%}
+                        {% if form.anexo.errors %}
+                            {% for erro in form.anexo.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.anexo.label}}</div>
+                        <div class="col s12">{{form.anexo}}</div>
+                    </div>
+
+
+                {% if form.relacaoInterna.help_text %}
+                    <div id="relacaoInterna" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.relacaoInterna.help_text}}">
+                {%else%}
+                    <div id="relacaoInterna" class="row">
+                {%endif%}
+                        {% if form.relacaoInterna.errors %}
+                            {% for erro in form.relacaoInterna.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.relacaoInterna.label}}</div>
+                        <div class="col s12">{{form.relacaoInterna}}</div>
+                    </div>
+
+
+                {% if form.relacaoExterna.help_text %}
+                    <div id="relacaoExterna" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.relacaoExterna.help_text}}">
+                {%else%}
+                    <div id="relacaoExterna" class="row">
+                {%endif%}
+                        {% if form.relacaoExterna.errors %}
+                            {% for erro in form.relacaoExterna.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.relacaoExterna.label}}</div>
+                        <div class="col s12">{{form.relacaoExterna}}</div>
+                    </div>
+
+                <div class="row">
+
+                    {% if form.inicioAcumulo.help_text %}
+                        <div id="PeriodoAcumulo" class=" tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.inicioAcumulo.help_text}}">
+                    {%else%}
+                        <div id="PeriodoAcumulo" class="">
+                    {%endif%}
+                            {% if form.inicioAcumulo.errors %}
+                                {% for erro in form.inicioAcumulo.errors %}
+                                    <div class="col s6">{{erro|escape}}</div>
+                                {% endfor %}
+                            {% endif %}
+                             {% if form.fimAcumulo.errors %}
+                                {% for erro in form.fimAcumulo.errors %}
+                                    <div class="col s6">{{erro|escape}}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div  class="col s12 titulo">{{form.inicioAcumulo.label}}</div>
+                            <div  class="col s1 subtitulo">De</div>
+                            <div class="col s5">
+                                {{form.inicioAcumulo}}</div>
+
+                            <div  class="col s1 subtitulo">Até</div>
+                            <div class="col s5">{{form.fimAcumulo}}</div>
+                        </div>
+                </div>
+
+                <div class="row">
+                    {% if form.quantidadeAcumulada.help_text %}
+                        <div id="quantidadetipo" class="tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.quantidadeAcumulada.help_text}}">
+                    {%else%}
+                        <div id="quantidadeTipo">
+                    {%endif%}
+                            {% if form.quantidadeAcumulada.errors %}
+                                {% for erro in form.quantidadeAcumulada.errors %}
+                                    <div class="col s6">{{erro|escape}}</div>
+                                {% endfor %}
+                            {% endif %}
+                            {% if form.tipoAcumulo.errors %}
+                                {% for erro in form.tipoAcumulo.errors %}
+                                    <div class="col s6">{{erro|escape}}</div>
+                                {% endfor %}
+                            {% endif %}
+                            <div  class="col s12 titulo">{{form.quantidadeAcumulada.label}}</div>
+                            <div class="col s6">{{form.quantidadeAcumulada}}</div>
+                            <div class="col s6">{{form.tipoAcumulo}}</div>
+                        </div>
+                </div>
+
+                {% if form.embasamentoLegal.help_text %}
+                    <div id="embasamentoLegal" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.embasamentoLegal.help_text}}">
+                {%else%}
+                    <div id="embasamentoLegal" class="row">
+                {%endif%}
+                        {% if form.embasamentoLegal.errors %}
+                            {% for erro in form.embasamentoLegal.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.embasamentoLegal.label}}</div>
+                        <div class="col s12">{{form.embasamentoLegal}}</div>
+                    </div>
+
+
+                {% if form.informacaoOutrosDocumentos.help_text %}
+                    <div id="informacaoOutrosDocumentos" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.informacaoOutrosDocumentos.help_text}}">
+                {%else%}
+                    <div id="informacaoOutrosDocumentos" class="row">
+                {%endif%}
+                        {% if form.informacaoOutrosDocumentos.errors %}
+                            {% for erro in form.informacaoOutrosDocumentos.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.informacaoOutrosDocumentos.label}}</div>
+                        <div class="col s12">{{form.informacaoOutrosDocumentos}}</div>
+                    </div>
+
+
+                {% if form.restricaoAcesso.help_text %}
+                    <div id="restricaoAcesso" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.restricaoAcesso.help_text}}">
+                {%else%}
+                    <div id="restricaoAcesso" class="row">
+                {%endif%}
+                        {% if form.restricaoAcesso.errors %}
+                            {% for erro in form.restricaoAcesso.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div  class="col s12 titulo">{{form.restricaoAcesso.label}}</div>
+                        <div class="col s12">{{form.restricaoAcesso}}</div>
+                    </div>
+
                 </div>
 
                <div class="input-field col s12">

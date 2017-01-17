@@ -138,7 +138,7 @@ class Conarq(models.Model):
     faseCorrente = models.CharField(max_length=150,blank=False,null=True)
     faseIntermediaria = models.CharField(max_length=150,blank=False,null=True)
     destinacaoFinal = models.CharField(max_length=150,blank=False,null=True)
-    observacoes = models.TextField(blank=False)
+    observacoes = models.TextField(blank=False,null =True)
     def __str__(self):
         return self.assunto
 

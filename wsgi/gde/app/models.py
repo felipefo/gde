@@ -92,25 +92,26 @@ class TipoAcumulo(models.Model):
         return self.nome
 
 class Tipologia(models.Model):
-    setor = models.ForeignKey(Setor, related_name='setor', null=True)
-    usuario = models.ForeignKey(Usuario, related_name='usuario', null=True)
-    fases = models.ForeignKey(Fase, related_name='fases', null=True)
-    especieDocumental = models.ForeignKey(EspecieDocumental,related_name='especieDocumental', null=True)
+    atividade = models.ForeignKey(Atividade, related_name='atividade')
+    setor = models.ForeignKey(Setor, related_name='setor')
+    usuario = models.ForeignKey(Usuario, related_name='usuario')
+    fases = models.ForeignKey(Fase, related_name='fases')
+    especieDocumental = models.ForeignKey(EspecieDocumental,related_name='especieDocumental')
     finalidade = models.TextField(null=True, blank=False, unique=False)
-    nome = models.CharField(max_length=50, null=True, blank=False, unique=True)
-    identificacao = models.CharField(max_length=50, null=True, blank=False, unique=True)
-    atividade = models.ForeignKey(Atividade, related_name='atividade', null=True)
+    nome = models.CharField(max_length=50, blank=False, unique=True)
+    historico = models.CharField(max_length=50,null=True, blank=True)
+    identificacao = models.CharField(max_length=50, blank=False, unique=True)
     elemento = models.ManyToManyField(Elemento, related_name='elemento')
-    suporte = models.ForeignKey(Suporte, related_name='suporte', null=True)
+    suporte = models.ForeignKey(Suporte, related_name='suporte')
     formaDocumental = models.BooleanField(choices=((True, 'Original'), (False, 'Copia')), blank=False)
     genero = models.ManyToManyField(Genero, related_name='genero')
     anexo = models.BooleanField(choices=gera_sim_nao(), blank=False)
-    relacaoInterna = models.BooleanField(choices=gera_sim_nao())
+    relacaoInterna = models.BooleanField(choices=gera_sim_nao(), blank=False)
     relacaoExterna = models.BooleanField(choices=gera_sim_nao(), blank=False)
-    inicioAcumulo = models.IntegerField(choices=gera_anos(1900))
+    inicioAcumulo = models.IntegerField(choices=gera_anos(1900), blank=False)
     quantidadeVias = models.BooleanField(choices=gera_sim_nao(), blank=False)
     fimAcumulo = models.IntegerField(choices=gera_anos(1900), blank=False)
-    quantidadeAcumulada = models.IntegerField(choices=gera_inteiros_positivos(100),blank=False)
+    quantidadeAcumulada = models.IntegerField(choices=gera_inteiros_positivos(100),blank=True)
     tipoAcumulo = models.ForeignKey(TipoAcumulo, related_name='tipoAcumulo', blank=True, null=True)
     embasamentoLegal = models.CharField(max_length=50, null=True, blank=False, unique=False)
     informacaoOutrosDocumentos = models.BooleanField(choices=gera_sim_nao(), blank=False)
@@ -121,6 +122,4 @@ class Tipologia(models.Model):
         return 'setor:'+self.setor.nome+'usuário:'+self.usuario.user.username+'espécie:'+\
                self.especieDocumental.nome+'nome:'+self.nome
 
-    def ordena_por_fases(self):
-        lst_tipologias = []
 

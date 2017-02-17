@@ -109,3 +109,11 @@
 #botao_voltar{
     margin-bottom:30px;
 }
+
+.adicionar{
+    margin-top:5px;
+}
+
+.hidden{
+  display: none;
+}

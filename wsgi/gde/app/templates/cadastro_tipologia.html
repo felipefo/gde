@@ -6,12 +6,67 @@
         <div class="lgn-container col-lg-8">
             <h4 class="center">Cadastro de Tipologia</h4>
             <br/>
+
+            <div id="formularioAtividade" class="modal">
+                <div class="modal-content">
+                    <form id="formAtividade" action="{% url 'app.views.cadastrar_tipologia' %}" method="post">
+                        {% csrf_token %}
+                         {% if formAtividade.descricao.help_text %}
+                    <div id="descricao" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{formAtividade.descricao.help_text}}">
+                {%else%}
+                    <div id="descricao" class="row">
+                {%endif%}
+
+                        <div class="col s12" style="display:none" id="erro_atividade">Atividade já cadastrada!</div>
+                        <div class="col s12 titulo">{{formAtividade.descricao.label}}</div>
+                        <div class="col s10">{{formAtividade.descricao}}</div>
+                    </div>
+                        <div class="input-field">
+                        <button class="btn right orange darken-4" type="submit" name="botao_cadastrar" value="3">Cadastrar</button>
+                        <input type="hidden" name="next" value="" />
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
             <form id="tipologia-form" method="post"
                   action="{% url 'app.views.cadastrar_tipologia' %}">
                 {% csrf_token %}
                 <br/>
                 <div class="fields">
 
+
+                {% if form.atividade.help_text %}
+                    <div id="atividade" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.atividade.help_text}}">
+                {%else%}
+                    <div id="atividade" class="row">
+                {%endif%}
+                        {% if form.atividade.errors %}
+                            {% for erro in form.atividade.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="col s12 titulo">{{form.atividade.label}}</div>
+                        <div class="col s10">{{form.atividade}}</div>
+                        <div class="col s2 adicionar">
+                           <a id="adicionarAtividade" href="#formularioAtividade" class="waves-effect waves-light btn modal-trigger"><i class="material-icons">add</i></a>
+                        </div>
+                    </div>
+
+                {% if form.historico.help_text %}
+                    <div id="historico" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.historico.help_text}}">
+                {%else%}
+                    <div id="historico" class="row">
+                {%endif%}
+                        {% if form.historico.errors %}
+                            {% for erro in form.historico.errors %}
+                                <div class="col s12">{{erro|escape}}</div>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="col s12 titulo">{{form.historico.label}}</div>
+                        <div class="col s12">{{form.historico}}</div>
+                    </div>
 
                 {% if form.producaoSetor.help_text %}
                     <div id="producaoSetor" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.producaoSetor.help_text}}">
@@ -86,19 +141,6 @@
                         <div class="col s12">{{form.identificacao}}</div>
                     </div>
 
-                {% if form.atividade.help_text %}
-                    <div id="atividade" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.atividade.help_text}}">
-                {%else%}
-                    <div id="atividade" class="row">
-                {%endif%}
-                        {% if form.atividade.errors %}
-                            {% for erro in form.atividade.errors %}
-                                <div class="col s12">{{erro|escape}}</div>
-                            {% endfor %}
-                        {% endif %}
-                        <div class="col s12 titulo">{{form.atividade.label}}</div>
-                        <div class="col s12">{{form.atividade}}</div>
-                    </div>
 
                 {% if form.elemento.help_text %}
                     <div id="elemento" class="row tooltipped" data-position="top" data-delay="50" data-tooltip="{{form.elemento.help_text}}">
@@ -308,8 +350,6 @@
                     </div>
 
                 </div>
-
-
 
                 <br/><br/>
                 <div class="row">

@@ -1,13 +1,36 @@
 from django import forms
 from django.forms import ModelForm, Select, TextInput, EmailInput, ChoiceField, CharField, EmailInput,RadioSelect, ModelMultipleChoiceField, SelectMultiple
 from .models import *
+from django.contrib.admin.widgets import AdminFileWidget
+from django.forms.widgets import HiddenInput, FileInput
 from django.contrib.auth.models import User
 
+class HTML5RequiredMixin(object):
+
+    def __init__(self, *args, **kwargs):
+        super(HTML5RequiredMixin, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs['class'] = 'browser-default'
+            if (self.fields[field].required and
+               type(self.fields[field].widget) not in
+                    (AdminFileWidget, HiddenInput, FileInput) and
+               '__prefix__' not in self.fields[field].widget.attrs):
+
+                    self.fields[field].widget.attrs['required'] = 'required'
+                    if self.fields[field].label:
+                        self.fields[field].label += ' *'
 
 class FormAtividade(ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(FormAtividade, self).__init__(*args,**kwargs)
+        self.fields['descricao'].widget.attrs['required'] = 'required'
+
     class Meta:
         model = Atividade
-        fields = ['setor', 'descricao']
+        fields = ['descricao']
+        labels = {
+            'descricao':'Descreva a atividade que o seu setor exerce:'
+        }
 
 
 class FormSetor(ModelForm):
@@ -24,30 +47,31 @@ class FormCampus(ModelForm):
         fields = ['nome']
 
 
-class FormTipologia(ModelForm):
+class FormTipologia(HTML5RequiredMixin, ModelForm):
     def __init__(self, *args, **kwargs):
         setor = kwargs.pop('setor', None)
         super(FormTipologia, self).__init__(*args,**kwargs)
-        self.fields['atividade'] = forms.ModelChoiceField(required=True, queryset=Atividade.objects.filter(setor=setor), widget=forms.Select())
-        self.fields['producaoSetor'].required = True
-        self.fields['formaDocumental'].required = True
-        self.fields['quantidadeVias'].required = True
-        self.fields['anexo'].required = True
-        self.fields['relacaoInterna'].required = True
-        self.fields['relacaoExterna'].required = True
-        self.fields['informacaoOutrosDocumentos'].required = True
+        self.fields['atividade'] = forms.ModelChoiceField(required=True, queryset=Atividade.objects.filter(setor=setor), widget=forms.Select(), label='Este documento está relacionado a qual atividade do setor?')
+        self.fields['atividade'].widget.attrs['class'] = 'browser-default'
+        self.fields['atividade'].widget.attrs['required'] = 'required'
+        self.fields['producaoSetor'].widget.attrs['required'] = 'required'
+        self.fields['formaDocumental'].widget.attrs['required'] = 'required'
+        self.fields['quantidadeVias'].widget.attrs['required'] = 'required'
+        self.fields['anexo'].widget.attrs['required'] = 'required'
+        self.fields['relacaoInterna'].widget.attrs['required'] = 'required'
+        self.fields['relacaoExterna'].widget.attrs['required'] = 'required'
+        self.fields['informacaoOutrosDocumentos'].widget.attrs['required'] = 'required'
 
 
     class Meta:
         model = Tipologia
 
-        fields = ['producaoSetor', 'especieDocumental', 'finalidade', 'nome', 'identificacao', 'atividade',
+        fields = [ 'atividade', 'producaoSetor', 'especieDocumental', 'historico','finalidade', 'nome', 'identificacao',
                   'elemento', 'suporte', 'formaDocumental','quantidadeVias', 'genero', 'anexo', 'relacaoInterna', 'relacaoExterna',
                   'inicioAcumulo', 'fimAcumulo','quantidadeAcumulada','tipoAcumulo', 'embasamentoLegal',
                   'informacaoOutrosDocumentos', 'restricaoAcesso']
 
         labels = {
-            'atividade':'Este documento está relacionado a qual atividade do setor?',
             'producaoSetor':'Este documento é:',
             'especieDocumental':'Espécie documental:',
             'identificacao':'Identificações no documento:',
@@ -66,6 +90,7 @@ class FormTipologia(ModelForm):
             'embasamentoLegal':'Embasamento Legal:',
             'informacaoOutrosDocumentos':'Informações registradas em outros documentos:',
             'restricaoAcesso':'O documento contém informações que necessitam de restrição de acesso?',
+            'historico':'Nome do setor presente no documento (se for diferente do nome atual do setor):',
         }
 
         help_texts={
@@ -76,9 +101,12 @@ class FormTipologia(ModelForm):
             'informacaoOutrosDocumentos':'Dica: As informações que estão neste documento encontram-se também em outros? (Ex: relatórios parciais que têm suas informações compiladas em um relatório final)',
         }
 
-        # widgets={
-        #     'elemento':SelectMultiple(attrs={'class':'browser-default selectField'}),
-        # }
+        widgets={
+            'quantidadeAcumulada':Select(attrs={'onchange':'quantidadeObrigatoriaAcumulada(this)'}),
+            'tipoAcumulo':Select(attrs={'onchange':'quantidadeObrigatoriaTipo(this)'}),
+
+
+        }
 
 class FormUser(ModelForm):
     first_name = forms.CharField(label='Nome', max_length=30)
